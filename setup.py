@@ -14,7 +14,7 @@ setup(name='Merge Excavator',
       url='-',
       download_url='-',
       license='-',
-      install_requires=['numpy>=1.9.1'],
+      install_requires=['checksumdir'],
       classifiers=[
           'Programming Language :: Python :: 3.6',
           'Topic :: Software Development :: Libraries',
