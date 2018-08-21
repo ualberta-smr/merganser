@@ -8,9 +8,10 @@ import config
 from code_quality import *
 
 
-CONFLICT_PATTERN_CONTENT = re.compile('CONFLICT \\((.+)\\): Merge conflict in (\\S+)')
-CONFLICT_PATTERN_DELETE = re.compile('CONFLICT \\((.+)\\):\\s(\\S+).+tree.')
-CONFLICT_PATTERN_RENAME = re.compile('CONFLICT \\((.+)\\): Rename \"(\\S*)\"->\"\\S*\".*')
+CONFLICT_PATTERN_CONTENT = re.compile('CONFLICT \\(((?:content|add\\/add))\\): Merge conflict in \"?([^\"]+)\"?')
+CONFLICT_PATTERN_DELETE = re.compile('CONFLICT \\(((?:rename|modify)\\/delete)\\): \"?([^\"]+)\"? deleted in .+ and (?:renamed|modified) .+')
+CONFLICT_PATTERN_RENAME_RENAME = re.compile('CONFLICT \\((rename\\/rename)\\): Rename \"?[^\"]+\"?->\"?([^\"]+)\"? in .+ [Rr]ename \"?[^\"]+\"?->\"?[^\"]+\"? in .+')
+CONFLICT_PATTERN_RENAME_ADD = re.compile('CONFLICT \\((rename\\/add)\\): Rename \"?[^\"]+\"?->\"?([^\"]+)\"? in \\S+ \"?[^\"]+\"? added in .+')
 CONFLICT_PATTERN_REGION = re.compile('\\@\\@\\@ \\-(\\d+),(\\d+) \\-(\\d+),(\\d+) \\+(\\d+),(\\d+) \\@\\@\\@[\\s\\S]*')
 
 
@@ -69,17 +70,22 @@ def merge_replay(repository_name, merge_technique, merge_commit, parents_commit,
         for conflict_report_line in merge_output:
             if 'CONFLICT' in conflict_report_line:
                 content_conflict_match = CONFLICT_PATTERN_CONTENT.match(conflict_report_line)
-                content_delete_match = CONFLICT_PATTERN_DELETE.match(conflict_report_line)
-                content_rename_match = CONFLICT_PATTERN_RENAME.match(conflict_report_line)
+                delete_conflict_match = CONFLICT_PATTERN_DELETE.match(conflict_report_line)
+                rename_conflict_match = CONFLICT_PATTERN_RENAME_RENAME.match(conflict_report_line)
+                rename_add_conflict_match = CONFLICT_PATTERN_RENAME_ADD.match(conflict_report_line)
+
                 if content_conflict_match:
                     conflict_type = content_conflict_match.group(1)
                     conflicting_file = content_conflict_match.group(2)
-                elif content_delete_match:
-                    conflict_type = content_delete_match.group(1)
-                    conflicting_file = content_delete_match.group(2)
-                elif content_rename_match:
-                    conflict_type = content_rename_match.group(1)
-                    conflicting_file = content_rename_match.group(2)
+                elif delete_conflict_match:
+                    conflict_type = delete_conflict_match.group(1)
+                    conflicting_file = delete_conflict_match.group(2)
+                elif rename_conflict_match:
+                    conflict_type = rename_conflict_match.group(1)
+                    conflicting_file = rename_conflict_match.group(2)
+                elif rename_add_conflict_match:
+                    conflict_type = rename_add_conflict_match.group(1)
+                    conflicting_file = rename_add_conflict_match.group(2)
 
                 # Store the merge replay information
                 conflicting_file_data = [conflicting_file, conflict_type]
