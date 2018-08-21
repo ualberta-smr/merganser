@@ -2,10 +2,15 @@
 import csv
 
 from utility import *
+from code_quality import *
+from merge_replay import *
 
 
-def get_merge_scenario_info(repository_name, exec_compile, exec_tests):
+def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec_tests,
+                            exec_conflicting_file, exec_conflicting_region):
+
     merge_commits = get_merge_commits(repository_name)
+
     for merge_commit in merge_commits:
 
         # Extract the SHA-1 of the parents and ancestor
@@ -22,7 +27,7 @@ def get_merge_scenario_info(repository_name, exec_compile, exec_tests):
         parent2_date = get_commit_date(repository_name, parents_commit[1])
 
         # Compile the code
-        if exec_compile == True:
+        if exec_compile:
             merge_commit_can_compile = get_commit_quality(repository_name, merge_commit, 'compile')
             ancestor_can_compile = get_commit_quality(repository_name, ancestor_commit, 'compile')
             parent1_can_compile = get_commit_quality(repository_name, parents_commit[0], 'compile')
@@ -34,7 +39,7 @@ def get_merge_scenario_info(repository_name, exec_compile, exec_tests):
             parent2_can_compile = -1
 
         # Test the code
-        if exec_tests == True:
+        if exec_tests:
             merge_commit_can_pass_test = get_commit_quality(repository_name, merge_commit, 'test')
             ancestor_can_pass_test = get_commit_quality(repository_name, ancestor_commit, 'test')
             parent1_can_pass_test = get_commit_quality(repository_name, parents_commit[0], 'test')
@@ -59,3 +64,7 @@ def get_merge_scenario_info(repository_name, exec_compile, exec_tests):
         csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
         csv_writer.writerow(merge_scenario_data)
         csv_file.close()
+
+        # Merge replay
+        merge_replay(repository_name, merge_technique, merge_commit, parents_commit, exec_compile, exec_tests,
+                     exec_conflicting_file, exec_conflicting_region)

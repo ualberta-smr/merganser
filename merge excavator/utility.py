@@ -13,7 +13,7 @@ def get_merge_commits(repository_name):
     """
     repository_dir = repository_name.replace('/', '___')
     cd_to_repository = 'cd {};'.format(config.REPOSITORY_PATH + repository_dir)
-    return os.popen(cd_to_repository + 'git log --pretty=%H --merges').read().split()
+    return os.popen(cd_to_repository + 'git log --all --pretty=%H --merges').read().split()
 
 
 def get_parents(repository_name, commit):
@@ -81,7 +81,7 @@ def get_commit_message(repository_name, commit):
     """
     repository_dir = repository_name.replace('/', '___')
     cd_to_repository = 'cd {};'.format(config.REPOSITORY_PATH + repository_dir)
-    return os.popen(cd_to_repository + 'git log --pretty=format:"%s" {}'.format(commit)).read().rstrip()
+    return os.popen(cd_to_repository + 'git log --all --pretty=format:"%s" {}'.format(commit)).read().rstrip()
 
 
 def check_if_pull_request(repository_name, commit):

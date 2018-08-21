@@ -13,7 +13,8 @@ def get_commit_quality(repository_name, commit, operation):
     :return: 1 if the code can compile or pass the tests, 0 otherwise
     """
     cd_to_repository = 'cd {};'.format(config.REPOSITORY_PATH + repository_name)
-    os.system(cd_to_repository + 'git checkout {}'.format(commit))
+    if commit != -1:
+        os.system(cd_to_repository + 'git checkout {}'.format(commit))
     repository_dir = config.REPOSITORY_PATH + repository_name
     if os.path.isfile(repository_dir + '/pom.xml'): # Maven
         if operation == 'compile':
