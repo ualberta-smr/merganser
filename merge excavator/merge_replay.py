@@ -16,21 +16,23 @@ CONFLICT_PATTERN_REGION = re.compile('\\@\\@\\@ \\-(\\d+),(\\d+) \\-(\\d+),(\\d+
 
 
 def merge_replay(repository_name, merge_technique, merge_commit, parents_commit, exec_compile, exec_tests,
-                 exec_conflicting_file, exec_conflicting_region):
+                 exec_conflicting_file, exec_conflicting_region, exec_replay_comparison):
 
     repository_dir = repository_name.replace('/', '___')
     cd_to_repository = 'cd {};'.format(config.REPOSITORY_PATH + repository_dir)
 
     # Merge commit/replay comparison (1)
-    os.system(cd_to_repository + 'git checkout --quiet  ' + merge_commit)
-    merge_commit_md5 = dirhash(config.REPOSITORY_PATH + repository_dir, 'md5')
+    if exec_replay_comparison:
+        os.system(cd_to_repository + 'git checkout --quiet  ' + merge_commit)
+        merge_commit_md5 = dirhash(config.REPOSITORY_PATH + repository_dir, 'md5')
 
     # Merge replay
     t0 = time.time()
     merge_output = os.popen(cd_to_repository + 'git checkout --quiet  ' + parents_commit[0] +
                             ';git merge --quiet --no-commit  ' + parents_commit[1]).readlines()
     execution_time = time.time() - t0
-    replay_md5 = dirhash(config.REPOSITORY_PATH + repository_dir, 'md5')
+    if exec_replay_comparison:
+        replay_md5 = dirhash(config.REPOSITORY_PATH + repository_dir, 'md5')
 
     # Detect conflicts
     merge_output_concat = ''.join(merge_output)
@@ -58,8 +60,9 @@ def merge_replay(repository_name, merge_technique, merge_commit, parents_commit,
         replay_is_equal_to_merge_commit = 0
 
     # Store the merge replay information
-    merge_replay_data = [merge_technique, is_conflict, replay_can_compile, replay_can_pass_test, execution_time,
-                         replay_is_equal_to_merge_commit]
+    merge_replay_data = [merge_technique, is_conflict, replay_can_compile, replay_can_pass_test, execution_time]
+    if exec_replay_comparison:
+        merge_replay_data.append(replay_is_equal_to_merge_commit)
     csv_file = open(config.TEMP_CSV_PATH + 'Merge_Replay.csv', 'a')
     csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
     csv_writer.writerow(merge_replay_data)

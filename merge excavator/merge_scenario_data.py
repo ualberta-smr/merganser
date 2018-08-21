@@ -7,7 +7,8 @@ from merge_replay import *
 
 
 def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec_tests,
-                            exec_conflicting_file, exec_conflicting_region):
+                            exec_conflicting_file, exec_conflicting_region,
+                            exec_pull_request, exec_replay_comparison):
 
     merge_commits = get_merge_commits(repository_name)
 
@@ -51,7 +52,8 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
             parent2_can_pass_test = -1
 
         # Detec pull requests
-        is_pull_request = check_if_pull_request(repository_name, merge_commit)
+        if exec_pull_request:
+            is_pull_request = check_if_pull_request(repository_name, merge_commit)
 
         # Store the merge scenario data
         merge_scenario_data = [merge_commit, ancestor_commit, parents_commit[0], parents_commit[1],
@@ -59,7 +61,9 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
                                ancestor_can_compile, ancestor_can_pass_test,
                                parent1_can_compile, parent1_can_pass_test,
                                parent2_can_compile, parent2_can_pass_test,
-                               merge_commit_date, ancestor_date, parent1_date, parent2_date, is_pull_request]
+                               merge_commit_date, ancestor_date, parent1_date, parent2_date]
+        if exec_pull_request:
+            merge_scenario_data.append(is_pull_request)
         csv_file = open(config.TEMP_CSV_PATH + 'Merge_Scenario.csv', 'a')
         csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
         csv_writer.writerow(merge_scenario_data)
@@ -67,4 +71,9 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
 
         # Merge replay
         merge_replay(repository_name, merge_technique, merge_commit, parents_commit, exec_compile, exec_tests,
-                     exec_conflicting_file, exec_conflicting_region)
+                     exec_conflicting_file, exec_conflicting_region, exec_replay_comparison)
+
+
+get_merge_scenario_info(repository_name, 'git', False, False,
+                        False, False,
+                        False, False)
