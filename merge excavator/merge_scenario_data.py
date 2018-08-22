@@ -4,13 +4,15 @@ import csv
 from utility import *
 from code_quality import *
 from merge_replay import *
+from related_commits import *
 
 
 def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec_tests,
                             exec_conflicting_file, exec_conflicting_region,
-                            exec_pull_request, exec_replay_comparison):
+                            exec_pull_request, exec_replay_comparison, exec_related_commits):
 
-    merge_commits = get_merge_commits(repository_name)
+    merge_commits = get_merge_commits(repository_name)[1:] #TODO: Why the first one is not in git log?
+
 
     for merge_commit in merge_commits:
 
@@ -54,6 +56,8 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
         # Detec pull requests
         if exec_pull_request:
             is_pull_request = check_if_pull_request(repository_name, merge_commit)
+        else:
+            is_pull_request = -1
 
         # Store the merge scenario data
         merge_scenario_data = [merge_commit, ancestor_commit, parents_commit[0], parents_commit[1],
@@ -61,9 +65,7 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
                                ancestor_can_compile, ancestor_can_pass_test,
                                parent1_can_compile, parent1_can_pass_test,
                                parent2_can_compile, parent2_can_pass_test,
-                               merge_commit_date, ancestor_date, parent1_date, parent2_date]
-        if exec_pull_request:
-            merge_scenario_data.append(is_pull_request)
+                               merge_commit_date, ancestor_date, parent1_date, parent2_date, is_pull_request]
         csv_file = open(config.TEMP_CSV_PATH + 'Merge_Scenario.csv', 'a')
         csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
         csv_writer.writerow(merge_scenario_data)
@@ -73,7 +75,10 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
         merge_replay(repository_name, merge_technique, merge_commit, parents_commit, exec_compile, exec_tests,
                      exec_conflicting_file, exec_conflicting_region, exec_replay_comparison)
 
+        # Store the related commits information
+        if exec_related_commits:
+            for index, parent in enumerate(parents_commit):
+                store_commit_info_between_two_commits(repository_name, ancestor_commit, parent, index + 1)
 
-get_merge_scenario_info(repository_name, 'git', False, False,
-                        False, False,
-                        False, False)
+
+

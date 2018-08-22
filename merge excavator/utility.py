@@ -70,6 +70,7 @@ def get_parallel_changed_files_num(repository_name, ancestor, parent1, parent2):
     changes_ancestor_parent1 = set([item.strip() for item in os.popen(cd_to_repository + 'git diff --name-only {} {}'.format(ancestor, parent1)).readlines()])
     changes_ancestor_parent2 = set([item.strip() for item in os.popen(cd_to_repository + 'git diff --name-only {} {}'.format(ancestor, parent2)).readlines()])
     return len(changes_ancestor_parent1.intersection(changes_ancestor_parent2))
+    return len(changes_ancestor_parent1.intersection(changes_ancestor_parent2))
 
 
 def get_commit_message(repository_name, commit):
@@ -81,7 +82,7 @@ def get_commit_message(repository_name, commit):
     """
     repository_dir = repository_name.replace('/', '___')
     cd_to_repository = 'cd {};'.format(config.REPOSITORY_PATH + repository_dir)
-    return os.popen(cd_to_repository + 'git log --all --pretty=format:"%s" {}'.format(commit)).read().rstrip()
+    return os.popen(cd_to_repository + 'git log --pretty=format:"%s" -1  {}'.format(commit)).read().rstrip()
 
 
 def check_if_pull_request(repository_name, commit):
@@ -95,3 +96,43 @@ def check_if_pull_request(repository_name, commit):
         return 1
     else:
         return 0
+
+
+def get_commit_list_between_two_commits(repository_name, commit1, commit2):
+    repository_dir = repository_name.replace('/', '___')
+    cd_to_repository = 'cd {};'.format(config.REPOSITORY_PATH + repository_dir)
+    return os.popen(cd_to_repository + 'git log --pretty=format:"%H" {}..{}'.format(commit1, commit2)).readlines()
+
+
+def get_branch_of_commit(repository_name, commit):
+    repository_dir = repository_name.replace('/', '___')
+    cd_to_repository = 'cd {};'.format(config.REPOSITORY_PATH + repository_dir)
+    branches = [item for item in os.popen(cd_to_repository + 'git branch --contains  {}'.format(commit)).read().split('\n') if '* (HEAD detached at' not in item]
+    return branches[0].strip()
+
+
+def get_changed_files_between_two_commits_for_type(repository_name, commit1, commit2, changeType):
+    repository_dir = repository_name.replace('/', '___')
+    cd_to_repository = 'cd {};'.format(config.REPOSITORY_PATH + repository_dir)
+    changed_files = os.popen(cd_to_repository + 'git diff --stat --diff-filter={} {}..{}'.format(changeType, commit1, commit2) +
+                   '|tr -s \' \'|awk \'{print $3}\'|awk \'{s+=$1} END {print s}\'').read().strip()
+    if changed_files == '':
+        return 0
+    else:
+        return changed_files
+
+
+def get_changed_files_between_two_commits(repository_name, commit1, commit2):
+    types = ['A', 'D', 'R', 'C', 'M']
+    return [get_changed_files_between_two_commits_for_type(repository_name, commit1, commit2, type) for type in types]
+
+
+def getChangedLineNumBetweenTwoCommits(repository_name, commit1, commit2):
+    repository_dir = repository_name.replace('/', '___')
+    cd_to_repository = 'cd {};'.format(config.REPOSITORY_PATH + repository_dir)
+    res = os.popen(cd_to_repository + 'git log {}..{}'.format(commit1, commit2) +
+                   ' --numstat --pretty="%H"  | awk \'NF==3 {plus+=$1; minus+=$2} NF==1 {total++} END {printf(\"lines'
+                   ' added: +%d\\nlines deleted: -%d\\ntotal commits: %d\\n\", plus, minus, total)}\'').readlines()
+    added = res[0].split()[2][1:]
+    deleted = res[1].split()[2][1:]
+    return added, deleted

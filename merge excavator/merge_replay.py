@@ -54,15 +54,17 @@ def merge_replay(repository_name, merge_technique, merge_commit, parents_commit,
         replay_can_pass_test = -1
 
     # Merge commit/replay comparison (2)
-    if merge_commit_md5 == replay_md5:
-        replay_is_equal_to_merge_commit = 1
+    if exec_replay_comparison:
+        if merge_commit_md5 == replay_md5:
+            replay_is_equal_to_merge_commit = 1
+        else:
+            replay_is_equal_to_merge_commit = 0
     else:
-        replay_is_equal_to_merge_commit = 0
+        replay_is_equal_to_merge_commit = -1
 
     # Store the merge replay information
-    merge_replay_data = [merge_technique, is_conflict, replay_can_compile, replay_can_pass_test, execution_time]
-    if exec_replay_comparison:
-        merge_replay_data.append(replay_is_equal_to_merge_commit)
+    merge_replay_data = [merge_technique, is_conflict, replay_can_compile, replay_can_pass_test, execution_time,
+                         replay_is_equal_to_merge_commit]
     csv_file = open(config.TEMP_CSV_PATH + 'Merge_Replay.csv', 'a')
     csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
     csv_writer.writerow(merge_replay_data)
