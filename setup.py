@@ -5,19 +5,19 @@ long_description = '''
 This repository helps developers and researchers with collecting the data of merge scenarios and conflicts.
 '''
 
-setup(name='Merge Excavator',
-      version='0.0.1',
-      description='Merge Data Extraction and Analysis',
-      long_description=long_description,
-      author='Moein Owhadi-Kareshk',
-      author_email='owhadika@ualberta.ca',
-      url='-',
-      download_url='-',
-      license='-',
-      install_requires=['checksumdir', 'lizard', 'numpy'],
-      classifiers=[
+setup(name = 'Merge Excavator',
+      version = '0.0.1',
+      description = 'Merge Data Extraction and Analysis',
+      long_description = long_description,
+      author = 'Moein Owhadi-Kareshk',
+      author_email = 'owhadika@ualberta.ca',
+      url = '-',
+      download_url = '-',
+      license = '-',
+      install_requires = ['checksumdir', 'lizard', 'numpy', 'github3.py'],
+      classifiers = [
           'Programming Language :: Python :: 3.6',
           'Topic :: Software Development :: Libraries',
           'Topic :: Software Development :: Libraries :: Python Modules'
       ],
-      packages=find_packages())
+      packages = find_packages())
