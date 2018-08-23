@@ -1,5 +1,6 @@
 
 import os
+import numpy as np
 
 import config
 
@@ -33,3 +34,27 @@ def get_commit_quality(repository_name, commit, operation):
             raise ValueError('Cannot determine the compile/test status of {}'.format(repository_name))
     else:
         raise ValueError('This tool does not support {} build system'.format(repository_name))
+
+
+def get_code_violation_num(repository_name, commit):
+    repository_dir = config.REPOSITORY_PATH + repository_name.replace('/', '___')
+    cd_to_repository = 'cd {};'.format(repository_dir)
+    os.system(cd_to_repository + 'git checkout --quiet {}'.format(commit))
+    return os.popen('java -jar ../tools/StyleChecker/checkstyle-8.11-all.jar -c '
+                    '../tools/StyleChecker/google_checks.xml ' + repository_dir).read().count('[WARN]')
+
+
+def get_code_complexity_of_dir(repository_dir):
+    cd_to_repository = 'cd {};'.format(repository_dir)
+    commits = os.popen(cd_to_repository + 'lizard -C 1000').readlines()[-1].split()
+    return commits
+
+
+def get_code_complexity_diff(repository_name, commit1, commit2):
+    repository_dir = config.REPOSITORY_PATH + repository_name.replace('/', '___')
+    cd_to_repository = 'cd {};'.format(repository_dir)
+    os.system(cd_to_repository + 'git checkout --quiet {}'.format(commit1))
+    complexity1 = get_code_complexity_of_dir(repository_dir)
+    os.system(cd_to_repository + 'git checkout --quiet {}'.format(commit2))
+    complexity2 = get_code_complexity_of_dir(repository_dir)
+    return np.asarray(complexity1, dtype=float) - np.asarray(complexity2, dtype=float)

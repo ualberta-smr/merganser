@@ -9,7 +9,8 @@ from related_commits import *
 
 def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec_tests,
                             exec_conflicting_file, exec_conflicting_region,
-                            exec_pull_request, exec_replay_comparison, exec_related_commits):
+                            exec_pull_request, exec_replay_comparison, exec_related_commits,
+                            exec_code_style_violation, exec_complexity):
 
     merge_commits = get_merge_commits(repository_name)[1:] #TODO: Why the first one is not in git log?
 
@@ -80,5 +81,29 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
             for index, parent in enumerate(parents_commit):
                 store_commit_info_between_two_commits(repository_name, ancestor_commit, parent, index + 1)
 
+        # Store code style violation
+        if exec_code_style_violation:
+            merge_commit_style_violations = get_code_violation_num(repository_name, merge_commit)
+            ancestor_style_violations = get_code_violation_num(repository_name, ancestor_commit)
+            parent1_style_violations = get_code_violation_num(repository_name, parents_commit[0])
+            parent2_style_violations = get_code_violation_num(repository_name, parents_commit[1])
+            code_style_violation_data = [merge_commit_style_violations, ancestor_style_violations,
+                                         parent1_style_violations, parent2_style_violations]
+            csv_file = open(config.TEMP_CSV_PATH + 'Code_style_violation.csv', 'a')
+            csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
+            csv_writer.writerow(code_style_violation_data)
+            csv_file.close()
+
+        # Store code complexity
+        if exec_complexity:
+            code_complexity_data = get_code_complexity_diff(repository_name, parents_commit[0], parents_commit[1])
+            csv_file = open(config.TEMP_CSV_PATH + 'Code_Complexity.csv', 'a')
+            csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
+            csv_writer.writerow(code_complexity_data)
+            csv_file.close()
 
 
+get_merge_scenario_info('perwendel___spark', 'git', False, False,
+                        False, False,
+                        False, False, False,
+                        True, True)
