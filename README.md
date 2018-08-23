@@ -20,11 +20,42 @@ Check the list before executing this script and adapt according to your needs to
 
 ```bash
 ./setup.py
-```
-
-#TODO 
+``` 
 
 # Usage 
+
+1. The input of the main program is a list of repositories to analyze. There are different waqy to create such list:
+    * **Automatic searching:** THe list of GitHub repositories is searched by:
+    
+    ```bash
+    python3 search_repository.py
+    ```
+    Here are the list of mandotary parameters:
+    
+    | Parameter | Description |
+    | --- | --- |
+    | `-q` or `--query` | The query of searching |
+    | `-s` or `--star` | The minimum number of stars |
+    | `-f` or `--fork` | The minimum number of forks |
+    | `-l` or `--language` | The language of repositories | 
+    | `-o` or `--output` | The name of the output file |  
+    
+    As an example, to store the list of data related repositories in Python with more than 200 stars and 100 fork in
+     `data_popular_python_repos.txt` file, you should execute:
+     
+    ```bash
+    python3 search_repository.py -q data -s 200 -f 100 -l python -o data_popular_python_repos
+    ```  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 1. First, you need to create a list of repositories in `reposList` _directory_. The name of the file should be <FILE_NAME>list.txt. There are multiple sample lists already included in the directory.
 2. After that, you can run the code by running `main.py`. For example, if you want to analyze the merge scenarios in the sample list repositories (listed in `sampleList.txt` under `reposList` directory), using Git merge, the running script is:
