@@ -24,7 +24,18 @@ Check the list before executing this script and adapt according to your needs to
 
 # Usage 
 
-1. The input of the main program is a list of repositories to analyze. There are different waqy to create such list:
+1. **Set the `config.py` file:** The pre-defined paths and database information are stored in  `config.py` file. 
+The list of its variables are:
+
+| Variable | Description |
+| --- | --- |
+| `GITHUB_KEY` | GitHub API key to retrieve the information of repositories
+| `REPOSITORY_PATH` | The path to save the cloned repositories
+| `TEMP_CSV_PATH` |  The path to save the temporary CSV files before inserting to SQL tables
+| `REPOSITORY_LIST_PATH` | The path to save the list of repositories to clone
+
+
+2. **Add the list of repositories:** The input of the main program is a list of repositories to analyze. There are different waqy to create such list:
     * **Automatic searching:** THe list of GitHub repositories is searched by:
     
     ```bash
@@ -46,6 +57,9 @@ Check the list before executing this script and adapt according to your needs to
     ```bash
     python3 search_repository.py -q data -s 200 -f 100 -l python -o data_popular_python_repos
     ```  
+    
+    * **All the repository list manually:** You can simply put the list or repository with `.txt` extension in
+     `REPOSITORY_LIST_PATH` directory which is set in `config.py`.
     
     
     
