@@ -2,7 +2,7 @@
 import csv
 import time
 
-from utility import *
+from GitUtil import *
 from code_quality import *
 from merge_replay import *
 from related_commits import *
@@ -14,30 +14,32 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
                             exec_code_style_violation, exec_complexity):
     t0 = time.time()
 
-    merge_commits = get_merge_commits(repository_name)[1:] #TODO: Why the first one is not in git log?
+    git_utility = GitUtil(repository_name)
+
+    merge_commits = git_utility.get_merge_commits()[1:] #TODO: Why the first one is not in git log?
 
 
     for merge_commit in merge_commits:
 
         # Extract the SHA-1 of the parents and ancestor
-        parents_commit = get_parents(repository_name, merge_commit)
-        ancestor_commit = get_ancestor(repository_name, parents_commit)
+        parents_commit = git_utility.get_parents(merge_commit)
+        ancestor_commit = git_utility.get_ancestor(parents_commit)
 
         # Extract the number of parallel changes
-        parallel_changed_files_num = get_parallel_changed_files_num(repository_name, ancestor_commit,
+        parallel_changed_files_num = git_utility.get_parallel_changed_files_num(ancestor_commit,
                                                                     parents_commit[0], parents_commit[1])
         # Extracts the date of involved commits
-        merge_commit_date = get_commit_date(repository_name, merge_commit)
-        ancestor_date = get_commit_date(repository_name, ancestor_commit)
-        parent1_date = get_commit_date(repository_name, parents_commit[0])
-        parent2_date = get_commit_date(repository_name, parents_commit[1])
+        merge_commit_date = git_utility.get_commit_date(merge_commit)
+        ancestor_date = git_utility.get_commit_date(ancestor_commit)
+        parent1_date = git_utility.get_commit_date(parents_commit[0])
+        parent2_date = git_utility.get_commit_date(parents_commit[1])
 
         # Compile the code
         if exec_compile:
-            merge_commit_can_compile = get_commit_quality(repository_name, merge_commit, 'compile')
-            ancestor_can_compile = get_commit_quality(repository_name, ancestor_commit, 'compile')
-            parent1_can_compile = get_commit_quality(repository_name, parents_commit[0], 'compile')
-            parent2_can_compile = get_commit_quality(repository_name, parents_commit[1], 'compile')
+            merge_commit_can_compile = git_utility.get_commit_quality(merge_commit, 'compile')
+            ancestor_can_compile = git_utility.get_commit_quality(ancestor_commit, 'compile')
+            parent1_can_compile = git_utility.get_commit_quality(parents_commit[0], 'compile')
+            parent2_can_compile = git_utility.get_commit_quality(parents_commit[1], 'compile')
         else:
             merge_commit_can_compile = -1
             ancestor_can_compile = -1
@@ -46,10 +48,10 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
 
         # Test the code
         if exec_tests:
-            merge_commit_can_pass_test = get_commit_quality(repository_name, merge_commit, 'test')
-            ancestor_can_pass_test = get_commit_quality(repository_name, ancestor_commit, 'test')
-            parent1_can_pass_test = get_commit_quality(repository_name, parents_commit[0], 'test')
-            parent2_can_pass_test = get_commit_quality(repository_name, parents_commit[1], 'test')
+            merge_commit_can_pass_test = git_utility.get_commit_quality(merge_commit, 'test')
+            ancestor_can_pass_test = git_utility.get_commit_quality(ancestor_commit, 'test')
+            parent1_can_pass_test = git_utility.get_commit_quality(parents_commit[0], 'test')
+            parent2_can_pass_test = git_utility.get_commit_quality(parents_commit[1], 'test')
         else:
             merge_commit_can_pass_test = -1
             ancestor_can_pass_test = -1
@@ -58,7 +60,7 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
 
         # Detec pull requests
         if exec_pull_request:
-            is_pull_request = check_if_pull_request(repository_name, merge_commit)
+            is_pull_request = git_utility.check_if_pull_request(merge_commit)
         else:
             is_pull_request = -1
 
@@ -81,14 +83,14 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
         # Store the related commits information
         if exec_related_commits:
             for index, parent in enumerate(parents_commit):
-                store_commit_info_between_two_commits(repository_name, ancestor_commit, parent, index + 1)
+                git_utility.store_commit_info_between_two_commits(git_utility, ancestor_commit, parent, index + 1)
 
         # Store code style violation
         if exec_code_style_violation:
-            merge_commit_style_violations = get_code_violation_num(repository_name, merge_commit)
-            ancestor_style_violations = get_code_violation_num(repository_name, ancestor_commit)
-            parent1_style_violations = get_code_violation_num(repository_name, parents_commit[0])
-            parent2_style_violations = get_code_violation_num(repository_name, parents_commit[1])
+            merge_commit_style_violations = git_utility.get_code_violation_num(merge_commit)
+            ancestor_style_violations = git_utility.get_code_violation_num(ancestor_commit)
+            parent1_style_violations = git_utility.get_code_violation_num(parents_commit[0])
+            parent2_style_violations = git_utility.get_code_violation_num(parents_commit[1])
             code_style_violation_data = [merge_commit_style_violations, ancestor_style_violations,
                                          parent1_style_violations, parent2_style_violations]
             csv_file = open(config.TEMP_CSV_PATH + 'Code_style_violation.csv', 'a')
@@ -98,7 +100,7 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
 
         # Store code complexity
         if exec_complexity:
-            code_complexity_data = get_code_complexity_diff(repository_name, parents_commit[0], parents_commit[1])
+            code_complexity_data = git_utility.get_code_complexity_diff(parents_commit[0], parents_commit[1])
             csv_file = open(config.TEMP_CSV_PATH + 'Code_Complexity.csv', 'a')
             csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
             csv_writer.writerow(code_complexity_data)

@@ -44,7 +44,7 @@ if __name__ == '__main__':
     # Clone the repositories
     clone_repositories(args['repository_list'], core_num)
 
-    repository_urls = open(REPOSITORY_LIST_PATH + args['repository_list'] + '.txt', 'rt').readlines()
+    repository_urls = open(config.REPOSITORY_LIST_PATH + args['repository_list'] + '.txt', 'rt').readlines()
     user_name = [i.split('/')[0].strip() for i in repository_urls]
     repo_name = [i.split('/')[1].strip() for i in repository_urls]
 
