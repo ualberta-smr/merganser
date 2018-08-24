@@ -14,7 +14,7 @@ setup(name = 'Merge Excavator',
       url = '-',
       download_url = '-',
       license = '-',
-      install_requires = ['checksumdir', 'lizard', 'numpy', 'github3.py'],
+      install_requires = ['checksumdir', 'lizard', 'numpy', 'github3.py', 'joblib'],
       classifiers = [
           'Programming Language :: Python :: 3.6',
           'Topic :: Software Development :: Libraries',

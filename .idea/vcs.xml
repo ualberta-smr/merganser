@@ -2,6 +2,6 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/merge excavator/elasticsearch" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/merge_excavator/perwendel___spark" vcs="Git" />
   </component>
 </project>
