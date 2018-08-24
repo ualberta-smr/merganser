@@ -1,5 +1,6 @@
 
 import csv
+import time
 
 from utility import *
 from code_quality import *
@@ -11,6 +12,7 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
                             exec_conflicting_file, exec_conflicting_region,
                             exec_pull_request, exec_replay_comparison, exec_related_commits,
                             exec_code_style_violation, exec_complexity):
+    t0 = time.time()
 
     merge_commits = get_merge_commits(repository_name)[1:] #TODO: Why the first one is not in git log?
 
@@ -102,8 +104,9 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
             csv_writer.writerow(code_complexity_data)
             csv_file.close()
 
+    execution_time = time.time() - t0
+    print(execution_time)
+    print(len(merge_commits))
+    print(execution_time / len(merge_commits))
 
-get_merge_scenario_info('perwendel___spark', 'git', False, False,
-                        False, False,
-                        False, False, False,
-                        True, True)
+
