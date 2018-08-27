@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d417784f-f8c7-4ee1-8f7a-4b97c99aae62" name="Default Changelist" comment="Refactor the code: combine the Git utility methods into GitUtil class">
-      <change afterPath="$PROJECT_DIR$/merge_excavator/util.py" afterDir="false" />
+    <list default="true" id="d417784f-f8c7-4ee1-8f7a-4b97c99aae62" name="Default Changelist" comment="add database information to config.py">
+      <change afterPath="$PROJECT_DIR$/merge_excavator/data_convertion.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/merge_excavator/GitUtil.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/GitUtil.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/merge_excavator/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/merge_excavator/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/merge_excavator/merge_replay.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/merge_replay.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/merge_excavator/merge_scenario_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/merge_scenario_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/merge_excavator/related_commits.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/related_commits.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/merge_excavator/repository_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/repository_data.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -75,25 +78,26 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="log" value="2" />
-          <entry key="py" value="4" />
+          <entry key="py" value="18" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="PLAIN_TEXT" value="2" />
-          <entry key="Python" value="4" />
+          <entry key="Python" value="18" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="738" />
-          <entry key="txt" value="68" />
+          <entry key="py" value="1325" />
+          <entry key="txt" value="251" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="68" />
-          <entry key="Python" value="738" />
+          <entry key="PLAIN_TEXT" value="251" />
+          <entry key="Python" value="1324" />
+          <entry key="RegExp" value="1" />
         </counts>
       </usages-collector>
     </session>
@@ -104,58 +108,12 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/merge_excavator/clone_repositories.py">
+        <entry file="file://$PROJECT_DIR$/merge_excavator/data_convertion.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="24" column="48" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="48" />
+            <state relative-caret-position="330">
+              <caret line="22" selection-start-line="22" selection-end-line="22" />
               <folding>
-                <element signature="e#1#10#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/merge_excavator/GitUtil.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="21" column="11" selection-start-line="21" selection-start-column="11" selection-end-line="21" selection-end-column="11" />
-              <folding>
-                <element signature="e#1#10#0" expanded="true" />
-                <marker date="1535149114814" expanded="true" signature="83:301" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/merge_excavator/merge_scenario_data.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="29" selection-start-line="5" selection-end-line="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/merge_excavator/merge_replay.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
-              <folding>
-                <element signature="e#1#10#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/merge_excavator/related_commits.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="21" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
-              <folding>
-                <element signature="e#1#11#0" expanded="true" />
+                <element signature="e#2#11#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -164,8 +122,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/merge_excavator/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="51" column="48" selection-start-line="51" selection-start-column="44" selection-end-line="51" selection-end-column="48" />
+            <state relative-caret-position="232">
+              <caret line="43" column="26" selection-start-line="43" selection-start-column="26" selection-end-line="43" selection-end-column="26" />
               <folding>
                 <element signature="e#1#37#0" expanded="true" />
               </folding>
@@ -174,22 +132,60 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/merge_excavator/util.py">
+        <entry file="file://$PROJECT_DIR$/merge_excavator/GitUtil.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="57" selection-start-line="7" selection-start-column="57" selection-end-line="7" selection-end-column="57" />
+            <state relative-caret-position="216">
+              <caret line="80" column="64" selection-start-line="80" selection-start-column="64" selection-end-line="80" selection-end-column="64" />
               <folding>
-                <element signature="e#0#9#0" expanded="true" />
+                <element signature="e#1#10#0" expanded="true" />
+                <marker date="1535399479758" expanded="true" signature="83:301" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/merge_excavator/merge_replay.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1389">
+              <caret line="13" column="56" selection-start-line="13" selection-start-column="56" selection-end-line="13" selection-end-column="56" />
+              <folding>
+                <element signature="e#1#10#0" expanded="true" />
+                <marker date="1535399777528" expanded="true" signature="154:155" ph="..." />
+                <marker date="1535399777528" expanded="true" signature="154:163" ph="..." />
+                <marker date="1535399777528" expanded="true" signature="154:973" ph="..." />
+                <marker date="1535399777528" expanded="true" signature="154:975" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/merge_excavator/repository_data.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="480">
+              <caret line="37" column="44" selection-start-line="37" selection-start-column="44" selection-end-line="37" selection-end-column="54" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/merge_excavator/config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="54" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="54" />
+            <state relative-caret-position="195">
+              <caret line="13" column="7" selection-start-line="13" selection-end-line="13" selection-end-column="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/merge_excavator/merge_scenario_data.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="404">
+              <caret line="102" column="20" selection-start-line="102" selection-start-column="20" selection-end-line="102" selection-end-column="20" />
+              <folding>
+                <element signature="e#1#11#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -220,6 +216,9 @@
       <find>store_commit_info_between_two_commits</find>
       <find>get_merge_commits</find>
       <find>exit</find>
+      <find>repla</find>
+      <find>csv</find>
+      <find>store_commit</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -242,12 +241,15 @@
         <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/merge_excavator/clone_repositories.py" />
         <option value="$PROJECT_DIR$/merge_excavator/utility.py" />
-        <option value="$PROJECT_DIR$/merge_excavator/related_commits.py" />
-        <option value="$PROJECT_DIR$/merge_excavator/GitUtil.py" />
-        <option value="$PROJECT_DIR$/merge_excavator/merge_scenario_data.py" />
         <option value="$PROJECT_DIR$/merge_excavator/util.py" />
         <option value="$PROJECT_DIR$/merge_excavator/main.py" />
         <option value="$PROJECT_DIR$/merge_excavator/config.py" />
+        <option value="$PROJECT_DIR$/merge_excavator/related_commits.py" />
+        <option value="$PROJECT_DIR$/merge_excavator/repository_data.py" />
+        <option value="$PROJECT_DIR$/merge_excavator/data_convertion.py" />
+        <option value="$PROJECT_DIR$/merge_excavator/GitUtil.py" />
+        <option value="$PROJECT_DIR$/merge_excavator/merge_replay.py" />
+        <option value="$PROJECT_DIR$/merge_excavator/merge_scenario_data.py" />
       </list>
     </option>
   </component>
@@ -590,7 +592,35 @@
       <option name="project" value="LOCAL" />
       <updated>1535390743784</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Add util.py for removing/adding working directories">
+      <created>1535390780990</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1535390780990</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Add logging and pre-defined directories to the code">
+      <created>1535390813298</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1535390813298</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Refactor the code and define Merge_replay class">
+      <created>1535391328850</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1535391328850</updated>
+    </task>
+    <task id="LOCAL-00033" summary="add database information to config.py">
+      <created>1535391465709</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1535391465709</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TodoView">
@@ -606,6 +636,29 @@
     <frame x="67" y="27" width="1853" height="1053" extended-state="6" />
     <editor active="true" />
     <layout>
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49832776" weight="0.13613725" />
+      <window_info id="Structure" order="1" sideWeight="0.50167227" side_tool="true" weight="0.1284153" />
+      <window_info id="Favorites" order="2" sideWeight="0.50167227" side_tool="true" weight="0.1284153" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4997233" weight="0.32996634" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4975097" weight="0.32884398" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49836066" weight="0.39955106" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4997233" weight="0.32996634" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4980631" weight="0.14927049" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.4986165" weight="0.36251402" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50249034" side_tool="true" weight="0.32884398" />
+      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.4994664" weight="0.33061224" />
+      <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="right" id="SciView" order="4" />
+    </layout>
+    <layout-to-restore>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49832776" visible="true" weight="0.13613725" />
       <window_info id="Structure" order="1" sideWeight="0.50167227" side_tool="true" weight="0.1284153" />
       <window_info id="Favorites" order="2" sideWeight="0.50167227" side_tool="true" weight="0.1284153" />
@@ -627,7 +680,7 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="right" id="SciView" order="4" />
-    </layout>
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -654,10 +707,6 @@
       <path value="$PROJECT_DIR$/merge excavator/perwendel___spark" />
       <path value="$PROJECT_DIR$/merge excavator/elasticsearch" />
     </ignored-roots>
-    <MESSAGE value="add repository_data to store information for this table" />
-    <MESSAGE value="add config file" />
-    <MESSAGE value="Update the PyCharm meta-data file for using git" />
-    <MESSAGE value="Update .gitignore file to not add and commit python cache files" />
     <MESSAGE value="Fix the author name" />
     <MESSAGE value="add compile and test quality measures for Maven" />
     <MESSAGE value="Add the merge scenario extraction code" />
@@ -679,7 +728,11 @@
     <MESSAGE value="Refactor the code: combine the Git utility methods into GitUtil class" />
     <MESSAGE value="Add the working directory" />
     <MESSAGE value="Add pre-defined values for paths" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add pre-defined values for paths" />
+    <MESSAGE value="Add util.py for removing/adding working directories" />
+    <MESSAGE value="Add logging and pre-defined directories to the code" />
+    <MESSAGE value="Refactor the code and define Merge_replay class" />
+    <MESSAGE value="add database information to config.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="add database information to config.py" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -755,42 +808,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/merge_excavator/GitUtil.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="21" column="11" selection-start-line="21" selection-start-column="11" selection-end-line="21" selection-end-column="11" />
-          <folding>
-            <element signature="e#1#10#0" expanded="true" />
-            <marker date="1535149114814" expanded="true" signature="83:301" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/merge_excavator/_2018-08-27_16:14:00.log">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/merge_excavator/2018-08-27_16:15:54.log">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/merge_excavator/related_commits.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="21" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
-          <folding>
-            <element signature="e#1#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/merge_excavator/merge_replay.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
-          <folding>
-            <element signature="e#1#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/merge_excavator/util.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -802,27 +824,95 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/merge_excavator/merge_scenario_data.py">
+    <entry file="file://$PROJECT_DIR$/merge_excavator/code_quality.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="29" selection-start-line="5" selection-end-line="6" />
+        <state relative-caret-position="15">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+          <folding>
+            <element signature="e#1#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/merge_excavator/related_commits.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="48" lean-forward="true" selection-start-line="19" selection-start-column="48" selection-end-line="19" selection-end-column="68" />
+          <folding>
+            <element signature="e#1#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/merge_excavator/search_repository.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/merge_excavator/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="7" selection-start-line="13" selection-end-line="13" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/merge_excavator/repository_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="37" column="44" selection-start-line="37" selection-start-column="44" selection-end-line="37" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/merge_excavator/data_convertion.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
+          <folding>
+            <element signature="e#2#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/merge_excavator/GitUtil.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="80" column="64" selection-start-line="80" selection-start-column="64" selection-end-line="80" selection-end-column="64" />
+          <folding>
+            <element signature="e#1#10#0" expanded="true" />
+            <marker date="1535399479758" expanded="true" signature="83:301" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/merge_excavator/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="51" column="48" selection-start-line="51" selection-start-column="44" selection-end-line="51" selection-end-column="48" />
+        <state relative-caret-position="232">
+          <caret line="43" column="26" selection-start-line="43" selection-start-column="26" selection-end-line="43" selection-end-column="26" />
           <folding>
             <element signature="e#1#37#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/merge_excavator/config.py">
+    <entry file="file://$PROJECT_DIR$/merge_excavator/merge_replay.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="54" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="54" />
+        <state relative-caret-position="-1389">
+          <caret line="13" column="56" selection-start-line="13" selection-start-column="56" selection-end-line="13" selection-end-column="56" />
+          <folding>
+            <element signature="e#1#10#0" expanded="true" />
+            <marker date="1535399777528" expanded="true" signature="154:155" ph="..." />
+            <marker date="1535399777528" expanded="true" signature="154:163" ph="..." />
+            <marker date="1535399777528" expanded="true" signature="154:973" ph="..." />
+            <marker date="1535399777528" expanded="true" signature="154:975" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/merge_excavator/merge_scenario_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="404">
+          <caret line="102" column="20" selection-start-line="102" selection-start-column="20" selection-end-line="102" selection-end-column="20" />
+          <folding>
+            <element signature="e#1#11#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

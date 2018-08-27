@@ -80,7 +80,7 @@ class GitUtil:
         :param commit: The SHA-1 of the commit
         :return: 1 if the commit was a pull request, 0 otherwise
         """
-        if 'Merge pull request' in self.get_commit_message(self.repository_name, commit):
+        if 'Merge pull request' in self.get_commit_message(commit):
             return 1
         else:
             return 0

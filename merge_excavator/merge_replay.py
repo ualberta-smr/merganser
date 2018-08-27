@@ -73,7 +73,7 @@ class Merge_Replay:
         # Store the merge replay information
         merge_replay_data = [merge_technique, is_conflict, replay_can_compile, replay_can_pass_test, execution_time,
                              replay_is_equal_to_merge_commit]
-        csv_file = open(config.TEMP_CSV_PATH + 'Merge_Replay.csv', 'a')
+        csv_file = open(config.TEMP_CSV_PATH + 'Merge_Replay_{}.csv'.format(repository_name), 'a')
         csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
         csv_writer.writerow(merge_replay_data)
         csv_file.close()
@@ -102,7 +102,7 @@ class Merge_Replay:
 
                     # Store the merge replay information
                     conflicting_file_data = [conflicting_file, conflict_type]
-                    csv_file = open(config.TEMP_CSV_PATH + 'Conflicting_File.csv', 'a')
+                    csv_file = open(config.TEMP_CSV_PATH + 'Conflicting_File_{}.csv'.format(repository_name), 'a')
                     csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
                     csv_writer.writerow(conflicting_file_data)
                     csv_file.close()
@@ -117,7 +117,7 @@ class Merge_Replay:
                         parent2_path = diff_replay[index + 1].split()[1]
                         if '@@@ ' not in diff_replay[index + 2]:
                             continue
-                        diff_conflict_match = CONFLICT_PATTERN_REGION.match(diff_replay[index + 2])
+                        diff_conflict_match = self.CONFLICT_PATTERN_REGION.match(diff_replay[index + 2])
                         diff_parent1_start = diff_conflict_match.group(1)
                         diff_parent1_length = diff_conflict_match.group(2)
                         diff_parent2_start = diff_conflict_match.group(3)
@@ -126,7 +126,7 @@ class Merge_Replay:
                         # Store the conflicting region information
                         conflicting_region_data = [parent1_path, parent2_path, diff_parent1_start, diff_parent1_length,
                                                diff_parent2_start, diff_parent2_length]
-                        csv_file = open(config.TEMP_CSV_PATH + 'Conflicting_Region.csv', 'a')
+                        csv_file = open(config.TEMP_CSV_PATH + 'Conflicting_Region_{}.csv'.format(repository_name), 'a')
                         csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
                         csv_writer.writerow(conflicting_region_data)
                         csv_file.close()

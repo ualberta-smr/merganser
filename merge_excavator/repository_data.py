@@ -35,7 +35,7 @@ def store_repository_info(repository_name):
     if repository_name.count('/') != 1:
         raise ValueError('The repositort name should be in <USER_NAME>/<REPOSITORY_NAME> format. \
          {} does not follow this.'.format(repository_name))
-    csv_file = open(config.TEMP_CSV_PATH + 'Repository.csv', 'a')
+    csv_file = open(config.TEMP_CSV_PATH + 'Repository_{}.csv'.format(repository_name), 'a')
     csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
     csv_writer.writerow(get_repositort_info(repository_name))
     csv_file.close()

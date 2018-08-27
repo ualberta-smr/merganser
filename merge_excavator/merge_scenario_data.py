@@ -82,7 +82,7 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
                                parent1_can_compile, parent1_can_pass_test,
                                parent2_can_compile, parent2_can_pass_test,
                                merge_commit_date, ancestor_date, parent1_date, parent2_date, is_pull_request]
-        csv_file = open(config.TEMP_CSV_PATH + 'Merge_Scenario.csv', 'a')
+        csv_file = open(config.TEMP_CSV_PATH + 'Merge_Scenario_{}.csv'.format(repository_name), 'a')
         csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
         csv_writer.writerow(merge_scenario_data)
         csv_file.close()
@@ -94,25 +94,27 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
         # Store the related commits information
         if exec_related_commits:
             for index, parent in enumerate(parents_commit):
-                git_utility.store_commit_info_between_two_commits(git_utility, ancestor_commit, parent, index + 1)
+                store_commit_info_between_two_commits(git_utility, ancestor_commit, parent, index + 1)
 
         # Store code style violation
         if exec_code_style_violation:
-            merge_commit_style_violations = git_utility.get_code_violation_num(merge_commit)
-            ancestor_style_violations = git_utility.get_code_violation_num(ancestor_commit)
-            parent1_style_violations = git_utility.get_code_violation_num(parents_commit[0])
-            parent2_style_violations = git_utility.get_code_violation_num(parents_commit[1])
+            print('1')
+            merge_commit_style_violations = get_code_violation_num(repository_name, merge_commit)
+            print('2')
+            ancestor_style_violations = get_code_violation_num(repository_name, ancestor_commit)
+            parent1_style_violations = get_code_violation_num(repository_name, parents_commit[0])
+            parent2_style_violations = get_code_violation_num(repository_name, parents_commit[1])
             code_style_violation_data = [merge_commit_style_violations, ancestor_style_violations,
                                          parent1_style_violations, parent2_style_violations]
-            csv_file = open(config.TEMP_CSV_PATH + 'Code_style_violation.csv', 'a')
+            csv_file = open(config.TEMP_CSV_PATH + 'Code_style_violation_{}.csv'.format(repository_name), 'a')
             csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
             csv_writer.writerow(code_style_violation_data)
             csv_file.close()
 
         # Store code complexity
         if exec_complexity:
-            code_complexity_data = git_utility.get_code_complexity_diff(parents_commit[0], parents_commit[1])
-            csv_file = open(config.TEMP_CSV_PATH + 'Code_Complexity.csv', 'a')
+            code_complexity_data = get_code_complexity_diff(repository_name, parents_commit[0], parents_commit[1])
+            csv_file = open(config.TEMP_CSV_PATH + 'Code_Complexity_{}.csv'.format(repository_name), 'a')
             csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
             csv_writer.writerow(code_complexity_data)
             csv_file.close()

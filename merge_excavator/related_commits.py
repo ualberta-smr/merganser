@@ -17,7 +17,7 @@ def store_commit_info_between_two_commits(git_utility, commit1, commit2, parent_
         # Store the merge related commits
         merge_related_commits_data = [commit, commit_date, commit_message, branch_name, parent_num] + \
                                       file_changes + list(line_changes)
-        csv_file = open(config.TEMP_CSV_PATH + 'Merge_Related_Commit.csv', 'a')
+        csv_file = open(config.TEMP_CSV_PATH + 'Merge_Related_Commit_{}.csv'.format(git_utility.repository_name), 'a')
         csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
         csv_writer.writerow(merge_related_commits_data)
         csv_file.close()
