@@ -25,6 +25,7 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
     t0 = time.time()
 
     git_utility = GitUtil(repository_name)
+    merge_replay = Merge_Replay()
 
     merge_commits = git_utility.get_merge_commits()[1:] #TODO: Why the first one is not in git log?
 
@@ -87,7 +88,7 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
         csv_file.close()
 
         # Merge replay
-        merge_replay(repository_name, merge_technique, merge_commit, parents_commit, exec_compile, exec_tests,
+        merge_replay.merge_replay(repository_name, merge_technique, merge_commit, parents_commit, exec_compile, exec_tests,
                      exec_conflicting_file, exec_conflicting_region, exec_replay_comparison)
 
         # Store the related commits information
