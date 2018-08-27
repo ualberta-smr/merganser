@@ -2,12 +2,31 @@
 from joblib import Parallel, delayed
 import multiprocessing
 import argparse
+import logging
+from time import gmtime, strftime
 
 from clone_repositories import *
 from merge_scenario_data import *
+import config
+from util import *
 
 
 if __name__ == '__main__':
+
+    logging.info('The code starts')
+
+    # Create directories
+    remove_dir() # TODO: Do we need this?
+    create_dir()
+
+    # Logging
+    logging.basicConfig(level = logging.INFO,
+                        format = '%(levelname)s in %(threadName)s - %(asctime)s by %(name)-12s :  %(message)s',
+                        datefmt = '%y-%m-%d %H:%M:%S',
+                        filename = 'main_execution.log',
+                        filemode = 'w')
+    logging.info('The code starts') # TODO: the logging doesn't work for the main.py
+
 
     # Arguments
     parser = argparse.ArgumentParser(description='The main script for analyzing merge scenarios')
@@ -57,3 +76,5 @@ if __name__ == '__main__':
                                                              args['replay_compare'], args['commit_details'],
                                                              args['style_violation'], args['code_complexity'])
                                  for i in range(len(repository_urls)))
+
+    logging.info('The executing is finish')

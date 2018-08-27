@@ -1,6 +1,9 @@
 
 import csv
 import time
+import logging
+from dateutil.relativedelta import relativedelta as rd
+from time import gmtime, strftime
 
 from GitUtil import *
 from code_quality import *
@@ -12,6 +15,13 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
                             exec_conflicting_file, exec_conflicting_region,
                             exec_pull_request, exec_replay_comparison, exec_related_commits,
                             exec_code_style_violation, exec_complexity):
+
+    # Logging
+    logging.basicConfig(level = logging.INFO,
+                        format = '%(levelname)s in %(threadName)s - %(asctime)s by %(name)-12s :  %(message)s',
+                        datefmt = '%y-%m-%d %H:%M:%S',
+                        filename = '{}{}_{}.log'.format(config.LOG_PATH, repository_name,strftime('%Y-%m-%d_%H:%M:%S', gmtime())),
+                        filemode = 'w')
     t0 = time.time()
 
     git_utility = GitUtil(repository_name)
@@ -106,9 +116,9 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
             csv_writer.writerow(code_complexity_data)
             csv_file.close()
 
+    # Logging
     execution_time = time.time() - t0
-    print(execution_time)
-    print(len(merge_commits))
-    print(execution_time / len(merge_commits))
+    fmt = '{0.days} days {0.hours} hours {0.minutes} minutes {0.seconds} seconds'
+    logging.info('The merge extraction for {} is finish in {}'.format(repository_name, fmt.format(rd(seconds = execution_time))))
 
 
