@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d417784f-f8c7-4ee1-8f7a-4b97c99aae62" name="Default Changelist" comment="Refactor the code: combine the Git utility methods into GitUtil class">
       <change afterPath="$PROJECT_DIR$/merge_excavator/util.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/merge_excavator/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/merge_excavator/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/main.py" afterDir="false" />
@@ -88,12 +87,12 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="py" value="738" />
-          <entry key="txt" value="32" />
+          <entry key="txt" value="68" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="32" />
+          <entry key="PLAIN_TEXT" value="68" />
           <entry key="Python" value="738" />
         </counts>
       </usages-collector>
@@ -190,7 +189,7 @@
         <entry file="file://$PROJECT_DIR$/merge_excavator/config.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="15">
-              <caret line="1" column="14" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
+              <caret line="1" column="54" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="54" />
             </state>
           </provider>
         </entry>
@@ -584,7 +583,14 @@
       <option name="project" value="LOCAL" />
       <updated>1535389241253</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Add pre-defined values for paths">
+      <created>1535390743784</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1535390743784</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TodoView">
@@ -648,7 +654,6 @@
       <path value="$PROJECT_DIR$/merge excavator/perwendel___spark" />
       <path value="$PROJECT_DIR$/merge excavator/elasticsearch" />
     </ignored-roots>
-    <MESSAGE value="Remove url field from Repository table" />
     <MESSAGE value="add repository_data to store information for this table" />
     <MESSAGE value="add config file" />
     <MESSAGE value="Update the PyCharm meta-data file for using git" />
@@ -673,7 +678,8 @@
     <MESSAGE value="Add main. py to run the code from terminal" />
     <MESSAGE value="Refactor the code: combine the Git utility methods into GitUtil class" />
     <MESSAGE value="Add the working directory" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add the working directory" />
+    <MESSAGE value="Add pre-defined values for paths" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add pre-defined values for paths" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -816,7 +822,7 @@
     <entry file="file://$PROJECT_DIR$/merge_excavator/config.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
-          <caret line="1" column="14" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
+          <caret line="1" column="54" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="54" />
         </state>
       </provider>
     </entry>
