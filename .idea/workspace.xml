@@ -2,14 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d417784f-f8c7-4ee1-8f7a-4b97c99aae62" name="Default Changelist" comment="add database information to config.py">
-      <change afterPath="$PROJECT_DIR$/merge_excavator/data_convertion.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runAll.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/merge_excavator/GitUtil.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/GitUtil.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/merge_excavator/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/merge_excavator/merge_replay.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/merge_replay.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/merge_excavator/merge_scenario_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/merge_scenario_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/merge_excavator/related_commits.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/related_commits.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/merge_excavator/repository_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/repository_data.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -78,24 +73,28 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="log" value="2" />
-          <entry key="py" value="18" />
+          <entry key="py" value="19" />
+          <entry key="sh" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
+          <entry key="Bash" value="1" />
           <entry key="PLAIN_TEXT" value="2" />
-          <entry key="Python" value="18" />
+          <entry key="Python" value="19" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="py" value="1325" />
-          <entry key="txt" value="251" />
+          <entry key="sh" value="19" />
+          <entry key="txt" value="270" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="251" />
+          <entry key="Bash" value="19" />
+          <entry key="PLAIN_TEXT" value="270" />
           <entry key="Python" value="1324" />
           <entry key="RegExp" value="1" />
         </counts>
@@ -122,11 +121,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/merge_excavator/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="43" column="26" selection-start-line="43" selection-start-column="26" selection-end-line="43" selection-end-column="26" />
+            <state relative-caret-position="202">
+              <caret line="41" column="60" lean-forward="true" selection-start-line="41" selection-start-column="60" selection-end-line="41" selection-end-column="60" />
               <folding>
                 <element signature="e#1#37#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/runAll.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -178,13 +186,25 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/merge_excavator/merge_scenario_data.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="404">
-              <caret line="102" column="20" selection-start-line="102" selection-start-column="20" selection-end-line="102" selection-end-column="20" />
+            <state relative-caret-position="419">
+              <caret line="103" column="46" selection-start-line="103" selection-start-column="46" selection-end-line="103" selection-end-column="46" />
               <folding>
                 <element signature="e#1#11#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/merge_excavator/code_quality.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
+              <folding>
+                <element signature="e#1#10#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -250,6 +270,7 @@
         <option value="$PROJECT_DIR$/merge_excavator/GitUtil.py" />
         <option value="$PROJECT_DIR$/merge_excavator/merge_replay.py" />
         <option value="$PROJECT_DIR$/merge_excavator/merge_scenario_data.py" />
+        <option value="$PROJECT_DIR$/runAll.sh" />
       </list>
     </option>
   </component>
@@ -620,7 +641,14 @@
       <option name="project" value="LOCAL" />
       <updated>1535391465709</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="add data conversion">
+      <created>1535400844740</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1535400844740</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TodoView">
@@ -636,7 +664,7 @@
     <frame x="67" y="27" width="1853" height="1053" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49832776" weight="0.13613725" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49832776" visible="true" weight="0.13613725" />
       <window_info id="Structure" order="1" sideWeight="0.50167227" side_tool="true" weight="0.1284153" />
       <window_info id="Favorites" order="2" sideWeight="0.50167227" side_tool="true" weight="0.1284153" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -707,7 +735,6 @@
       <path value="$PROJECT_DIR$/merge excavator/perwendel___spark" />
       <path value="$PROJECT_DIR$/merge excavator/elasticsearch" />
     </ignored-roots>
-    <MESSAGE value="Fix the author name" />
     <MESSAGE value="add compile and test quality measures for Maven" />
     <MESSAGE value="Add the merge scenario extraction code" />
     <MESSAGE value="Add the merge replay, conflicting file and regions extraction code" />
@@ -732,7 +759,8 @@
     <MESSAGE value="Add logging and pre-defined directories to the code" />
     <MESSAGE value="Refactor the code and define Merge_replay class" />
     <MESSAGE value="add database information to config.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="add database information to config.py" />
+    <MESSAGE value="add data conversion" />
+    <option name="LAST_COMMIT_MESSAGE" value="add data conversion" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -824,16 +852,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/merge_excavator/code_quality.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-          <folding>
-            <element signature="e#1#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/merge_excavator/related_commits.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -882,16 +900,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/merge_excavator/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="43" column="26" selection-start-line="43" selection-start-column="26" selection-end-line="43" selection-end-column="26" />
-          <folding>
-            <element signature="e#1#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/merge_excavator/merge_replay.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1389">
@@ -908,11 +916,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/merge_excavator/merge_scenario_data.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
-          <caret line="102" column="20" selection-start-line="102" selection-start-column="20" selection-end-line="102" selection-end-column="20" />
+        <state relative-caret-position="419">
+          <caret line="103" column="46" selection-start-line="103" selection-start-column="46" selection-end-line="103" selection-end-column="46" />
           <folding>
             <element signature="e#1#11#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/merge_excavator/code_quality.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+          <folding>
+            <element signature="e#1#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/merge_excavator/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="41" column="60" lean-forward="true" selection-start-line="41" selection-start-column="60" selection-end-line="41" selection-end-column="60" />
+          <folding>
+            <element signature="e#1#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/runAll.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
         </state>
       </provider>
     </entry>

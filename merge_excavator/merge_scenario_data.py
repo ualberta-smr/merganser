@@ -98,9 +98,7 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
 
         # Store code style violation
         if exec_code_style_violation:
-            print('1')
             merge_commit_style_violations = get_code_violation_num(repository_name, merge_commit)
-            print('2')
             ancestor_style_violations = get_code_violation_num(repository_name, ancestor_commit)
             parent1_style_violations = get_code_violation_num(repository_name, parents_commit[0])
             parent2_style_violations = get_code_violation_num(repository_name, parents_commit[1])
