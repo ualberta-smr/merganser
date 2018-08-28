@@ -47,6 +47,7 @@ class Merge_Replay:
         :return: Nothing
         """
 
+        # Local variables
         repository_dir = config.REPOSITORY_PATH + repository_name.replace('/', '___')
         cd_to_repository = 'cd {};'.format(repository_dir)
 
@@ -72,13 +73,19 @@ class Merge_Replay:
 
         # Compile the code
         if exec_compile:
-            replay_can_compile = get_commit_quality(repository_name, -1, 'compile')
+            if is_conflict == 1:
+                replay_can_compile = get_commit_quality(repository_name, -1, 'compile')
+            else:
+                replay_can_compile = 0
         else:
             replay_can_compile = -1
 
         # Test the code
         if exec_tests:
-            replay_can_pass_test = get_commit_quality(repository_name, -1, 'test')
+            if is_conflict == 1:
+                replay_can_pass_test = get_commit_quality(repository_name, -1, 'test')
+            else:
+                replay_can_pass_test = 0
         else:
             replay_can_pass_test = -1
 
@@ -146,7 +153,7 @@ class Merge_Replay:
 
                         # Store the conflicting region information
                         conflicting_region_data = [parent1_path, parent2_path, diff_parent1_start, diff_parent1_length,
-                                               diff_parent2_start, diff_parent2_length]
+                                                   diff_parent2_start, diff_parent2_length]
                         csv_file = open(config.TEMP_CSV_PATH + 'Conflicting_Region_{}.csv'.format(repository_name), 'a')
                         csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
                         csv_writer.writerow(conflicting_region_data)
