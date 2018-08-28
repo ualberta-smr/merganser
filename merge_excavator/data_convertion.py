@@ -19,4 +19,4 @@ os.system('mysql -u {} -p < {}Merge_Data.sql'.format(config.DB_USER_NAME, config
 for table in table_list:
     os.system(cd_to_csv + 'cat {}_* > {}.csv'.format(table, table))
     os.system(cd_to_csv + 'mysqlimport --fields-terminated-by=,  --verbose  --local'
-              ' -u {} -p {}  {}.csv'.format(config.DB_USER_NAME, DB_NAME, table))
+              ' -u {} -p {}  {}.csv'.format(config.DB_USER_NAME, config.DB_NAME, table))

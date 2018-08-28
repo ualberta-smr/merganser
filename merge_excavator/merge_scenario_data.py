@@ -9,6 +9,7 @@ from GitUtil import *
 from code_quality import *
 from merge_replay import *
 from related_commits import *
+from repository_data import *
 
 
 def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec_tests,
@@ -28,6 +29,9 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
     merge_replay = Merge_Replay()
 
     merge_commits = git_utility.get_merge_commits()[1:] #TODO: Why the first one is not in git log?
+
+    # Repository Data
+    store_repository_info(repository_name)
 
 
     for merge_commit in merge_commits:
@@ -116,6 +120,7 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
             csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
             csv_writer.writerow(code_complexity_data)
             csv_file.close()
+
 
     # Logging
     execution_time = time.time() - t0

@@ -8,7 +8,7 @@ def validation_repository_name(repository_name):
     :param repository_name: The name of the repository in <USER_NAME>/<REPOSITORY_NAME> format
     :return:
     """
-    if repository_name.count('/') != 1:
+    if repository_name.count('___') + repository_name.count('/') != 1:
         raise ValueError('The repository name should be in <USER_NAME>/<REPOSITORY_NAME> format. {} does not'
                          ' follow this.'.format(repository_name))
 

@@ -18,14 +18,14 @@ def store_repository_info(repository_name):
     validation.validation_repository_name(repository_name)
 
     github_request = os.popen('curl --silent -H "Authorization: token  ' + config.GITHUB_KEY + \
-                               '"  https://api.github.com/repos/' + repository_name).read()
+                               '"  https://api.github.com/repos/' + repository_name.replace('___', '/')).read()
     json_data = json.loads(github_request)
     if 'message' in json_data.keys():
         raise ValueError('The repository {} does not exists.'.format(repository_name))
     current_time = strftime("%Y-%m-%d %H:%M:%S", gmtime())
-    repository_data = json_data['id'], current_time, json_data['full_name'], json_data['description'], \
+    repository_data = [json_data['id'], current_time, json_data['full_name'], json_data['description'], \
                       json_data['language'], json_data['subscribers_count'], \
-                      json_data['stargazers_count'], json_data['forks'], json_data['open_issues'], json_data['size']
+                      json_data['stargazers_count'], json_data['forks'], json_data['open_issues'], json_data['size']]
     csv_file = open(config.TEMP_CSV_PATH + 'Repository_{}.csv'.format(repository_name), 'a')
     csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
     csv_writer.writerow(repository_data)
