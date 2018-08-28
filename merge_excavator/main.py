@@ -3,20 +3,22 @@ from joblib import Parallel, delayed
 import multiprocessing
 import argparse
 import logging
-from time import gmtime, strftime
 
 from clone_repositories import *
 from merge_scenario_data import *
 import config
 from util import *
+import validation
 
 
 if __name__ == '__main__':
-
-    logging.info('The code starts')
+    """
+    This is the starting point of the execution of this tool. We strongly suggest to read the README.md first to set the
+     arguments correctly.
+    """
 
     # Create directories
-    remove_dir() # TODO: Do we need this?
+    remove_dir()
     create_dir()
 
     # Logging
@@ -26,7 +28,6 @@ if __name__ == '__main__':
                         filename = 'main_execution.log',
                         filemode = 'w')
     logging.info('The code starts') # TODO: the logging doesn't work for the main.py
-
 
     # Arguments
     parser = argparse.ArgumentParser(description='The main script for analyzing merge scenarios')
@@ -59,14 +60,15 @@ if __name__ == '__main__':
         core_num = multiprocessing.cpu_count()
     else:
         core_num = args['cpu_cores']
+    validation.validation_core_num(core_num)
 
     # Clone the repositories
     clone_repositories(args['repository_list'], core_num)
 
+    # Local variables
     repository_urls = open(config.REPOSITORY_LIST_PATH + args['repository_list'] + '.txt', 'rt').readlines()
     user_name = [i.split('/')[0].strip() for i in repository_urls]
     repo_name = [i.split('/')[1].strip() for i in repository_urls]
-
 
     # Parallel execution
     Parallel(n_jobs = core_num)(delayed(get_merge_scenario_info)('{}___{}'.
