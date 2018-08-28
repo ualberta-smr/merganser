@@ -6,11 +6,17 @@ import config
 
 
 def search_repository(query, star_min, fork_min, language, sort_by, order_by):
+    """
+    This method search for repositories using GitHub APIs. Read README.md for more information.
+    """
     return github3.search_repositories(query + ' stars:>' + star_min + ' forks:>' + fork_min + ' language:' + language,
                                        sort = sort_by, order = order_by, text_match=False, number=-1)
 
 
 if __name__ == '__main__':
+    """
+    The main code for searching repositories
+    """
     parser = argparse.ArgumentParser(description='Search for repositories by different criteria')
     parser.add_argument('-q', '--query', help='The query of searching', required = True)
     parser.add_argument('-s', '--star', help='The minimum number of stars', required = True)

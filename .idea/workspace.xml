@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d417784f-f8c7-4ee1-8f7a-4b97c99aae62" name="Default Changelist" comment="add database information to config.py">
-      <change afterPath="$PROJECT_DIR$/merge_excavator/validation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/merge_excavator/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/merge_excavator/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/merge_excavator/repository_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/repository_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/merge_excavator/search_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/search_repository.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -77,7 +75,7 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="log" value="2" />
-          <entry key="py" value="30" />
+          <entry key="py" value="37" />
           <entry key="sh" value="1" />
         </counts>
       </usages-collector>
@@ -85,21 +83,21 @@
         <counts>
           <entry key="Bash" value="1" />
           <entry key="PLAIN_TEXT" value="2" />
-          <entry key="Python" value="30" />
+          <entry key="Python" value="37" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="2920" />
+          <entry key="py" value="3921" />
           <entry key="sh" value="19" />
-          <entry key="txt" value="403" />
+          <entry key="txt" value="731" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Bash" value="19" />
-          <entry key="PLAIN_TEXT" value="403" />
-          <entry key="Python" value="2919" />
+          <entry key="PLAIN_TEXT" value="731" />
+          <entry key="Python" value="3920" />
           <entry key="RegExp" value="1" />
         </counts>
       </usages-collector>
@@ -113,23 +111,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/merge_excavator/validation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="4" lean-forward="true" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="33" />
+            <state relative-caret-position="240">
+              <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
               <folding>
-                <marker date="1535488725510" expanded="true" signature="74:79" ph="..." />
+                <marker date="1535492714839" expanded="true" signature="74:79" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/merge_excavator/main.py">
+        <entry file="file://$PROJECT_DIR$/merge_excavator/search_repository.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="103" selection-start-line="15" selection-start-column="103" selection-end-line="15" selection-end-column="103" />
-              <folding>
-                <element signature="e#1#37#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="150">
+              <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
             </state>
           </provider>
         </entry>
@@ -188,15 +183,16 @@
         <option value="$PROJECT_DIR$/merge_excavator/config.py" />
         <option value="$PROJECT_DIR$/merge_excavator/related_commits.py" />
         <option value="$PROJECT_DIR$/merge_excavator/data_convertion.py" />
-        <option value="$PROJECT_DIR$/merge_excavator/merge_replay.py" />
         <option value="$PROJECT_DIR$/runAll.sh" />
         <option value="$PROJECT_DIR$/merge_excavator/merge_scenario_data.py" />
-        <option value="$PROJECT_DIR$/merge_excavator/repository_data.py" />
-        <option value="$PROJECT_DIR$/merge_excavator/validation.py" />
         <option value="$PROJECT_DIR$/merge_excavator/clone_repositories.py" />
         <option value="$PROJECT_DIR$/merge_excavator/code_quality.py" />
-        <option value="$PROJECT_DIR$/merge_excavator/GitUtil.py" />
         <option value="$PROJECT_DIR$/merge_excavator/main.py" />
+        <option value="$PROJECT_DIR$/merge_excavator/GitUtil.py" />
+        <option value="$PROJECT_DIR$/merge_excavator/merge_replay.py" />
+        <option value="$PROJECT_DIR$/merge_excavator/validation.py" />
+        <option value="$PROJECT_DIR$/merge_excavator/repository_data.py" />
+        <option value="$PROJECT_DIR$/merge_excavator/search_repository.py" />
       </list>
     </option>
   </component>
@@ -215,9 +211,12 @@
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
       <profile-state>
+        <expanded-state>
+          <State />
+        </expanded-state>
         <selected-state>
           <State>
-            <id>BashSupport</id>
+            <id>Angular</id>
           </State>
         </selected-state>
       </profile-state>
@@ -602,7 +601,49 @@
       <option name="project" value="LOCAL" />
       <updated>1535491159939</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Add code comments to the main.py file">
+      <created>1535491425389</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1535491425389</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Add code comments to GitUtil.py">
+      <created>1535492211951</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1535492211951</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Add code comments to merge_replay.py">
+      <created>1535492235938</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1535492235938</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Enhance the code speed by not trying to compile/test the merge replays with conflictings">
+      <created>1535492505334</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1535492505334</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Add the arg validation code">
+      <created>1535492734818</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1535492734819</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Rafactoring the code to have a morereabale code in repository_data.py">
+      <created>1535492903079</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1535492903079</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TodoView">
@@ -689,12 +730,6 @@
       <path value="$PROJECT_DIR$/merge excavator/perwendel___spark" />
       <path value="$PROJECT_DIR$/merge excavator/elasticsearch" />
     </ignored-roots>
-    <MESSAGE value="Update the Pycharm meta-data" />
-    <MESSAGE value="Fix the regex for detecting conflicts" />
-    <MESSAGE value="Add switches to reduce the execution time" />
-    <MESSAGE value="Update the data schema" />
-    <MESSAGE value="Add code complexity and style violation" />
-    <MESSAGE value="Add README.md" />
     <MESSAGE value="Add search for repositories" />
     <MESSAGE value="Update README.md for search repositories" />
     <MESSAGE value="Update README.md for setting config.py" />
@@ -714,7 +749,13 @@
     <MESSAGE value="add code comments to clone_repositories.py" />
     <MESSAGE value="Add code comments to code_quality.py" />
     <MESSAGE value="Add code comments to GitUtil class" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add code comments to GitUtil class" />
+    <MESSAGE value="Add code comments to the main.py file" />
+    <MESSAGE value="Add code comments to GitUtil.py" />
+    <MESSAGE value="Add code comments to merge_replay.py" />
+    <MESSAGE value="Enhance the code speed by not trying to compile/test the merge replays with conflictings" />
+    <MESSAGE value="Add the arg validation code" />
+    <MESSAGE value="Rafactoring the code to have a morereabale code in repository_data.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rafactoring the code to have a morereabale code in repository_data.py" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -789,44 +830,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/merge_excavator/search_repository.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/runAll.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/merge_excavator/merge_replay.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="13" column="56" selection-start-line="13" selection-start-column="56" selection-end-line="13" selection-end-column="56" />
-          <folding>
-            <element signature="e#1#10#0" expanded="true" />
-            <marker date="1535399777528" expanded="true" signature="154:155" ph="..." />
-            <marker date="1535399777528" expanded="true" signature="154:163" ph="..." />
-            <marker date="1535399777528" expanded="true" signature="154:973" ph="..." />
-            <marker date="1535399777528" expanded="true" signature="154:975" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/merge_excavator/repository_data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="33" column="7" selection-start-line="33" selection-start-column="7" selection-end-line="33" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/merge_excavator/code_quality.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1170">
-          <caret line="78" lean-forward="true" selection-start-line="78" selection-end-line="78" />
-          <folding>
-            <element signature="e#1#10#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -857,27 +864,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/merge_excavator/clone_repositories.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="58" lean-forward="true" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="58" />
-          <folding>
-            <element signature="e#1#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/merge_excavator/GitUtil.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2190">
-          <caret line="146" selection-start-line="146" selection-end-line="146" />
-          <folding>
-            <element signature="e#1#10#0" expanded="true" />
-            <marker date="1535491159835" expanded="true" signature="273:491" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/merge_excavator/util.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -888,23 +874,84 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/merge_excavator/validation.py">
+    <entry file="file://$PROJECT_DIR$/merge_excavator/GitUtil.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="4" lean-forward="true" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="33" />
+        <state relative-caret-position="210">
+          <caret line="14" column="98" selection-start-line="14" selection-start-column="98" selection-end-line="14" selection-end-column="98" />
           <folding>
-            <marker date="1535488725510" expanded="true" signature="74:79" ph="..." />
+            <element signature="e#1#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/merge_excavator/merge_replay.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1126">
+          <caret line="39" column="69" selection-start-line="39" selection-start-column="69" selection-end-line="39" selection-end-column="69" />
+          <folding>
+            <element signature="e#1#10#0" expanded="true" />
+            <marker date="1535492442426" expanded="true" signature="408:409" ph="..." />
+            <marker date="1535492442426" expanded="true" signature="408:417" ph="..." />
+            <marker date="1535492442426" expanded="true" signature="408:1226" ph="..." />
+            <marker date="1535492442426" expanded="true" signature="408:1228" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/merge_excavator/clone_repositories.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="58" lean-forward="true" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="58" />
+          <folding>
+            <element signature="e#1#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/merge_excavator/code_quality.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="40" column="96" lean-forward="true" selection-start-line="40" selection-start-column="30" selection-end-line="40" selection-end-column="96" />
+          <folding>
+            <element signature="e#1#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/merge_excavator/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
+        <state relative-caret-position="-180">
           <caret line="15" column="103" selection-start-line="15" selection-start-column="103" selection-end-line="15" selection-end-column="103" />
           <folding>
             <element signature="e#1#37#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/merge_excavator/repository_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+          <folding>
+            <element signature="e#1#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/merge_excavator/validation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+          <folding>
+            <marker date="1535492714839" expanded="true" signature="74:79" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/merge_excavator/search_repository.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
         </state>
       </provider>
     </entry>
