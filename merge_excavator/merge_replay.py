@@ -1,4 +1,5 @@
 
+import os
 import re
 import time
 import csv
@@ -9,8 +10,16 @@ from code_quality import *
 
 
 class Merge_Replay:
+    """
+    This is the main class to replay the merge scenarios and extract their features, conflicting files, and conflicting
+     regions.
+    """
 
     def __init__(self):
+        """
+        The construction method is for compiling regular expressions
+        """
+
         self.CONFLICT_PATTERN_CONTENT = re.compile('CONFLICT \\(((?:content|add\\/add))\\): Merge conflict in \"?([^\"]+)\"?')
         self.CONFLICT_PATTERN_DELETE = re.compile(
             'CONFLICT \\(((?:rename|modify)\\/delete)\\): \"?([^\"]+)\"? deleted in .+ and (?:renamed|modified) .+')
@@ -22,12 +31,24 @@ class Merge_Replay:
         self.CONFLICT_PATTERN_REGION = re.compile(
             '\\@\\@\\@ \\-(\\d+),(\\d+) \\-(\\d+),(\\d+) \\+(\\d+),(\\d+) \\@\\@\\@[\\s\\S]*')
 
-
     def merge_replay(self, repository_name, merge_technique, merge_commit, parents_commit, exec_compile, exec_tests,
                      exec_conflicting_file, exec_conflicting_region, exec_replay_comparison):
+        """
+        This method replay merges, and store the related information in tables.
+        :param repository_name: The name of the repository in <USER_NAME>/<REPOSITORY_NAME> format
+        :param merge_technique: The merge technique, currently the tool only uses default merge in git
+        :param merge_commit: the merge commit that should be replayed
+        :param parents_commit: A list of two parents to replay
+        :param exec_compile: Whether the replay should compile
+        :param exec_tests: Whether the replay should pass the tests
+        :param exec_conflicting_file:  Whether the information of the conflicting files should be stored
+        :param exec_conflicting_region: Whether the information of the conflicting regions should be stored
+        :param exec_replay_comparison: Whether the replay and merge commit should compare
+        :return: Nothing
+        """
 
-        repository_dir = repository_name.replace('/', '___')
-        cd_to_repository = 'cd {};'.format(config.REPOSITORY_PATH + repository_dir)
+        repository_dir = config.REPOSITORY_PATH + repository_name.replace('/', '___')
+        cd_to_repository = 'cd {};'.format(repository_dir)
 
         # Merge commit/replay comparison (1)
         if exec_replay_comparison:
