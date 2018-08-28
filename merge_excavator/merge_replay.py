@@ -54,7 +54,7 @@ class Merge_Replay:
         # Merge commit/replay comparison (1)
         if exec_replay_comparison:
             os.system(cd_to_repository + 'git checkout --quiet  ' + merge_commit)
-            merge_commit_md5 = dirhash(config.REPOSITORY_PATH + repository_dir, 'md5')
+            merge_commit_md5 = dirhash(repository_dir, 'md5')
 
         # Merge replay
         t0 = time.time()
@@ -62,7 +62,7 @@ class Merge_Replay:
                                 ';git merge --quiet --no-commit  ' + parents_commit[1]).readlines()
         execution_time = time.time() - t0
         if exec_replay_comparison:
-            replay_md5 = dirhash(config.REPOSITORY_PATH + repository_dir, 'md5')
+            replay_md5 = dirhash(repository_dir, 'md5')
 
         # Detect conflicts
         merge_output_concat = ''.join(merge_output)
