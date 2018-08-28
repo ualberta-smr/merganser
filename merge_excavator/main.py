@@ -3,6 +3,8 @@ from joblib import Parallel, delayed
 import multiprocessing
 import argparse
 import logging
+from time import gmtime, strftime
+
 
 from clone_repositories import *
 from merge_scenario_data import *
@@ -25,7 +27,8 @@ if __name__ == '__main__':
     logging.basicConfig(level = logging.INFO,
                         format = '%(levelname)s in %(threadName)s - %(asctime)s by %(name)-12s :  %(message)s',
                         datefmt = '%y-%m-%d %H:%M:%S',
-                        filename = 'main_execution.log',
+                        filename='{}main_execution_{}.log'.format(config.LOG_PATH, strftime('%Y-%m-%d_%H:%M:%S',
+                                                                                             gmtime())),
                         filemode = 'w')
     logging.info('The code starts') # TODO: the logging doesn't work for the main.py
 

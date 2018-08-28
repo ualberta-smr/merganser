@@ -3,6 +3,8 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/merge_excavator/perwendel___spark" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/working_dir/repository/owhadi___sample-merge" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/working_dir/repository/perwendel___spark" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/working_dir/repository/xetorthio___jedis" vcs="Git" />
   </component>
 </project>
