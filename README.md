@@ -72,7 +72,7 @@ The list of its variables are:
     python3 search_repository.py -q data -s 200 -f 100 -l python -o data_popular_python_repos
     ```
 
-3. Finally, to run the tool, you can run this command:
+3. **Run the main script:** To run the tool, you can run this command:
 
 ```bash
 python3 main.py <parameters>  
@@ -92,4 +92,7 @@ Here are the list of parameters:
 | `-sv` or `--style-violation` | If set, the code style violations are extracted |
 | `-cc` or `--code-complexity` | If set, the code complexity are extracted |
 | `-cores` or `--cpu-cores` | The number of threads |
+
+To run the toolchain with all features, you can simply run `./runAll <repository_list>`. For example, to run the toolchain
+on _spark_ repository, run `./runAll spark`.
 
