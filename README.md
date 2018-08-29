@@ -1,7 +1,7 @@
 
 # Merge Excavator
 
-This repository provides a tool chain for gathering and analyzing merge scenarios found in git repositories. 
+This repository provides a toolchain for gathering and analyzing merge scenarios found in git repositories. 
 It supports extracting various features of the merge scenario as well as executing the merge using different merge tools.
 It also supports compiling and testing the resulting resolutions. Currently, only _Maven_ is supported.
 
@@ -19,8 +19,14 @@ Check the list before executing this script and adapt according to your needs to
  tools you may already have)
 
 ```bash
-./setup.py
+sudo ./setup.py
 ``` 
+
+3. To install the tool, you can easily run the following command:
+
+```bash
+sudo python3 setup.py install
+```
 
 # Usage 
 
@@ -33,10 +39,18 @@ The list of its variables are:
 | `REPOSITORY_PATH` | The path to save the cloned repositories
 | `TEMP_CSV_PATH` |  The path to save the temporary CSV files before inserting to SQL tables
 | `REPOSITORY_LIST_PATH` | The path to save the list of repositories to clone
-
+| `LOG_PATH` | The path to save logs |
+| `QUERY_PATH` | THe path of sql queries |
+| `DB_HOST` | Database host |
+| `DB_NAME` | Database name |
+| `DB_USER_NAME` | Database username |
 
 2. **Add the list of repositories:** The input of the main program is a list of repositories to analyze. There are different waqy to create such list:
-    * **Automatic searching:** THe list of GitHub repositories is searched by:
+
+    * **All the repository list manually:** You can simply put the list or repository with `.txt` extension in
+     `REPOSITORY_LIST_PATH` directory which is set in `config.py`.
+
+    * **Automatic searching:** You can search the list of repositories by:
     
     ```bash
     python3 search_repository.py
@@ -56,8 +70,26 @@ The list of its variables are:
      
     ```bash
     python3 search_repository.py -q data -s 200 -f 100 -l python -o data_popular_python_repos
-    ```  
-    
-    * **All the repository list manually:** You can simply put the list or repository with `.txt` extension in
-     `REPOSITORY_LIST_PATH` directory which is set in `config.py`.
-    
+    ```
+
+3. Finally, to run the tool, you can run this command:
+
+```bash
+python3 main.py <parameters>  
+```    
+Here are the list of parameters:
+
+| Parameter | Description |
+| --- | --- |
+| `-r` or `--repository-list` | The list of GitHub repositories |
+| `-c` or `--compile` | If set, the merged code (if successfully merged using the given tool) will be compiled |
+| `-t` or `--test` | If set, the repository\'s test suite will be run after a successful merge |   
+| `-cf` or `--conflicting-file` | If set, the information of conflicting files is stored |
+| `-cr` or `--conflicting-region` | If set, the information of conflicting regions is stored |
+| `-pr` or `--pull-request` | If set, pull requests are detected |
+| `-rc` or `--replay-compare` | If set, the replays and merge commits are compared |
+| `-cd` or `--commit-details` | If set, the information of all commits that are involved in merge scenarios are extracted |
+| `-sv` or `--style-violation` | If set, the code style violations are extracted |
+| `-cc` or `--code-complexity` | If set, the code complexity are extracted |
+| `-cores` or `--cpu-cores` | The number of threads |
+
