@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d417784f-f8c7-4ee1-8f7a-4b97c99aae62" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/queries/Merge_Data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/queries/Merge_Data.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schema/Merge_Data.mwb" beforeDir="false" afterPath="$PROJECT_DIR$/schema/Merge_Data.mwb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schema/Merge_Data.png" beforeDir="false" afterPath="$PROJECT_DIR$/schema/Merge_Data.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_run-time.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/setup.cfg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/setup.sh" beforeDir="false" afterPath="$PROJECT_DIR$/setup.sh" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -84,7 +85,7 @@
           <entry key="png" value="1" />
           <entry key="py" value="73" />
           <entry key="sh" value="2" />
-          <entry key="txt" value="1" />
+          <entry key="txt" value="2" />
           <entry key="yml" value="1" />
         </counts>
       </usages-collector>
@@ -93,7 +94,7 @@
           <entry key="Bash" value="2" />
           <entry key="Image" value="1" />
           <entry key="Markdown" value="3" />
-          <entry key="PLAIN_TEXT" value="5" />
+          <entry key="PLAIN_TEXT" value="6" />
           <entry key="Python" value="73" />
           <entry key="YAML" value="1" />
         </counts>
@@ -103,16 +104,16 @@
           <entry key="dummy" value="7" />
           <entry key="md" value="271" />
           <entry key="py" value="4541" />
-          <entry key="sh" value="19" />
-          <entry key="txt" value="1427" />
+          <entry key="sh" value="42" />
+          <entry key="txt" value="1499" />
           <entry key="yml" value="43" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Bash" value="19" />
+          <entry key="Bash" value="42" />
           <entry key="Markdown" value="271" />
-          <entry key="PLAIN_TEXT" value="1434" />
+          <entry key="PLAIN_TEXT" value="1506" />
           <entry key="Python" value="4540" />
           <entry key="RegExp" value="1" />
           <entry key="YAML" value="43" />
@@ -158,12 +159,12 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
               <first_editor relative-caret-position="285">
-                <caret line="70" column="54" selection-start-line="70" selection-start-column="54" selection-end-line="70" selection-end-column="54" />
+                <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
               </first_editor>
               <second_editor />
             </state>
@@ -187,7 +188,7 @@
           <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.travis.yml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="90">
@@ -197,10 +198,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/setup.py">
+        <entry file="file://$PROJECT_DIR$/requirements.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="16" column="82" selection-start-line="16" selection-start-column="82" selection-end-line="16" selection-end-column="82" />
+            <state relative-caret-position="15">
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
             </state>
           </provider>
         </entry>
@@ -208,8 +209,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/setup.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" selection-start-line="7" selection-end-line="16" selection-end-column="66" />
+            <state relative-caret-position="300">
+              <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
             </state>
           </provider>
         </entry>
@@ -281,9 +282,11 @@
         <option value="$PROJECT_DIR$/merge_excavator/repository_data.py" />
         <option value="$PROJECT_DIR$/merge_excavator/GitUtil.py" />
         <option value="$PROJECT_DIR$/merge_excavator/main.py" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/tests/test_run-time.py" />
         <option value="$PROJECT_DIR$/.travis.yml" />
+        <option value="$PROJECT_DIR$/requirements.txt" />
+        <option value="$PROJECT_DIR$/setup.sh" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -448,20 +451,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1534788102940</updated>
-    </task>
-    <task id="LOCAL-00022" summary="Clean README.md">
-      <created>1535038277526</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1535038277526</updated>
-    </task>
-    <task id="LOCAL-00023" summary="Add clone repositories">
-      <created>1535138802878</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1535138802878</updated>
     </task>
     <task id="LOCAL-00024" summary="Change the code directory and use dash, instead of space in the file name">
       <created>1535138837155</created>
@@ -792,7 +781,21 @@
       <option name="project" value="LOCAL" />
       <updated>1535661049611</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="Fix file name bug in tests">
+      <created>1535661908151</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1535661908151</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Modify the schema and remove AI keys">
+      <created>1535661937192</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1535661937192</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="TodoView">
@@ -879,8 +882,6 @@
       <path value="$PROJECT_DIR$/merge excavator/perwendel___spark" />
       <path value="$PROJECT_DIR$/merge excavator/elasticsearch" />
     </ignored-roots>
-    <MESSAGE value="Rename the search_repository.py for consistency" />
-    <MESSAGE value="Add code comments to util.py" />
     <MESSAGE value="add code comments to validation.py" />
     <MESSAGE value="Fix the bug in validation.py" />
     <MESSAGE value="Fix the bug in relative address of directories" />
@@ -904,7 +905,9 @@
     <MESSAGE value="Use direct installation of Python for CI" />
     <MESSAGE value="Remove MySQL installation from CI" />
     <MESSAGE value="Remove unnecessary Java packages from CI" />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove unnecessary Java packages from CI" />
+    <MESSAGE value="Fix file name bug in tests" />
+    <MESSAGE value="Modify the schema and remove AI keys" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modify the schema and remove AI keys" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1071,16 +1074,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="285">
-            <caret line="70" column="54" selection-start-line="70" selection-start-column="54" selection-end-line="70" selection-end-column="54" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/merge_excavator/data_convertion.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
@@ -1101,24 +1094,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.travis.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="55" selection-start-line="6" selection-start-column="55" selection-end-line="6" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/setup.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
-          <caret line="16" column="82" selection-start-line="16" selection-start-column="82" selection-end-line="16" selection-end-column="82" />
+          <caret line="16" column="27" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/setup.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" selection-start-line="7" selection-end-line="16" selection-end-column="66" />
+        <state relative-caret-position="300">
+          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.travis.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="55" selection-start-line="6" selection-start-column="55" selection-end-line="6" selection-end-column="55" />
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="285">
+            <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>

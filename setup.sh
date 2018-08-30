@@ -15,3 +15,6 @@ sudo apt-get install -y default-jdk* gradle maven openjdk-8-jdk openjfx libgit2-
 
 # Python3
 sudo apt-get install -y python3-dev python3-pip python3-setuptools
+
+# Libs
+sudo pip3 install -r requirements.txt

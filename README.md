@@ -24,12 +24,6 @@ Check the list before executing this script and adapt according to your needs to
 sudo ./setup.py
 ``` 
 
-3. To install the tool, you can easily run the following command:
-
-```bash
-sudo python3 setup.py install
-```
-
 # Usage 
 
 1. **Set the `config.py` file:** The pre-defined paths and database information are stored in  `config.py` file. 
