@@ -84,8 +84,8 @@ Here are the list of parameters:
 | `-r` or `--repository-list` | The list of GitHub repositories |
 | `-c` or `--compile` | If set, the merged code (if successfully merged using the given tool) will be compiled |
 | `-t` or `--test` | If set, the repository\'s test suite will be run after a successful merge |   
-| `-cf` or `--conflicting-file` | If set, the information of conflicting files is stored |
-| `-cr` or `--conflicting-region` | If set, the information of conflicting regions is stored |
+| `-cf` or `--conflicting-file` | If set, the `Conflicting_File` table will be populated |
+| `-cr` or `--conflicting-region` | If set, the `Conflicting_Region` table will be populated |
 | `-pr` or `--pull-request` | If set, pull requests are detected |
 | `-rc` or `--replay-compare` | If set, the replays and merge commits are compared |
 | `-cd` or `--commit-details` | If set, the information of all commits that are involved in merge scenarios are extracted |
