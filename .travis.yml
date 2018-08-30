@@ -4,7 +4,6 @@ python:
 cache: pip3
 before_install:
   - sudo apt-get install -y clang gcc g++ libboost-all-dev
-  - sudo apt-get install -y mysql-server mysql-client
   - sudo apt-get install -y default-jdk* gradle maven openjdk-8-jdk openjfx libgit2-dev
   - sudo apt-get install -y python3-dev python3-pip python3-setuptools
 script:
