@@ -2,7 +2,7 @@
 import multiprocessing
 
 
-def validation_repository_name(repository_name):
+def validate_repository_name(repository_name):
     """
     Check if repository_name follows the right format.
     :param repository_name: The name of the repository in <USER_NAME>/<REPOSITORY_NAME> format
@@ -13,7 +13,7 @@ def validation_repository_name(repository_name):
                          ' follow this.'.format(repository_name))
 
 
-def validation_core_num(core_num):
+def validate_core_num(core_num):
     """
     Check if the code_num follows the right format. This variable should be an integer between one and the number of
     cores on the machine.

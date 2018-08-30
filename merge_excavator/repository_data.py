@@ -15,7 +15,7 @@ def store_repository_info(repository_name):
     repository_url: The name of the repository in <USER_NAME>/<REPOSITORY_NAME> format
     :return: The Nothing
     """
-    validation.validation_repository_name(repository_name)
+    validation.validate_repository_name(repository_name)
 
     github_request = os.popen('curl --silent -H "Authorization: token  ' + config.GITHUB_KEY + \
                                '"  https://api.github.com/repos/' + repository_name.replace('___', '/')).read()

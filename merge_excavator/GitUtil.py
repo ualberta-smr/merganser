@@ -14,7 +14,7 @@ class GitUtil:
         """
         :param repository_name: The name of the repository in <USER_NAME>/<REPOSITORY_NAME> format
         """
-        validation.validation_repository_name(repository_name)
+        validation.validate_repository_name(repository_name)
         self.repository_name = repository_name
         self.repository_dir = config.REPOSITORY_PATH + self.repository_name.replace('/', '___')
         self.cd_to_repository = 'cd {};'.format(self.repository_dir)

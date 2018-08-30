@@ -63,7 +63,7 @@ if __name__ == '__main__':
         core_num = multiprocessing.cpu_count()
     else:
         core_num = args['cpu_cores']
-    validation.validation_core_num(core_num)
+    validation.validate_core_num(core_num)
 
     # Clone the repositories
     clone_repositories(args['repository_list'], core_num)
