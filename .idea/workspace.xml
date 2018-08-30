@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d417784f-f8c7-4ee1-8f7a-4b97c99aae62" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.travis.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test_run-time.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -12,6 +13,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/code_owhadi_msr19$test_run_time.coverage" NAME="test_run-time Coverage Results" MODIFIED="1535654991978" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/code_owhadi_msr19$main.coverage" NAME="main Coverage Results" MODIFIED="1535386553814" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/merge_excavator" />
   </component>
   <component name="FUSProjectUsageTrigger">
@@ -77,35 +79,41 @@
         <counts>
           <entry key="log" value="4" />
           <entry key="md" value="3" />
-          <entry key="py" value="70" />
+          <entry key="png" value="1" />
+          <entry key="py" value="72" />
           <entry key="sh" value="1" />
           <entry key="txt" value="1" />
+          <entry key="yml" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Bash" value="1" />
+          <entry key="Image" value="1" />
           <entry key="Markdown" value="3" />
           <entry key="PLAIN_TEXT" value="5" />
-          <entry key="Python" value="70" />
+          <entry key="Python" value="72" />
+          <entry key="YAML" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="7" />
           <entry key="md" value="271" />
-          <entry key="py" value="4521" />
+          <entry key="py" value="4541" />
           <entry key="sh" value="19" />
-          <entry key="txt" value="1144" />
+          <entry key="txt" value="1197" />
+          <entry key="yml" value="25" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Bash" value="19" />
           <entry key="Markdown" value="271" />
-          <entry key="PLAIN_TEXT" value="1151" />
-          <entry key="Python" value="4520" />
+          <entry key="PLAIN_TEXT" value="1204" />
+          <entry key="Python" value="4540" />
           <entry key="RegExp" value="1" />
+          <entry key="YAML" value="25" />
         </counts>
       </usages-collector>
     </session>
@@ -116,55 +124,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/merge_excavator/merge_scenario_data.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-              <folding>
-                <element signature="e#1#11#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/merge_excavator/related_commits.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" selection-start-line="1" selection-end-line="1" />
-              <folding>
-                <element signature="e#1#11#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/merge_excavator/validation.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="12" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/merge_excavator/repository_data.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="23" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
-              <folding>
-                <element signature="e#1#10#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/merge_excavator/repository_search.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="15">
-              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
               <folding>
                 <element signature="e#1#15#0" expanded="true" />
               </folding>
@@ -217,7 +180,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
@@ -225,6 +188,41 @@
                 <caret line="70" column="54" selection-start-line="70" selection-start-column="54" selection-end-line="70" selection-end-column="54" />
               </first_editor>
               <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/merge_excavator/data_convertion.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="22" selection-start-line="22" selection-end-line="22" />
+              <folding>
+                <element signature="e#2#11#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/schema/Merge_Data.png">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/test_run-time.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.travis.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="35" lean-forward="true" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -297,6 +295,8 @@
         <option value="$PROJECT_DIR$/merge_excavator/GitUtil.py" />
         <option value="$PROJECT_DIR$/merge_excavator/main.py" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/tests/test_run-time.py" />
+        <option value="$PROJECT_DIR$/.travis.yml" />
       </list>
     </option>
   </component>
@@ -342,17 +342,12 @@
             <path>
               <item name="code-owhadi-msr19" type="b2602c69:ProjectViewProjectNode" />
               <item name="code-owhadi-msr19" type="462c0819:PsiDirectoryNode" />
-              <item name="merge_excavator" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="code-owhadi-msr19" type="b2602c69:ProjectViewProjectNode" />
-              <item name="code-owhadi-msr19" type="462c0819:PsiDirectoryNode" />
               <item name="queries" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="code-owhadi-msr19" type="b2602c69:ProjectViewProjectNode" />
               <item name="code-owhadi-msr19" type="462c0819:PsiDirectoryNode" />
-              <item name="schema" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -378,7 +373,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.test_run-time">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="code-owhadi-msr19" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -423,12 +418,36 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test_run-time" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="code-owhadi-msr19" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/test_run-time.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.merge_scenario_data" />
       <item itemvalue="Python.main" />
+      <item itemvalue="Python.test_run-time" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test_run-time" />
         <item itemvalue="Python.main" />
       </list>
     </recent_temporary>
@@ -443,13 +462,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1534788102940</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Add the merge replay, conflicting file and regions extraction code">
-      <created>1534883756550</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1534883756550</updated>
     </task>
     <task id="LOCAL-00012" summary="Add dependencity to setup.py">
       <created>1534883814677</created>
@@ -787,7 +799,14 @@
       <option name="project" value="LOCAL" />
       <updated>1535647130544</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="Add warning for the number of cores to address #6">
+      <created>1535647274071</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1535647274071</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TodoView">
@@ -808,7 +827,7 @@
       <window_info id="Favorites" order="2" sideWeight="0.50167227" side_tool="true" weight="0.1284153" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4997233" visible="true" weight="0.32996634" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4975097" weight="0.32884398" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4975097" visible="true" weight="0.32884398" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49836066" weight="0.39955106" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -874,7 +893,6 @@
       <path value="$PROJECT_DIR$/merge excavator/perwendel___spark" />
       <path value="$PROJECT_DIR$/merge excavator/elasticsearch" />
     </ignored-roots>
-    <MESSAGE value="add a run script" />
     <MESSAGE value="add code comments to clone_repositories.py" />
     <MESSAGE value="Add code comments to code_quality.py" />
     <MESSAGE value="Add code comments to GitUtil class" />
@@ -899,7 +917,8 @@
     <MESSAGE value="Fix a wording problem to address #9" />
     <MESSAGE value="Add MIT license" />
     <MESSAGE value="Use better method names" />
-    <option name="LAST_COMMIT_MESSAGE" value="Use better method names" />
+    <MESSAGE value="Add warning for the number of cores to address #6" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add warning for the number of cores to address #6" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -992,16 +1011,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/merge_excavator/data_convertion.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" selection-start-line="22" selection-end-line="22" />
-          <folding>
-            <element signature="e#2#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/merge_excavator/related_commits.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -1042,7 +1051,7 @@
     <entry file="file://$PROJECT_DIR$/merge_excavator/repository_search.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
           <folding>
             <element signature="e#1#15#0" expanded="true" />
           </folding>
@@ -1093,6 +1102,33 @@
             <caret line="70" column="54" selection-start-line="70" selection-start-column="54" selection-end-line="70" selection-end-column="54" />
           </first_editor>
           <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/merge_excavator/data_convertion.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
+          <folding>
+            <element signature="e#2#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/schema/Merge_Data.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/test_run-time.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.travis.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="35" lean-forward="true" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
         </state>
       </provider>
     </entry>
