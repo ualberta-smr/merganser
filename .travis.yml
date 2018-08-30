@@ -3,6 +3,6 @@ python:
   - "3.4"
 cache: pip3
 before_install:
-  - ./setup.py
+  - sudo ./setup.py
 script:
   - python ./tests/test_run_time.py

@@ -101,18 +101,18 @@
           <entry key="md" value="271" />
           <entry key="py" value="4541" />
           <entry key="sh" value="19" />
-          <entry key="txt" value="1250" />
-          <entry key="yml" value="26" />
+          <entry key="txt" value="1281" />
+          <entry key="yml" value="39" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Bash" value="19" />
           <entry key="Markdown" value="271" />
-          <entry key="PLAIN_TEXT" value="1257" />
+          <entry key="PLAIN_TEXT" value="1288" />
           <entry key="Python" value="4540" />
           <entry key="RegExp" value="1" />
-          <entry key="YAML" value="26" />
+          <entry key="YAML" value="39" />
         </counts>
       </usages-collector>
     </session>
@@ -220,8 +220,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.travis.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" selection-start-line="6" selection-end-line="6" />
+            <state relative-caret-position="75">
+              <caret line="5" column="9" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -461,20 +461,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1534788102940</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Fix the regex for detecting conflicts">
-      <created>1534885857991</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1534885857991</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Add switches to reduce the execution time">
-      <created>1534890310900</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1534890310900</updated>
     </task>
     <task id="LOCAL-00016" summary="Update the data schema">
       <created>1534890335196</created>
@@ -805,7 +791,21 @@
       <option name="project" value="LOCAL" />
       <updated>1535655546459</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="Use Python 3.4 with a simpler conf for CI">
+      <created>1535656041787</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1535656041788</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Add before_install for CI">
+      <created>1535656194172</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1535656194172</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TodoView">
@@ -892,8 +892,6 @@
       <path value="$PROJECT_DIR$/merge excavator/perwendel___spark" />
       <path value="$PROJECT_DIR$/merge excavator/elasticsearch" />
     </ignored-roots>
-    <MESSAGE value="Add code comments to GitUtil class" />
-    <MESSAGE value="Add code comments to the main.py file" />
     <MESSAGE value="Add code comments to GitUtil.py" />
     <MESSAGE value="Add code comments to merge_replay.py" />
     <MESSAGE value="Enhance the code speed by not trying to compile/test the merge replays with conflictings" />
@@ -917,7 +915,9 @@
     <MESSAGE value="Add warning for the number of cores to address #6" />
     <MESSAGE value="Add a sample CI" />
     <MESSAGE value="Use Python 3.4 for CI" />
-    <option name="LAST_COMMIT_MESSAGE" value="Use Python 3.4 for CI" />
+    <MESSAGE value="Use Python 3.4 with a simpler conf for CI" />
+    <MESSAGE value="Add before_install for CI" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add before_install for CI" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1126,8 +1126,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.travis.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        <state relative-caret-position="75">
+          <caret line="5" column="9" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
         </state>
       </provider>
     </entry>
