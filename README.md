@@ -1,6 +1,8 @@
 
 # Merge Excavator
 
+ [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 This repository provides a toolchain for gathering and analyzing merge scenarios found in git repositories. 
 It supports extracting various features of the merge scenario as well as executing the merge using different merge tools.
 It also supports compiling and testing the resulting resolutions. Currently, only _Maven_ is supported.
