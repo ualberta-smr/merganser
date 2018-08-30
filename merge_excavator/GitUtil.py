@@ -135,7 +135,7 @@ class GitUtil:
 
     def getChangedLineNumBetweenTwoCommits(self, commit1, commit2):
         """
-        Returns a vector with size two consists added removed lines between two commits
+        Returns a list which consists of all added and removed lines between two commits
         :param commit1: The SHA-1 of the first commit
         :param commit2: The SHA-1 of the second commit
         :return: The number of line changes
