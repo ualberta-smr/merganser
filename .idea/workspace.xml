@@ -3,7 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="d417784f-f8c7-4ee1-8f7a-4b97c99aae62" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.travis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.travis.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/queries/Merge_Data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/queries/Merge_Data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/schema/Merge_Data.mwb" beforeDir="false" afterPath="$PROJECT_DIR$/schema/Merge_Data.mwb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/schema/Merge_Data.png" beforeDir="false" afterPath="$PROJECT_DIR$/schema/Merge_Data.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_run-time.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -101,7 +104,7 @@
           <entry key="md" value="271" />
           <entry key="py" value="4541" />
           <entry key="sh" value="19" />
-          <entry key="txt" value="1345" />
+          <entry key="txt" value="1427" />
           <entry key="yml" value="43" />
         </counts>
       </usages-collector>
@@ -109,7 +112,7 @@
         <counts>
           <entry key="Bash" value="19" />
           <entry key="Markdown" value="271" />
-          <entry key="PLAIN_TEXT" value="1352" />
+          <entry key="PLAIN_TEXT" value="1434" />
           <entry key="Python" value="4540" />
           <entry key="RegExp" value="1" />
           <entry key="YAML" value="43" />
@@ -184,20 +187,11 @@
           <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tests/test_run-time.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" selection-start-line="1" selection-end-line="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.travis.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
+            <state relative-caret-position="90">
+              <caret line="6" column="55" selection-start-line="6" selection-start-column="55" selection-end-line="6" selection-end-column="55" />
             </state>
           </provider>
         </entry>
@@ -300,10 +294,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="2083" />
-    <option name="y" value="27" />
-    <option name="width" value="1717" />
-    <option name="height" value="987" />
+    <option name="x" value="1920" />
+    <option name="width" value="1920" />
+    <option name="height" value="1080" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -455,27 +448,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1534788102940</updated>
-    </task>
-    <task id="LOCAL-00019" summary="Add search for repositories">
-      <created>1535037269292</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1535037269293</updated>
-    </task>
-    <task id="LOCAL-00020" summary="Update README.md for search repositories">
-      <created>1535037291913</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1535037291913</updated>
-    </task>
-    <task id="LOCAL-00021" summary="Update README.md for setting config.py">
-      <created>1535038145745</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1535038145745</updated>
     </task>
     <task id="LOCAL-00022" summary="Clean README.md">
       <created>1535038277526</created>
@@ -799,7 +771,28 @@
       <option name="project" value="LOCAL" />
       <updated>1535657019832</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="Use direct installation of Python for CI">
+      <created>1535657345360</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1535657345360</updated>
+    </task>
+    <task id="LOCAL-00069" summary="Remove MySQL installation from CI">
+      <created>1535657494549</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1535657494549</updated>
+    </task>
+    <task id="LOCAL-00070" summary="Remove unnecessary Java packages from CI">
+      <created>1535661049611</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1535661049611</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TodoView">
@@ -886,9 +879,6 @@
       <path value="$PROJECT_DIR$/merge excavator/perwendel___spark" />
       <path value="$PROJECT_DIR$/merge excavator/elasticsearch" />
     </ignored-roots>
-    <MESSAGE value="Add the arg validation code" />
-    <MESSAGE value="Rafactoring the code to have a morereabale code in repository_data.py" />
-    <MESSAGE value="Add code comments for search_repository.py" />
     <MESSAGE value="Rename the search_repository.py for consistency" />
     <MESSAGE value="Add code comments to util.py" />
     <MESSAGE value="add code comments to validation.py" />
@@ -911,7 +901,10 @@
     <MESSAGE value="Add sudo access for CI" />
     <MESSAGE value="Fix bug to use setup.sh" />
     <MESSAGE value="Use direct installation for CI" />
-    <option name="LAST_COMMIT_MESSAGE" value="Use direct installation for CI" />
+    <MESSAGE value="Use direct installation of Python for CI" />
+    <MESSAGE value="Remove MySQL installation from CI" />
+    <MESSAGE value="Remove unnecessary Java packages from CI" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove unnecessary Java packages from CI" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1124,8 +1117,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.travis.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
+        <state relative-caret-position="90">
+          <caret line="6" column="55" selection-start-line="6" selection-start-column="55" selection-end-line="6" selection-end-column="55" />
         </state>
       </provider>
     </entry>
