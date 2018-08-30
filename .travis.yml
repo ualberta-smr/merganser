@@ -3,6 +3,11 @@ python:
   - "3.4"
 cache: pip3
 before_install:
-  - sudo ./setup.sh
+  - sudo apt-get install -y clang gcc g++ libboost-all-dev
+  - sudo apt-get install -y mysql-server mysql-client
+  - sudo apt-get install -y default-jdk* gradle maven openjdk-8-jdk openjfx libgit2-dev
+
+# Python3
+sudo apt-get install -y python3-dev python3-pip python3-setuptools
 script:
   - python ./tests/test_run_time.py
