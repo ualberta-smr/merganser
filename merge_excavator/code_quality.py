@@ -5,7 +5,7 @@ import numpy as np
 import config
 
 
-def get_commit_quality(repository_name, commit, operation):
+def check_build_status(repository_name, commit, operation):
     """
     Checkout, compile and test a commit. This method reset all changes at the end.
     :param repository_name:   The name of the repository in <USER_NAME>/<REPOSITORY_NAME> format

@@ -51,10 +51,10 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
 
         # Compile the code
         if exec_compile:
-            merge_commit_can_compile = git_utility.get_commit_quality(merge_commit, 'compile')
-            ancestor_can_compile = git_utility.get_commit_quality(ancestor_commit, 'compile')
-            parent1_can_compile = git_utility.get_commit_quality(parents_commit[0], 'compile')
-            parent2_can_compile = git_utility.get_commit_quality(parents_commit[1], 'compile')
+            merge_commit_can_compile = check_build_status(merge_commit, 'compile')
+            ancestor_can_compile = check_build_status(ancestor_commit, 'compile')
+            parent1_can_compile = check_build_status(parents_commit[0], 'compile')
+            parent2_can_compile = check_build_status(parents_commit[1], 'compile')
         else:
             merge_commit_can_compile = -1
             ancestor_can_compile = -1
@@ -63,10 +63,10 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
 
         # Test the code
         if exec_tests:
-            merge_commit_can_pass_test = git_utility.get_commit_quality(merge_commit, 'test')
-            ancestor_can_pass_test = git_utility.get_commit_quality(ancestor_commit, 'test')
-            parent1_can_pass_test = git_utility.get_commit_quality(parents_commit[0], 'test')
-            parent2_can_pass_test = git_utility.get_commit_quality(parents_commit[1], 'test')
+            merge_commit_can_pass_test = check_build_status(merge_commit, 'test')
+            ancestor_can_pass_test = check_build_status(ancestor_commit, 'test')
+            parent1_can_pass_test = check_build_status(parents_commit[0], 'test')
+            parent2_can_pass_test = check_build_status(parents_commit[1], 'test')
         else:
             merge_commit_can_pass_test = -1
             ancestor_can_pass_test = -1

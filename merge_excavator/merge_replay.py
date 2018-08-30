@@ -74,7 +74,7 @@ class Merge_Replay:
         # Compile the code
         if exec_compile:
             if is_conflict == 1:
-                replay_can_compile = get_commit_quality(repository_name, -1, 'compile')
+                replay_can_compile = check_build_status(repository_name, -1, 'compile')
             else:
                 replay_can_compile = 0
         else:
@@ -83,7 +83,7 @@ class Merge_Replay:
         # Test the code
         if exec_tests:
             if is_conflict == 1:
-                replay_can_pass_test = get_commit_quality(repository_name, -1, 'test')
+                replay_can_pass_test = check_build_status(repository_name, -1, 'test')
             else:
                 replay_can_pass_test = 0
         else:
