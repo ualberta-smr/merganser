@@ -4,8 +4,6 @@
     <list default="true" id="d417784f-f8c7-4ee1-8f7a-4b97c99aae62" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.travis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.travis.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setup.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/setup.cfg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -103,7 +101,7 @@
           <entry key="md" value="271" />
           <entry key="py" value="4541" />
           <entry key="sh" value="19" />
-          <entry key="txt" value="1315" />
+          <entry key="txt" value="1345" />
           <entry key="yml" value="43" />
         </counts>
       </usages-collector>
@@ -111,7 +109,7 @@
         <counts>
           <entry key="Bash" value="19" />
           <entry key="Markdown" value="271" />
-          <entry key="PLAIN_TEXT" value="1322" />
+          <entry key="PLAIN_TEXT" value="1352" />
           <entry key="Python" value="4540" />
           <entry key="RegExp" value="1" />
           <entry key="YAML" value="43" />
@@ -198,8 +196,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.travis.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="15" selection-start-line="4" selection-start-column="15" selection-end-line="4" selection-end-column="15" />
+            <state relative-caret-position="120">
+              <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -457,13 +455,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1534788102940</updated>
-    </task>
-    <task id="LOCAL-00018" summary="Add README.md">
-      <created>1534985805548</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1534985805548</updated>
     </task>
     <task id="LOCAL-00019" summary="Add search for repositories">
       <created>1535037269292</created>
@@ -801,7 +792,14 @@
       <option name="project" value="LOCAL" />
       <updated>1535656458921</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="Use direct installation for CI">
+      <created>1535657019832</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1535657019832</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TodoView">
@@ -888,7 +886,6 @@
       <path value="$PROJECT_DIR$/merge excavator/perwendel___spark" />
       <path value="$PROJECT_DIR$/merge excavator/elasticsearch" />
     </ignored-roots>
-    <MESSAGE value="Enhance the code speed by not trying to compile/test the merge replays with conflictings" />
     <MESSAGE value="Add the arg validation code" />
     <MESSAGE value="Rafactoring the code to have a morereabale code in repository_data.py" />
     <MESSAGE value="Add code comments for search_repository.py" />
@@ -913,7 +910,8 @@
     <MESSAGE value="Add before_install for CI" />
     <MESSAGE value="Add sudo access for CI" />
     <MESSAGE value="Fix bug to use setup.sh" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix bug to use setup.sh" />
+    <MESSAGE value="Use direct installation for CI" />
+    <option name="LAST_COMMIT_MESSAGE" value="Use direct installation for CI" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1126,8 +1124,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.travis.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="15" selection-start-line="4" selection-start-column="15" selection-end-line="4" selection-end-column="15" />
+        <state relative-caret-position="120">
+          <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
         </state>
       </provider>
     </entry>
