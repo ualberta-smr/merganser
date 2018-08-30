@@ -2,7 +2,7 @@ language: python
 python:
   - "3.4"
 cache: pip3
-install:
+before_install:
   - ./setup.py
 script:
   - python ./tests/test_run_time.py
