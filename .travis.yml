@@ -4,6 +4,5 @@ python:
 cache: pip3
 install:
   - ./setup.py
-  - python3 setup.py install
 script:
   - python ./tests/test_run_time.py
