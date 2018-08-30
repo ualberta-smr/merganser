@@ -93,7 +93,7 @@ Here are the list of parameters:
 | `-cd` or `--commit-details` | If set, the information of all commits that are involved in merge scenarios are extracted |
 | `-sv` or `--style-violation` | If set, the code style violations are extracted |
 | `-cc` or `--code-complexity` | If set, the code complexity are extracted |
-| `-cores` or `--cpu-cores` | The number of threads |
+| `-cores` or `--cpu-cores` | The number of threads. The default value is ALL logical cores on the system. |
 
 To run the toolchain with all features, you can simply run `./runAll <repository_list>`. For example, to run the toolchain
 on _spark_ repository, run `./runAll spark`.
