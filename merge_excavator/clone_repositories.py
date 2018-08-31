@@ -14,7 +14,7 @@ def clone_repository(repository_name):
     :param repository_name:   The name of the repository in <USER_NAME>/<REPOSITORY_NAME> format
     :return: Nothing
     """
-    validation.validation_repository_name(repository_name)
+    validation.validate_repository_name(repository_name)
     cd_to_repository = 'cd {};'.format(config.REPOSITORY_PATH)
     user_name = repository_name.split('/')[0].strip()
     repo_name = repository_name.split('/')[1].strip()
@@ -30,6 +30,6 @@ def clone_repositories(repository_list, core_num = multiprocessing.cpu_count()):
     :param core_num: The number of parallel threads. Default is all of the available cores
     :return: Nothing
     """
-    validation.validation_core_num(core_num)
+    validation.validate_core_num(core_num)
     repositories = open(config.REPOSITORY_LIST_PATH + repository_list + '.txt', 'rt').readlines()
     Parallel(n_jobs = core_num)(delayed(clone_repository)(i) for i in repositories)
