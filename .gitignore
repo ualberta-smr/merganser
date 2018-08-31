@@ -1,3 +1,9 @@
 *.bak
+*.csv
+*.zip
+*.sql
 __pycache__
 **/__pycache__
+./working_dir/logs
+./working_dir/repository
+./working_dir/csv_files
