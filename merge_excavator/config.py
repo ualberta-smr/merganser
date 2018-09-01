@@ -1,6 +1,6 @@
 
 # Keys
-GITHUB_KEY = ''
+GITHUB_KEY = '0f06f1b13421972ae88b514ac1c680853f23cc7b'
 
 # Paths
 REPOSITORY_PATH = '../working_dir/repository/'
@@ -10,7 +10,7 @@ LOG_PATH = '../working_dir/logs/'
 QUERY_PATH = '../queries/'
 
 # DB information
-DB_HOST = ''
-DB_NAME = ''
-DB_USER_NAME = ''
-DB_PASSWORD = ''
+DB_HOST = 'localhost'
+DB_NAME = 'Merge_Data'
+DB_USER_NAME = 'root'
+DB_PASSWORD = '123'

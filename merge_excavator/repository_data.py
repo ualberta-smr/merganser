@@ -30,3 +30,4 @@ def store_repository_info(repository_name):
     csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
     csv_writer.writerow(repository_data)
     csv_file.close()
+    return json_data['id']

@@ -1,6 +1,7 @@
 
 import csv
 import time
+import numpy
 import logging
 from dateutil.relativedelta import relativedelta as rd
 from time import gmtime, strftime
@@ -31,7 +32,7 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
     merge_commits = git_utility.get_merge_commits()[1:] #TODO: Why the first one is not in git log?
 
     # Repository Data
-    store_repository_info(repository_name)
+    repository_id = store_repository_info(repository_name)
 
 
     for merge_commit in merge_commits:
@@ -85,7 +86,8 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
                                ancestor_can_compile, ancestor_can_pass_test,
                                parent1_can_compile, parent1_can_pass_test,
                                parent2_can_compile, parent2_can_pass_test,
-                               merge_commit_date, ancestor_date, parent1_date, parent2_date, is_pull_request]
+                               merge_commit_date, ancestor_date, parent1_date, parent2_date, is_pull_request,
+                               repository_id]
         csv_file = open(config.TEMP_CSV_PATH + 'Merge_Scenario_{}.csv'.format(repository_name), 'a')
         csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
         csv_writer.writerow(merge_scenario_data)
@@ -93,12 +95,13 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
 
         # Merge replay
         merge_replay.merge_replay(repository_name, merge_technique, merge_commit, parents_commit, exec_compile, exec_tests,
-                     exec_conflicting_file, exec_conflicting_region, exec_replay_comparison)
+                     exec_conflicting_file, exec_conflicting_region, exec_replay_comparison, repository_id)
 
         # Store the related commits information
         if exec_related_commits:
             for index, parent in enumerate(parents_commit):
-                store_commit_info_between_two_commits(git_utility, ancestor_commit, parent, index + 1)
+                store_commit_info_between_two_commits(git_utility, ancestor_commit, parent, index + 1,
+                                                      merge_commit, repository_id)
 
         # Store code style violation
         if exec_code_style_violation:
@@ -107,15 +110,18 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
             parent1_style_violations = get_code_violation_num(repository_name, parents_commit[0])
             parent2_style_violations = get_code_violation_num(repository_name, parents_commit[1])
             code_style_violation_data = [merge_commit_style_violations, ancestor_style_violations,
-                                         parent1_style_violations, parent2_style_violations]
-            csv_file = open(config.TEMP_CSV_PATH + 'Code_style_violation_{}.csv'.format(repository_name), 'a')
+                                         parent1_style_violations, parent2_style_violations,
+                                         merge_commit, repository_id]
+            csv_file = open(config.TEMP_CSV_PATH + 'Code_Style_Violation_{}.csv'.format(repository_name), 'a')
             csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
             csv_writer.writerow(code_style_violation_data)
             csv_file.close()
 
         # Store code complexity
         if exec_complexity:
-            code_complexity_data = get_code_complexity_diff(repository_name, parents_commit[0], parents_commit[1])
+            code_complexity_data = get_code_complexity_diff(repository_name, parents_commit[0], parents_commit[1])\
+                                       .tolist()\
+                                   +[merge_commit, repository_id]
             csv_file = open(config.TEMP_CSV_PATH + 'Code_Complexity_{}.csv'.format(repository_name), 'a')
             csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
             csv_writer.writerow(code_complexity_data)

@@ -32,7 +32,7 @@ class Merge_Replay:
             '\\@\\@\\@ \\-(\\d+),(\\d+) \\-(\\d+),(\\d+) \\+(\\d+),(\\d+) \\@\\@\\@[\\s\\S]*')
 
     def merge_replay(self, repository_name, merge_technique, merge_commit, parents_commit, exec_compile, exec_tests,
-                     exec_conflicting_file, exec_conflicting_region, exec_replay_comparison):
+                     exec_conflicting_file, exec_conflicting_region, exec_replay_comparison, repository_id):
         """
         This method replay merges, and store the related information in tables.
         :param repository_name: The name of the repository in <USER_NAME>/<REPOSITORY_NAME> format
@@ -44,6 +44,7 @@ class Merge_Replay:
         :param exec_conflicting_file:  Whether the information of the conflicting files should be stored
         :param exec_conflicting_region: Whether the information of the conflicting regions should be stored
         :param exec_replay_comparison: Whether the replay and merge commit should compare
+        :param repository_id: The GitHub id of repository
         :return: Nothing
         """
 
@@ -100,9 +101,9 @@ class Merge_Replay:
 
         # Store the merge replay information
         merge_replay_data = [merge_technique, is_conflict, replay_can_compile, replay_can_pass_test, execution_time,
-                             replay_is_equal_to_merge_commit]
+                             replay_is_equal_to_merge_commit, merge_commit, repository_id]
         csv_file = open(config.TEMP_CSV_PATH + 'Merge_Replay_{}.csv'.format(repository_name), 'a')
-        csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
+        csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"', lineterminator='\n')
         csv_writer.writerow(merge_replay_data)
         csv_file.close()
 
@@ -129,7 +130,8 @@ class Merge_Replay:
                         conflicting_file = rename_add_conflict_match.group(2)
 
                     # Store the merge replay information
-                    conflicting_file_data = [conflicting_file, conflict_type]
+                    conflicting_file_data = [conflicting_file.strip(), conflict_type, merge_technique, merge_commit,
+                                             repository_id]
                     csv_file = open(config.TEMP_CSV_PATH + 'Conflicting_File_{}.csv'.format(repository_name), 'a')
                     csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
                     csv_writer.writerow(conflicting_file_data)
@@ -153,7 +155,7 @@ class Merge_Replay:
 
                         # Store the conflicting region information
                         conflicting_region_data = [parent1_path, parent2_path, diff_parent1_start, diff_parent1_length,
-                                                   diff_parent2_start, diff_parent2_length]
+                                                   diff_parent2_start, diff_parent2_length, merge_technique, merge_commit, repository_id]
                         csv_file = open(config.TEMP_CSV_PATH + 'Conflicting_Region_{}.csv'.format(repository_name), 'a')
                         csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
                         csv_writer.writerow(conflicting_region_data)
