@@ -10,9 +10,6 @@
       <change beforePath="$PROJECT_DIR$/merge_excavator/merge_scenario_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/merge_scenario_data.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/merge_excavator/related_commits.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/related_commits.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/merge_excavator/repository_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/repository_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/queries/Merge_Data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/queries/Merge_Data.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schema/Merge_Data.mwb" beforeDir="false" afterPath="$PROJECT_DIR$/schema/Merge_Data.mwb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schema/Merge_Data.png" beforeDir="false" afterPath="$PROJECT_DIR$/schema/Merge_Data.png" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -137,12 +134,12 @@
         <counts>
           <entry key="py" value="717" />
           <entry key="sql" value="21" />
-          <entry key="txt" value="93" />
+          <entry key="txt" value="113" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="93" />
+          <entry key="PLAIN_TEXT" value="113" />
           <entry key="Python" value="717" />
           <entry key="SQL" value="21" />
         </counts>
@@ -491,13 +488,6 @@
       <option name="presentableId" value="Default" />
       <updated>1534788102940</updated>
     </task>
-    <task id="LOCAL-00030" summary="Add util.py for removing/adding working directories">
-      <created>1535390780990</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1535390780990</updated>
-    </task>
     <task id="LOCAL-00031" summary="Add logging and pre-defined directories to the code">
       <created>1535390813298</created>
       <option name="number" value="00031" />
@@ -834,7 +824,14 @@
       <option name="project" value="LOCAL" />
       <updated>1535731674214</updated>
     </task>
-    <option name="localTasksCounter" value="79" />
+    <task id="LOCAL-00079" summary="Update the DB schema">
+      <created>1535782002178</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1535782002178</updated>
+    </task>
+    <option name="localTasksCounter" value="80" />
     <servers />
   </component>
   <component name="TodoView">
@@ -898,7 +895,6 @@
       <path value="$PROJECT_DIR$/merge excavator/perwendel___spark" />
       <path value="$PROJECT_DIR$/merge excavator/elasticsearch" />
     </ignored-roots>
-    <MESSAGE value="Change method name ot address #18" />
     <MESSAGE value="Fix a wording problem to address #12" />
     <MESSAGE value="Fix a wording problem to address #7" />
     <MESSAGE value="Fix a wording problem to address #9" />
@@ -923,7 +919,8 @@
     <MESSAGE value="Add temp directories to .gitignore" />
     <MESSAGE value="Add the run-time test" />
     <MESSAGE value="Fix naming bud in cloning" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix naming bud in cloning" />
+    <MESSAGE value="Update the DB schema" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update the DB schema" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
