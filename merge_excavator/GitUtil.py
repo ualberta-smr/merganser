@@ -147,3 +147,13 @@ class GitUtil:
         added = res[0].split()[2][1:]
         deleted = res[1].split()[2][1:]
         return added, deleted
+
+    def get_develoeprs_num(self, commit1, commit2):
+        """
+        Returns the number of active developers between two commits
+        :param commit1: The SHA-1 of the first commit
+        :param commit2: The SHA-1 of the second commit
+        :return: The number developers
+        """
+        return os.popen(self.cd_to_repository + 'git log {}..{} --format=\'%aN\' | sort -u|wc -l'
+                       .format(commit1, commit2)).read().strip()

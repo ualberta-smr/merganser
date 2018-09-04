@@ -80,13 +80,19 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
         else:
             is_pull_request = -1
 
+        # Extract developers num
+        developer_num_parent1 = git_utility.get_develoeprs_num(ancestor_commit, parents_commit[0])
+        developer_num_parent2 = git_utility.get_develoeprs_num(ancestor_commit, parents_commit[1])
+
         # Store the merge scenario data
         merge_scenario_data = [merge_commit, ancestor_commit, parents_commit[0], parents_commit[1],
                                parallel_changed_files_num, merge_commit_can_compile, merge_commit_can_pass_test,
                                ancestor_can_compile, ancestor_can_pass_test,
                                parent1_can_compile, parent1_can_pass_test,
                                parent2_can_compile, parent2_can_pass_test,
-                               merge_commit_date, ancestor_date, parent1_date, parent2_date, is_pull_request,
+                               merge_commit_date, ancestor_date, parent1_date, parent2_date,
+                               developer_num_parent1, developer_num_parent2,
+                               is_pull_request,
                                repository_id]
         csv_file = open(config.TEMP_CSV_PATH + 'Merge_Scenario_{}.csv'.format(repository_name), 'a')
         csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
