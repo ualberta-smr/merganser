@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d417784f-f8c7-4ee1-8f7a-4b97c99aae62" name="Default Changelist" comment="">
+    <list default="true" id="d417784f-f8c7-4ee1-8f7a-4b97c99aae62" name="Default Changelist" comment="Add data retrieval module">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/queries/Merge_Data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/queries/Merge_Data.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schema/Merge_Data.mwb" beforeDir="false" afterPath="$PROJECT_DIR$/schema/Merge_Data.mwb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schema/Merge_Data.png" beforeDir="false" afterPath="$PROJECT_DIR$/schema/Merge_Data.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/merge_excavator/data_retrieval.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/data_retrieval.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,7 +12,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/Merge_Excavator$data_retrieval.coverage" NAME="data_retrieval Coverage Results" MODIFIED="1536094534108" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/merge_excavator" />
+    <SUITE FILE_PATH="coverage/Merge_Excavator$data_retrieval.coverage" NAME="data_retrieval Coverage Results" MODIFIED="1536170505218" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/merge_excavator" />
     <SUITE FILE_PATH="coverage/code_owhadi_msr19$test_run_time.coverage" NAME="test_run-time Coverage Results" MODIFIED="1535654991978" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/code_owhadi_msr19$main.coverage" NAME="main Coverage Results" MODIFIED="1535386553814" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/merge_excavator" />
   </component>
@@ -122,31 +120,31 @@
     <session id="863770518">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="3" />
           <entry key="project.open.time.4" value="1" />
-          <entry key="project.open.time.5" value="1" />
+          <entry key="project.open.time.5" value="2" />
           <entry key="project.open.time.7" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.opened" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="2929" />
+          <entry key="py" value="3701" />
           <entry key="sql" value="21" />
-          <entry key="txt" value="267" />
+          <entry key="txt" value="396" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="267" />
-          <entry key="Python" value="2897" />
-          <entry key="SQL" value="53" />
+          <entry key="PLAIN_TEXT" value="396" />
+          <entry key="Python" value="3661" />
+          <entry key="SQL" value="61" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="16" />
+          <entry key="py" value="18" />
           <entry key="sql" value="1" />
           <entry key="txt" value="1" />
         </counts>
@@ -154,7 +152,7 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="16" />
+          <entry key="Python" value="18" />
           <entry key="SQL" value="1" />
         </counts>
       </usages-collector>
@@ -164,12 +162,12 @@
     <favorites_list name="code-owhadi-msr19" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/merge_excavator/data_convertion.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="22" column="171" selection-start-line="22" selection-start-column="171" selection-end-line="22" selection-end-column="171" />
+            <state relative-caret-position="390">
+              <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
               <folding>
                 <element signature="e#2#11#0" expanded="true" />
               </folding>
@@ -180,36 +178,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/merge_excavator/data_retrieval.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+            <state relative-caret-position="345">
+              <caret line="79" lean-forward="true" selection-start-line="79" selection-end-line="79" />
               <folding>
                 <element signature="e#1#10#0" expanded="true" />
-                <marker date="1536094529789" expanded="true" signature="92:93" ph="..." />
-                <marker date="1536094529789" expanded="true" signature="92:98" ph="..." />
-                <marker date="1536094529789" expanded="true" signature="3873:3946" ph="..." />
+                <marker date="1536170505211" expanded="true" signature="111:112" ph="..." />
+                <marker date="1536170505211" expanded="true" signature="111:117" ph="..." />
+                <marker date="1536170505211" expanded="true" signature="4709:4782" ph="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/merge_excavator/GitUtil.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2340">
-              <caret line="159" selection-start-line="159" selection-end-line="159" />
-              <folding>
-                <element signature="e#1#10#0" expanded="true" />
-                <marker date="1536082180913" expanded="true" signature="6639:6648" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/merge_excavator/config.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="12" selection-start-line="14" selection-end-line="14" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -326,7 +302,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -354,6 +329,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -486,20 +462,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1534788102940</updated>
-    </task>
-    <task id="LOCAL-00034" summary="add data conversion">
-      <created>1535400844740</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1535400844740</updated>
-    </task>
-    <task id="LOCAL-00035" summary="add a run script">
-      <created>1535401252435</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1535401252435</updated>
     </task>
     <task id="LOCAL-00036" summary="add code comments to clone_repositories.py">
       <created>1535489835225</created>
@@ -830,7 +792,21 @@
       <option name="project" value="LOCAL" />
       <updated>1536082248361</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="Update the data schema to add the number of developers in each branch">
+      <created>1536094866332</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1536094866333</updated>
+    </task>
+    <task id="LOCAL-00084" summary="Add data retrieval module">
+      <created>1536094916991</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1536094916991</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="TodoView">
@@ -846,7 +822,7 @@
     <frame x="1987" y="27" width="1853" height="1053" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49832776" visible="true" weight="0.16768125" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49832776" visible="true" weight="0.16934144" />
       <window_info id="Structure" order="1" sideWeight="0.50167227" side_tool="true" weight="0.1284153" />
       <window_info id="Favorites" order="2" sideWeight="0.50167227" side_tool="true" weight="0.1284153" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -894,8 +870,6 @@
       <path value="$PROJECT_DIR$/merge excavator/perwendel___spark" />
       <path value="$PROJECT_DIR$/merge excavator/elasticsearch" />
     </ignored-roots>
-    <MESSAGE value="Add MIT license" />
-    <MESSAGE value="Use better method names" />
     <MESSAGE value="Add warning for the number of cores to address #6" />
     <MESSAGE value="Add a sample CI" />
     <MESSAGE value="Use Python 3.4 for CI" />
@@ -919,7 +893,9 @@
     <MESSAGE value="Add a list of seven sample repo in samplejava.txt" />
     <MESSAGE value="Add data conversion (CSV -&gt; SQL)" />
     <MESSAGE value="Add the number of developers to Merge_Scenario table" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add the number of developers to Merge_Scenario table" />
+    <MESSAGE value="Update the data schema to add the number of developers in each branch" />
+    <MESSAGE value="Add data retrieval module" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add data retrieval module" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1102,19 +1078,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/merge_excavator/data_convertion.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="22" column="171" selection-start-line="22" selection-start-column="171" selection-end-line="22" selection-end-column="171" />
-          <folding>
-            <element signature="e#2#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/merge_excavator/GitUtil.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2340">
+        <state relative-caret-position="516">
           <caret line="159" selection-start-line="159" selection-end-line="159" />
           <folding>
             <element signature="e#1#10#0" expanded="true" />
@@ -1130,15 +1096,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/merge_excavator/data_convertion.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+          <folding>
+            <element signature="e#2#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/merge_excavator/data_retrieval.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+        <state relative-caret-position="345">
+          <caret line="79" lean-forward="true" selection-start-line="79" selection-end-line="79" />
           <folding>
             <element signature="e#1#10#0" expanded="true" />
-            <marker date="1536094529789" expanded="true" signature="92:93" ph="..." />
-            <marker date="1536094529789" expanded="true" signature="92:98" ph="..." />
-            <marker date="1536094529789" expanded="true" signature="3873:3946" ph="..." />
+            <marker date="1536170505211" expanded="true" signature="111:112" ph="..." />
+            <marker date="1536170505211" expanded="true" signature="111:117" ph="..." />
+            <marker date="1536170505211" expanded="true" signature="4709:4782" ph="..." />
           </folding>
         </state>
       </provider>
