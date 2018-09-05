@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d417784f-f8c7-4ee1-8f7a-4b97c99aae62" name="Default Changelist" comment="Add queries for conflict prediction">
+    <list default="true" id="d417784f-f8c7-4ee1-8f7a-4b97c99aae62" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/working_dir/repository_lists/olaf.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/working_dir/repository_lists/paola.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/merge_excavator/data_convertion.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/data_convertion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/merge_excavator/data_retrieval.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/data_retrieval.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/merge_excavator/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/merge_excavator/merge_scenario_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/merge_scenario_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schema/Merge_Data.mwb" beforeDir="false" afterPath="$PROJECT_DIR$/schema/Merge_Data.mwb" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -136,12 +133,12 @@
         <counts>
           <entry key="py" value="5163" />
           <entry key="sql" value="21" />
-          <entry key="txt" value="431" />
+          <entry key="txt" value="520" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="431" />
+          <entry key="PLAIN_TEXT" value="520" />
           <entry key="Python" value="5116" />
           <entry key="SQL" value="68" />
         </counts>
@@ -150,12 +147,12 @@
         <counts>
           <entry key="py" value="25" />
           <entry key="sql" value="1" />
-          <entry key="txt" value="1" />
+          <entry key="txt" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="PLAIN_TEXT" value="3" />
           <entry key="Python" value="25" />
           <entry key="SQL" value="1" />
         </counts>
@@ -176,11 +173,29 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/merge_excavator/merge_scenario_data.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="33" column="9" selection-start-line="33" selection-start-column="9" selection-end-line="33" selection-end-column="9" />
+            <state relative-caret-position="-1140">
+              <caret line="31" column="51" selection-start-line="31" selection-start-column="51" selection-end-line="31" selection-end-column="51" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/working_dir/repository_lists/olaf.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="301">
+              <caret line="172" column="12" selection-start-line="172" selection-start-column="12" selection-end-line="172" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/working_dir/repository_lists/paola.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="660">
+              <caret line="44" column="17" selection-start-line="44" selection-start-column="17" selection-end-line="44" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -311,6 +326,8 @@
         <option value="$PROJECT_DIR$/merge_excavator/data_convertion.py" />
         <option value="$PROJECT_DIR$/merge_excavator/data_retrieval.py" />
         <option value="$PROJECT_DIR$/merge_excavator/merge_scenario_data.py" />
+        <option value="$PROJECT_DIR$/working_dir/repository_lists/paola.txt" />
+        <option value="$PROJECT_DIR$/working_dir/repository_lists/olaf.txt" />
       </list>
     </option>
   </component>
@@ -320,10 +337,11 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1920" />
-    <option name="width" value="1920" />
-    <option name="height" value="1080" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="2225" />
+    <option name="y" value="193" />
+    <option name="width" value="1843" />
+    <option name="height" value="789" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -355,18 +373,7 @@
             <path>
               <item name="Merge-Excavator" type="b2602c69:ProjectViewProjectNode" />
               <item name="Merge-Excavator" type="462c0819:PsiDirectoryNode" />
-              <item name="merge_excavator" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Merge-Excavator" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Merge-Excavator" type="462c0819:PsiDirectoryNode" />
               <item name="working_dir" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Merge-Excavator" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Merge-Excavator" type="462c0819:PsiDirectoryNode" />
-              <item name="working_dir" type="462c0819:PsiDirectoryNode" />
-              <item name="repository_lists" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -505,20 +512,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1534788102940</updated>
-    </task>
-    <task id="LOCAL-00037" summary="Add code comments to code_quality.py">
-      <created>1535489871228</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1535489871228</updated>
-    </task>
-    <task id="LOCAL-00038" summary="Add code comments to GitUtil class">
-      <created>1535491159939</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1535491159939</updated>
     </task>
     <task id="LOCAL-00039" summary="Add code comments to the main.py file">
       <created>1535491425389</created>
@@ -849,7 +842,21 @@
       <option name="project" value="LOCAL" />
       <updated>1536170562042</updated>
     </task>
-    <option name="localTasksCounter" value="86" />
+    <task id="LOCAL-00086" summary="Update the schema to make it more readable">
+      <created>1536187635743</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1536187635744</updated>
+    </task>
+    <task id="LOCAL-00087" summary="Add mandatory queries for conflict prediction">
+      <created>1536187703271</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1536187703271</updated>
+    </task>
+    <option name="localTasksCounter" value="88" />
     <servers />
   </component>
   <component name="TodoView">
@@ -862,15 +869,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1987" y="27" width="1853" height="1053" extended-state="6" />
+    <frame x="2225" y="193" width="1843" height="789" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49832776" visible="true" weight="0.16934144" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49832776" visible="true" weight="0.17028381" />
       <window_info id="Structure" order="1" sideWeight="0.50167227" side_tool="true" weight="0.1284153" />
       <window_info id="Favorites" order="2" sideWeight="0.50167227" side_tool="true" weight="0.1284153" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4997233" visible="true" weight="0.32996634" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4975097" visible="true" weight="0.30190796" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4975097" visible="true" weight="0.4290271" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49836066" weight="0.39955106" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -913,8 +920,6 @@
       <path value="$PROJECT_DIR$/merge excavator/perwendel___spark" />
       <path value="$PROJECT_DIR$/merge excavator/elasticsearch" />
     </ignored-roots>
-    <MESSAGE value="Add a sample CI" />
-    <MESSAGE value="Use Python 3.4 for CI" />
     <MESSAGE value="Use Python 3.4 with a simpler conf for CI" />
     <MESSAGE value="Add before_install for CI" />
     <MESSAGE value="Add sudo access for CI" />
@@ -938,7 +943,9 @@
     <MESSAGE value="Update the data schema to add the number of developers in each branch" />
     <MESSAGE value="Add data retrieval module" />
     <MESSAGE value="Add queries for conflict prediction" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add queries for conflict prediction" />
+    <MESSAGE value="Update the schema to make it more readable" />
+    <MESSAGE value="Add mandatory queries for conflict prediction" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add mandatory queries for conflict prediction" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1164,8 +1171,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/merge_excavator/merge_scenario_data.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="33" column="9" selection-start-line="33" selection-start-column="9" selection-end-line="33" selection-end-column="9" />
+        <state relative-caret-position="-1140">
+          <caret line="31" column="51" selection-start-line="31" selection-start-column="51" selection-end-line="31" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/working_dir/repository_lists/paola.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="44" column="17" selection-start-line="44" selection-start-column="17" selection-end-line="44" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/working_dir/repository_lists/olaf.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="172" column="12" selection-start-line="172" selection-start-column="12" selection-end-line="172" selection-end-column="12" />
         </state>
       </provider>
     </entry>
