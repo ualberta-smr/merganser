@@ -23,6 +23,7 @@ if __name__ == '__main__':
     remove_dir()
     create_dir()
 
+
     # Logging
     logging.basicConfig(level = logging.INFO,
                         format = '%(levelname)s in %(threadName)s - %(asctime)s by %(name)-12s :  %(message)s',

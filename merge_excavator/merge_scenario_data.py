@@ -29,14 +29,12 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
     git_utility = GitUtil(repository_name)
     merge_replay = Merge_Replay()
 
-    merge_commits = git_utility.get_merge_commits()[1:] #TODO: Why the first one is not in git log?
+    merge_commits = git_utility.get_merge_commits()
 
     # Repository Data
     repository_id = store_repository_info(repository_name)
 
-
     for merge_commit in merge_commits:
-
         # Extract the SHA-1 of the parents and ancestor
         parents_commit = git_utility.get_parents(merge_commit)
         ancestor_commit = git_utility.get_ancestor(parents_commit)
