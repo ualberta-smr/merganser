@@ -58,6 +58,8 @@ class Data_Retreival:
         self.branch_duration = 'SELECT Merge_Scenario.merge_commit_hash, TIMESTAMPDIFF(HOUR, ' \
                                'Merge_Scenario.ancestor_date, Merge_Scenario.parent{}_date) ' \
                                'FROM Merge_Data.Merge_Scenario Merge_Scenario'
+        self.is_conflict_query = 'SELECT Merge_Replay.Merge_Scenario_merge_commit_hash, Merge_Replay.is_conflict ' \
+                           'FROM Merge_Data.Merge_Replay Merge_Replay'
 
     def get_query_result(self, query):
         return os.popen('mysql -u {} -e "{}"'.format(config.DB_USER_NAME, query)).read()
@@ -117,6 +119,11 @@ class Data_Retreival:
             'merge_commit_hash', axis=1).values
         return pd.DataFrame([item for sublist in res for item in sublist], columns=['Branch Duration'])
 
+    def get_is_conflict(self):
+        res = self.get_data_frame_of_query_result(self.get_query_result(self.is_conflict_query.format())).drop(
+            'Merge_Scenario_merge_commit_hash', axis=1).values
+        return pd.DataFrame([item for sublist in res for item in sublist], columns=['Is Conflict'])
+
     def get_merge_scenario_prediction_data(self):
         keywords_frequency1, commit_messege_length_stats1 = self.get_commit_messege_characteristics(1)
         keywords_frequency2, commit_messege_length_stats2 = self.get_commit_messege_characteristics(2)
@@ -138,12 +145,15 @@ class Data_Retreival:
         return pd.concat(features, axis=1)
 
     def save_prediction_data_to_csv(self):
-        self.get_merge_scenario_prediction_data()\
-            .to_csv(path_or_buf=config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_FILE_NAME)
-
+        self.get_merge_scenario_prediction_data().drop('Merge_Scenario_merge_commit_hash', axis=1)\
+            .to_csv(path_or_buf=config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_DATA_NAME)
+        self.get_is_conflict().to_csv(path_or_buf=config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_LABEL_NAME)
     def print_df_stats(self, df):
         print('DataFrame Stats:')
         print('  - # Data Points: {}'.format(df.shape[0]))
         print('  - # Features: {}'.format(df.shape[1]))
         print('  - Index: {}'.format(df.index))
         print('  - Columns: {}'.format(df.columns))
+
+obj = Data_Retreival()
+obj.save_prediction_data_to_csv()
