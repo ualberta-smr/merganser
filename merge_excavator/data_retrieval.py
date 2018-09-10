@@ -148,6 +148,7 @@ class Data_Retreival:
         self.get_merge_scenario_prediction_data().drop('Merge_Scenario_merge_commit_hash', axis=1)\
             .to_csv(path_or_buf=config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_DATA_NAME)
         self.get_is_conflict().to_csv(path_or_buf=config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_LABEL_NAME)
+
     def print_df_stats(self, df):
         print('DataFrame Stats:')
         print('  - # Data Points: {}'.format(df.shape[0]))

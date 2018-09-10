@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d417784f-f8c7-4ee1-8f7a-4b97c99aae62" name="Default Changelist" comment="">
+    <list default="true" id="d417784f-f8c7-4ee1-8f7a-4b97c99aae62" name="Default Changelist" comment="Store the is_conflict data in a CSV file">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/merge_excavator/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/merge_excavator/data_retrieval.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/data_retrieval.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/merge_excavator/merge_replay.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/merge_replay.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/runAll.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runAll.sh" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,7 +14,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/Merge_Excavator$data_retrieval.coverage" NAME="data_retrieval Coverage Results" MODIFIED="1536605645764" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/merge_excavator" />
+    <SUITE FILE_PATH="coverage/Merge_Excavator$data_retrieval.coverage" NAME="data_retrieval Coverage Results" MODIFIED="1536606951695" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/merge_excavator" />
     <SUITE FILE_PATH="coverage/code_owhadi_msr19$test_run_time.coverage" NAME="test_run-time Coverage Results" MODIFIED="1535654991978" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/code_owhadi_msr19$main.coverage" NAME="main Coverage Results" MODIFIED="1535386553814" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/merge_excavator" />
   </component>
@@ -122,41 +122,46 @@
     <session id="863770518">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="7" />
+          <entry key="project.closed" value="8" />
+          <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.4" value="2" />
           <entry key="project.open.time.5" value="2" />
           <entry key="project.open.time.7" value="2" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="9" />
+          <entry key="project.opened" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="6442" />
+          <entry key="py" value="6494" />
           <entry key="sql" value="21" />
-          <entry key="txt" value="833" />
+          <entry key="txt" value="900" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="833" />
-          <entry key="Python" value="6394" />
+          <entry key="PLAIN_TEXT" value="900" />
+          <entry key="Python" value="6446" />
           <entry key="SQL" value="69" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="39" />
+          <entry key="md" value="1" />
+          <entry key="py" value="40" />
+          <entry key="sh" value="1" />
           <entry key="sql" value="1" />
           <entry key="txt" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
+          <entry key="Bash" value="1" />
+          <entry key="Markdown" value="1" />
           <entry key="PLAIN_TEXT" value="3" />
-          <entry key="Python" value="39" />
+          <entry key="Python" value="40" />
           <entry key="SQL" value="1" />
         </counts>
       </usages-collector>
@@ -167,19 +172,39 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/merge_excavator/data_retrieval.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="147" column="55" selection-start-line="147" selection-start-column="55" selection-end-line="147" selection-end-column="55" />
+            <state relative-caret-position="526">
+              <caret line="144" column="42" selection-start-line="144" selection-start-column="42" selection-end-line="144" selection-end-column="42" />
               <folding>
                 <element signature="e#1#10#0" expanded="true" />
-                <marker date="1536605645748" expanded="true" signature="140:141" ph="..." />
-                <marker date="1536605645748" expanded="true" signature="140:146" ph="..." />
-                <marker date="1536605645748" expanded="true" signature="5061:5134" ph="..." />
-                <marker date="1536605645748" expanded="true" signature="8218:8227" ph="..." />
-                <marker date="1536605645748" expanded="true" signature="10554:10672" ph="..." />
+                <marker date="1536606950832" expanded="true" signature="140:141" ph="..." />
+                <marker date="1536606950832" expanded="true" signature="140:146" ph="..." />
+                <marker date="1536606950832" expanded="true" signature="5061:5134" ph="..." />
+                <marker date="1536606950832" expanded="true" signature="8218:8227" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="-435">
+                <caret line="17" column="3" lean-forward="true" selection-start-line="17" selection-start-column="3" selection-end-line="17" selection-end-column="3" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/runAll.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="22" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -261,7 +286,6 @@
         <option value="$PROJECT_DIR$/merge excavator/search_repository.py" />
         <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/merge_excavator/utility.py" />
-        <option value="$PROJECT_DIR$/runAll.sh" />
         <option value="$PROJECT_DIR$/merge_excavator/search_repository.py" />
         <option value="$PROJECT_DIR$/working_dir/repository_lists/sample.txt" />
         <option value="$PROJECT_DIR$/merge_excavator/validation.py" />
@@ -282,11 +306,12 @@
         <option value="$PROJECT_DIR$/merge_excavator/merge_scenario_data.py" />
         <option value="$PROJECT_DIR$/merge_excavator/GitUtil.py" />
         <option value="$PROJECT_DIR$/merge_excavator/related_commits.py" />
-        <option value="$PROJECT_DIR$/merge_excavator/merge_replay.py" />
         <option value="$PROJECT_DIR$/merge_excavator/code_quality.py" />
         <option value="$PROJECT_DIR$/merge_excavator/util.py" />
         <option value="$PROJECT_DIR$/merge_excavator/config.py" />
         <option value="$PROJECT_DIR$/merge_excavator/data_retrieval.py" />
+        <option value="$PROJECT_DIR$/merge_excavator/merge_replay.py" />
+        <option value="$PROJECT_DIR$/runAll.sh" />
       </list>
     </option>
   </component>
@@ -343,7 +368,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../ML/EasyFier" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
@@ -471,13 +496,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1534788102940</updated>
-    </task>
-    <task id="LOCAL-00045" summary="Add code comments for search_repository.py">
-      <created>1535493117464</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1535493117464</updated>
     </task>
     <task id="LOCAL-00046" summary="Rename the search_repository.py for consistency">
       <created>1535493179341</created>
@@ -815,7 +833,14 @@
       <option name="project" value="LOCAL" />
       <updated>1536600277430</updated>
     </task>
-    <option name="localTasksCounter" value="94" />
+    <task id="LOCAL-00094" summary="Store the is_conflict data in a CSV file">
+      <created>1536605726883</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1536605726884</updated>
+    </task>
+    <option name="localTasksCounter" value="95" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -831,12 +856,12 @@
     <frame x="1987" y="27" width="1853" height="1053" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49832776" visible="true" weight="0.1765357" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49832776" visible="true" weight="0.17874931" />
       <window_info id="Structure" order="1" sideWeight="0.50167227" side_tool="true" weight="0.1284153" />
       <window_info id="Favorites" order="2" sideWeight="0.50167227" side_tool="true" weight="0.1284153" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4997233" weight="0.32996634" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4975097" visible="true" weight="0.39281705" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4975097" weight="0.39281705" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49836066" weight="0.39955106" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -879,7 +904,6 @@
       <path value="$PROJECT_DIR$/merge excavator/perwendel___spark" />
       <path value="$PROJECT_DIR$/merge excavator/elasticsearch" />
     </ignored-roots>
-    <MESSAGE value="Remove MySQL installation from CI" />
     <MESSAGE value="Remove unnecessary Java packages from CI" />
     <MESSAGE value="Fix file name bug in tests" />
     <MESSAGE value="Modify the schema and remove AI keys" />
@@ -904,7 +928,8 @@
     <MESSAGE value="Change the method name to address #18" />
     <MESSAGE value="Fix a bug in #13" />
     <MESSAGE value="Complete data_retrieval code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Complete data_retrieval code" />
+    <MESSAGE value="Store the is_conflict data in a CSV file" />
+    <option name="LAST_COMMIT_MESSAGE" value="Store the is_conflict data in a CSV file" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -948,13 +973,6 @@
     <entry file="file://$PROJECT_DIR$/merge excavator/utility.py" />
     <entry file="file://$PROJECT_DIR$/merge_excavator/_2018-08-27_16:14:00.log" />
     <entry file="file://$PROJECT_DIR$/merge_excavator/2018-08-27_16:15:54.log" />
-    <entry file="file://$PROJECT_DIR$/runAll.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/working_dir/repository_lists/sample.txt" />
     <entry file="file://$PROJECT_DIR$/merge_excavator/main_execution.log" />
     <entry file="file://$PROJECT_DIR$/merge_excavator/validation.py">
@@ -983,16 +1001,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="255">
-            <caret line="17" column="3" lean-forward="true" selection-start-line="17" selection-start-column="3" selection-end-line="17" selection-end-column="3" />
-          </first_editor>
-          <second_editor />
         </state>
       </provider>
     </entry>
@@ -1101,24 +1109,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/merge_excavator/merge_replay.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="85" column="31" selection-start-line="85" selection-start-column="31" selection-end-line="85" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/merge_excavator/related_commits.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="13" column="50" selection-start-line="13" selection-start-column="50" selection-end-line="13" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/merge_excavator/util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1129,18 +1123,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/merge_excavator/util.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/merge_excavator/merge_replay.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="382">
+          <caret line="141" column="116" selection-start-line="141" selection-start-column="116" selection-end-line="141" selection-end-column="116" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/merge_excavator/data_retrieval.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="147" column="55" selection-start-line="147" selection-start-column="55" selection-end-line="147" selection-end-column="55" />
+        <state relative-caret-position="526">
+          <caret line="144" column="42" selection-start-line="144" selection-start-column="42" selection-end-line="144" selection-end-column="42" />
           <folding>
             <element signature="e#1#10#0" expanded="true" />
-            <marker date="1536605645748" expanded="true" signature="140:141" ph="..." />
-            <marker date="1536605645748" expanded="true" signature="140:146" ph="..." />
-            <marker date="1536605645748" expanded="true" signature="5061:5134" ph="..." />
-            <marker date="1536605645748" expanded="true" signature="8218:8227" ph="..." />
-            <marker date="1536605645748" expanded="true" signature="10554:10672" ph="..." />
+            <marker date="1536606950832" expanded="true" signature="140:141" ph="..." />
+            <marker date="1536606950832" expanded="true" signature="140:146" ph="..." />
+            <marker date="1536606950832" expanded="true" signature="5061:5134" ph="..." />
+            <marker date="1536606950832" expanded="true" signature="8218:8227" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="-435">
+            <caret line="17" column="3" lean-forward="true" selection-start-line="17" selection-start-column="3" selection-end-line="17" selection-end-column="3" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/runAll.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="22" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
         </state>
       </provider>
     </entry>
