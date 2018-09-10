@@ -23,7 +23,6 @@ if __name__ == '__main__':
     remove_dir()
     create_dir()
 
-
     # Logging
     logging.basicConfig(level = logging.INFO,
                         format = '%(levelname)s in %(threadName)s - %(asctime)s by %(name)-12s :  %(message)s',
@@ -56,7 +55,10 @@ if __name__ == '__main__':
                         action='store_true', required=False)
     parser.add_argument('-cc', '--code-complexity', help='If set, the code complexity are extracted', action='store_true',
                         required=False)
-    parser.add_argument('-cores', '--cpu-cores', help='The number of threads', required = False)
+    parser.add_argument('-cores', '--cpu-cores', help='The number of threads', required=False)
+    parser.add_argument('-sd', '--start-date', help='The the date the merge scenarios should be analyzed after that',
+                        required=False)
+
     args = vars(parser.parse_args())
 
     # CPU cores
@@ -65,6 +67,12 @@ if __name__ == '__main__':
     else:
         core_num = args['cpu_cores']
     validation.validate_core_num(core_num)
+
+    # Start date
+    if args['start_date'] is None:
+        start_date = '1900-01-01'
+    else:
+        start_date = args['start_date']
 
     # Clone the repositories
     clone_repositories(args['repository_list'], core_num)
@@ -80,7 +88,8 @@ if __name__ == '__main__':
                                                              args['compile'], args['test'], args['conflicting_file'],
                                                              args['conflicting_region'], args['pull_request'],
                                                              args['replay_compare'], args['commit_details'],
-                                                             args['style_violation'], args['code_complexity'])
+                                                             args['style_violation'], args['code_complexity'],
+                                                             start_date)
                                  for i in range(len(repository_urls)))
 
     logging.info('The executing is finish')

@@ -16,7 +16,7 @@ from repository_data import *
 def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec_tests,
                             exec_conflicting_file, exec_conflicting_region,
                             exec_pull_request, exec_replay_comparison, exec_related_commits,
-                            exec_code_style_violation, exec_complexity):
+                            exec_code_style_violation, exec_complexity, start_date='1900-01-01'):
 
     # Logging
     logging.basicConfig(level = logging.INFO,
@@ -29,7 +29,8 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
     git_utility = GitUtil(repository_name)
     merge_replay = Merge_Replay()
 
-    merge_commits = git_utility.get_merge_commits()
+    # Extract all merge scenarios after the start_date
+    merge_commits = [commit for commit in git_utility.get_merge_commits() if git_utility.get_commit_date(commit).split()[0] > start_date]
 
     # Repository Data
     repository_id = store_repository_info(repository_name)
