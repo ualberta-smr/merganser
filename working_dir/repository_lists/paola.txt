@@ -1,4 +1,3 @@
-dobe-Consulting-Services/acs-aem-commons
 tinkerpop/blueprints
 dianping/cat
 CloudSlang/cloud-slang
