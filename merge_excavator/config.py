@@ -8,6 +8,8 @@ TEMP_CSV_PATH = '../working_dir/csv_files/'
 REPOSITORY_LIST_PATH = '../working_dir/repository_lists/'
 LOG_PATH = '../working_dir/logs/'
 QUERY_PATH = '../queries/'
+PREDICTION_CSV_PATH = '../working_dir/prediction_data/'
+PREDICTION_CSV_FILE_NAME = 'prediction.csv'
 
 # DB information
 DB_HOST = 'localhost'
