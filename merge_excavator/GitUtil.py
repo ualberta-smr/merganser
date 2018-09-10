@@ -133,7 +133,7 @@ class GitUtil:
         return [self.get_changed_files_between_two_commits_for_type(commit1, commit2, changeType)
                 for changeType in types]
 
-    def getChangedLineNumBetweenTwoCommits(self, commit1, commit2):
+    def get_changed_lines_between_two_commits(self, commit1, commit2):
         """
         Returns a list which consists of all added and removed lines between two commits
         :param commit1: The SHA-1 of the first commit
