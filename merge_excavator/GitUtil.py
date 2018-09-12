@@ -63,9 +63,9 @@ class GitUtil:
         :return: The number of files that are changed in both parents in parallel
         """
         changes_ancestor_parent1 = set([item.strip() for item in os.popen(
-            self.cd_to_repository + 'git diff --name-only {} {}'.format(ancestor, parent1)).readlines()])
+            self.cd_to_repository + 'git diff --name-only {}..{}'.format(ancestor, parent1)).readlines()])
         changes_ancestor_parent2 = set([item.strip() for item in os.popen(
-            self.cd_to_repository + 'git diff --name-only {} {}'.format(ancestor, parent2)).readlines()])
+            self.cd_to_repository + 'git diff --name-only {}..{}'.format(ancestor, parent2)).readlines()])
         return len(changes_ancestor_parent1.intersection(changes_ancestor_parent2))
 
     def get_commit_message(self, commit):
@@ -74,7 +74,9 @@ class GitUtil:
         :param commit: The SHA-1 of the commit
         :return: The commit message
         """
-        return os.popen(self.cd_to_repository + 'git log --pretty=format:"%s" -1  {}'.format(commit)).read().rstrip()
+        return ''.join([i if ord(i) < 128 else ' ' for i in os.popen(self.cd_to_repository +
+                                                                     'git log --pretty=format:"%s" -1  {}'
+                                                    .format(commit)).read().rstrip()])
 
     def check_if_pull_request(self, commit):
         """
@@ -105,7 +107,10 @@ class GitUtil:
         """
         branches = [item for item in os.popen(self.cd_to_repository + 'git branch --contains  {}'.format(commit)).read()
             .split('\n') if '* (HEAD detached at' not in item]
-        return branches[0].strip()
+        if branches == '':
+            return 'None'
+        else:
+            return ','.join(branches) + '.'
 
     def get_changed_files_between_two_commits_for_type(self, commit1, commit2, changeType):
         """
