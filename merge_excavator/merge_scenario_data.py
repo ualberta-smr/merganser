@@ -105,6 +105,8 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
         # Store the related commits information
         if exec_related_commits:
             for index, parent in enumerate(parents_commit):
+                if parent == ancestor_commit or parent == merge_commit:
+                    continue
                 store_commit_info_between_two_commits(git_utility, ancestor_commit, parent, index + 1,
                                                       merge_commit, repository_id)
 

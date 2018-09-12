@@ -1,14 +1,17 @@
 
+# -*- coding: utf-8 -*-
+
 import csv
 import numpy as np
 
 from config import *
 from GitUtil import *
 
-
 def store_commit_info_between_two_commits(git_utility, commit1, commit2, parent_num, merge_commit, repository_id):
-    commit_list = git_utility.get_commit_list_between_two_commits(commit1, commit2)
+    commit_list = git_utility.get_commit_list_between_two_commits(commit1, commit2) # The first commit (index zero)
     for commit in commit_list:
+        if commit == merge_commit or commit == commit1:
+            continue
         commit_date  = git_utility.get_commit_date(commit)
         commit_message = git_utility.get_commit_message(commit)
         branch_name = git_utility.get_branch_of_commit(commit)
