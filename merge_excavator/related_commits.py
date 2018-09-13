@@ -14,7 +14,9 @@ def store_commit_info_between_two_commits(git_utility, commit1, commit2, parent_
         if commit == merge_commit or commit == commit1:
             continue
         commit_date  = git_utility.get_commit_date(commit)
-        commit_message = git_utility.get_commit_message(commit)
+        commit_message = git_utility.get_commit_message(commit)[0:300]
+        if len(commit_message) == 0:
+            commit_message = 'null'
         branch_name = git_utility.get_branch_of_commit(commit)
         file_changes = git_utility.get_changed_files_in_commit(commit)
         line_changes = git_utility.get_changed_lines_in_commit(commit)

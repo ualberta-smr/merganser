@@ -68,7 +68,7 @@ class GitUtil:
             self.cd_to_repository + 'git diff --name-only {}..{}'.format(ancestor, parent2)).readlines()])
         return len(changes_ancestor_parent1.intersection(changes_ancestor_parent2))
 
-    def get_commit_message(self, commit):
+    def get_commit_message(self, commit): # TODO: replacing ',' with ' ' should be changed
         """
         Extracts the commit message of the given SHA-1
         :param commit: The SHA-1 of the commit
@@ -76,7 +76,7 @@ class GitUtil:
         """
         return ''.join([i if ord(i) < 128 else ' ' for i in os.popen(self.cd_to_repository +
                                                                      'git log --pretty=format:"%s" -1  {}'
-                                                    .format(commit)).read().rstrip()])
+                                                    .format(commit)).read().rstrip()]).replace(',', ' ')
 
     def check_if_pull_request(self, commit):
         """
