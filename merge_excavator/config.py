@@ -17,3 +17,7 @@ DB_HOST = 'localhost'
 DB_NAME = 'Merge_Data'
 DB_USER_NAME = 'root'
 DB_PASSWORD = '123'
+
+# Visualization
+VIS_S = 100
+VIS_ALPHA = 0.4
