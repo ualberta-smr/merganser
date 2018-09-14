@@ -2,6 +2,14 @@ import os
 
 import config
 
+def remove_remopitory(repository_name):
+    """
+    Remove the temp repository directory
+    :return:
+    """
+    os.system('rm -r -f {}'.format(os.getcwd() + '/' + config.REPOSITORY_PATH + repository_name))
+
+
 
 def remove_dir():
     """

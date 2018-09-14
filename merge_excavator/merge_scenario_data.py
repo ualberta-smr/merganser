@@ -8,6 +8,7 @@ from dateutil.relativedelta import relativedelta as rd
 from time import gmtime, strftime
 
 import config
+from util import *
 from GitUtil import *
 from code_quality import *
 from merge_replay import *
@@ -145,5 +146,8 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
     execution_time = time.time() - t0
     fmt = '{0.days} days {0.hours} hours {0.minutes} minutes {0.seconds} seconds'
     logging.info('The merge extraction for {} is finish in {}'.format(repository_name, fmt.format(rd(seconds = execution_time))))
+
+    # Remove the repository directory
+    remove_remopitory(repository_name)
 
 
