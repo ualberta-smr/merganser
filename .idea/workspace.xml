@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d417784f-f8c7-4ee1-8f7a-4b97c99aae62" name="Default Changelist" comment="Remove the merge commit and ancestor from the related commits">
-      <change beforePath="$PROJECT_DIR$/merge_excavator/merge_scenario_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/merge_excavator/merge_scenario_data.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/working_dir/repository_lists/python100.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/queries/Merge_Data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/queries/Merge_Data.sql" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -140,12 +141,12 @@
         <counts>
           <entry key="py" value="8168" />
           <entry key="sql" value="21" />
-          <entry key="txt" value="1435" />
+          <entry key="txt" value="1470" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="1435" />
+          <entry key="PLAIN_TEXT" value="1470" />
           <entry key="Python" value="8120" />
           <entry key="SQL" value="69" />
         </counts>
@@ -536,13 +537,6 @@
       <option name="presentableId" value="Default" />
       <updated>1534788102940</updated>
     </task>
-    <task id="LOCAL-00057" summary="Fix a wording problem to address #9">
-      <created>1535596050957</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1535596050957</updated>
-    </task>
     <task id="LOCAL-00058" summary="Add MIT license">
       <created>1535646818975</created>
       <option name="number" value="00058" />
@@ -879,7 +873,14 @@
       <option name="project" value="LOCAL" />
       <updated>1536964836805</updated>
     </task>
-    <option name="localTasksCounter" value="106" />
+    <task id="LOCAL-00106" summary="Disable the repository dir removal">
+      <created>1536966825071</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1536966825071</updated>
+    </task>
+    <option name="localTasksCounter" value="107" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -893,7 +894,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1987" y="27" width="1853" height="1053" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49832776" visible="true" weight="0.18539014" />
       <window_info id="Structure" order="1" sideWeight="0.50167227" side_tool="true" weight="0.1284153" />
@@ -966,7 +966,6 @@
       <path value="$PROJECT_DIR$/merge excavator/perwendel___spark" />
       <path value="$PROJECT_DIR$/merge excavator/elasticsearch" />
     </ignored-roots>
-    <MESSAGE value="Add data conversion (CSV -&gt; SQL)" />
     <MESSAGE value="Add the number of developers to Merge_Scenario table" />
     <MESSAGE value="Update the data schema to add the number of developers in each branch" />
     <MESSAGE value="Add data retrieval module" />
@@ -991,7 +990,8 @@
     <MESSAGE value="Remove the temp repository dir after analysis" />
     <MESSAGE value="Add data visualization code" />
     <MESSAGE value="Add more data analysis queries" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add more data analysis queries" />
+    <MESSAGE value="Disable the repository dir removal" />
+    <option name="LAST_COMMIT_MESSAGE" value="Disable the repository dir removal" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
