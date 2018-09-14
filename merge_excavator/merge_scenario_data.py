@@ -22,7 +22,7 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
                             exec_code_style_violation, exec_complexity, start_date='1900-01-01'):
 
     # Exit if the repository doesn't exist
-    if os.path.exists(os.getcwd() + '/' + config.REPOSITORY_PATH + repository_name) == False:
+    if os.path.exists(os.getcwd() + '/' + config.REPOSITORY_PATH + repository_name) is False:
         return 1
 
     # Logging
@@ -148,6 +148,4 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
     logging.info('The merge extraction for {} is finish in {}'.format(repository_name, fmt.format(rd(seconds = execution_time))))
 
     # Remove the repository directory
-    remove_remopitory(repository_name)
-
-
+    # remove_remopitory(repository_name)
