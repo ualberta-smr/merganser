@@ -18,7 +18,7 @@ def clone_repository(repository_name):
     cd_to_repository = 'cd {};'.format(config.REPOSITORY_PATH)
     user_name = repository_name.split('/')[0].strip()
     repo_name = repository_name.split('/')[1].strip()
-    os.system(cd_to_repository + 'git clone  https://github.com/{} {}___{}'
+    os.system(cd_to_repository + 'GIT_TERMINAL_PROMPT=0 git clone  https://github.com/{} {}___{}'
               .format(repository_name.strip(), user_name, repo_name))
 
 

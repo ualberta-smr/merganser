@@ -1,4 +1,5 @@
 
+import os
 import csv
 import time
 import numpy
@@ -6,6 +7,7 @@ import logging
 from dateutil.relativedelta import relativedelta as rd
 from time import gmtime, strftime
 
+import config
 from GitUtil import *
 from code_quality import *
 from merge_replay import *
@@ -17,6 +19,10 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
                             exec_conflicting_file, exec_conflicting_region,
                             exec_pull_request, exec_replay_comparison, exec_related_commits,
                             exec_code_style_violation, exec_complexity, start_date='1900-01-01'):
+
+    # Exit if the repository doesn't exist
+    if os.path.exists(os.getcwd() + '/' + config.REPOSITORY_PATH + repository_name) == False:
+        return 1
 
     # Logging
     logging.basicConfig(level = logging.INFO,
