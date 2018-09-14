@@ -127,9 +127,8 @@ class Data_Retreival:
     def get_merge_scenario_prediction_data(self):
         keywords_frequency1, commit_messege_length_stats1 = self.get_commit_messege_characteristics(1)
         keywords_frequency2, commit_messege_length_stats2 = self.get_commit_messege_characteristics(2)
-        code_features = pd.merge(self.get_complexity(), self.get_code_violation(), on='Merge_Scenario_merge_commit_hash')
         git_features_scenario = self.get_parallel_changes().drop('merge_commit_hash', axis=1)
-        features = [code_features, git_features_scenario,
+        features = [self.get_complexity(), git_features_scenario,
             self.get_commit_num(1).drop('merge_commit_hash', axis=1) - self.get_commit_num(2).drop('merge_commit_hash',
                                                                                                    axis=1),
             self.get_commit_density(1).drop('merge_commit_hash', axis=1) - self.get_commit_density(2).drop(
