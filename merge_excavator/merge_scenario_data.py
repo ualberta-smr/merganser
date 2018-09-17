@@ -41,6 +41,8 @@ def get_merge_scenario_info(repository_name, merge_technique, exec_compile, exec
 
     # Repository Data
     repository_id = store_repository_info(repository_name)
+    if repository_id == -1:
+        return 1
 
     for merge_commit in merge_commits:
         # Extract the SHA-1 of the parents and ancestor
