@@ -58,7 +58,8 @@ if __name__ == '__main__':
     parser.add_argument('-cores', '--cpu-cores', help='The number of threads', required=False)
     parser.add_argument('-sd', '--start-date', help='The the date the merge scenarios should be analyzed after that',
                         required=False)
-
+    parser.add_argument('-ro', '--repository-only', help='If set, only the Repository data is extracted', action='store_true',
+                        required=False)
     args = vars(parser.parse_args())
 
     # CPU cores
@@ -85,7 +86,8 @@ if __name__ == '__main__':
     # Parallel execution
     Parallel(n_jobs = core_num)(delayed(get_merge_scenario_info)('{}___{}'.
                                                              format(user_name[i].strip(), repo_name[i].strip()), 'git',
-                                                             args['compile'], args['test'], args['conflicting_file'],
+                                                             args['repository_only'], args['compile'], args['test'],
+                                                             args['conflicting_file'],
                                                              args['conflicting_region'], args['pull_request'],
                                                              args['replay_compare'], args['commit_details'],
                                                              args['style_violation'], args['code_complexity'],
