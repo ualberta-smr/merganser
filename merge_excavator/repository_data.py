@@ -8,7 +8,7 @@ import config
 import validation
 
 
-def store_repository_info(repository_name):
+def store_repository_info(repository_name, merge_scenario_num):
     """
     This method stores the information of the given repository from GitHub. TEMP_CSV_PATH should be set in config.py
     :param
@@ -27,7 +27,8 @@ def store_repository_info(repository_name):
     current_time = strftime("%Y-%m-%d %H:%M:%S", gmtime())
     repository_data = [json_data['id'], current_time, json_data['full_name'], json_data['description'], \
                       json_data['language'], json_data['subscribers_count'], \
-                      json_data['stargazers_count'], json_data['forks'], json_data['open_issues'], json_data['size']]
+                      json_data['stargazers_count'], json_data['forks'], json_data['open_issues'], json_data['size'],
+                       merge_scenario_num]
     csv_file = open(config.TEMP_CSV_PATH + 'Repository_{}.csv'.format(repository_name), 'a')
     csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
     csv_writer.writerow(repository_data)
