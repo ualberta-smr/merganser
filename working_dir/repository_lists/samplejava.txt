@@ -2,7 +2,3 @@ perwendel/spark
 itext/itextpdf
 xetorthio/jedis
 jfinal/jfinal
-elastic/elasticsearch
-spring-projects/spring-boot
-square/okhttp
-square/okhttp
