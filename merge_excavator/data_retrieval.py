@@ -95,6 +95,10 @@ class Data_Retreival:
                                 UNION ALL
                                 (SELECT MIN(size) / 1024, AVG(size) / 1024,MAX(size) / 1024
                                 FROM Merge_Data.Repository)"""
+        self.parallel_changed_commits_query = """select merge_commit_hash from Merge_Data.Merge_Scenario sc Where parallel_changed_file_num > 0"""
+
+    def get_parallel_changed_commits(self):
+        return self.get_data_frame_of_query_result(self.get_query_result(self.parallel_changed_commits_query))
 
     def get_query_result(self, query):
         return os.popen('mysql -u {} -e "{}"'.format(config.DB_USER_NAME, query)).read()
@@ -163,7 +167,7 @@ class Data_Retreival:
         keywords_frequency1, commit_messege_length_stats1 = self.get_commit_messege_characteristics(1)
         keywords_frequency2, commit_messege_length_stats2 = self.get_commit_messege_characteristics(2)
         git_features_scenario = self.get_parallel_changes().drop('merge_commit_hash', axis=1)
-        features = [self.get_complexity(), git_features_scenario,
+        features = [git_features_scenario, self.get_complexity(),
             self.get_commit_num(1).drop('merge_commit_hash', axis=1) - self.get_commit_num(2).drop('merge_commit_hash',
                                                                                                    axis=1),
             self.get_commit_density(1).drop('merge_commit_hash', axis=1) - self.get_commit_density(2).drop(
@@ -198,5 +202,5 @@ class Data_Retreival:
 
 
 obj = Data_Retreival()
-#obj.save_prediction_data_to_csv()
-print(obj.get_repository_stats())
+obj.save_prediction_data_to_csv()
+#print(obj.get_repository_stats())
