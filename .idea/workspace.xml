@@ -125,29 +125,29 @@
     <session id="863770518">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="13" />
+          <entry key="project.closed" value="14" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.10" value="1" />
-          <entry key="project.open.time.4" value="3" />
+          <entry key="project.open.time.4" value="4" />
           <entry key="project.open.time.5" value="2" />
           <entry key="project.open.time.7" value="4" />
           <entry key="project.open.time.8" value="1" />
           <entry key="project.open.time.9" value="2" />
-          <entry key="project.opened" value="15" />
+          <entry key="project.opened" value="16" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="8168" />
+          <entry key="py" value="8181" />
           <entry key="sql" value="21" />
-          <entry key="txt" value="1522" />
+          <entry key="txt" value="1566" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="1522" />
-          <entry key="Python" value="8120" />
+          <entry key="PLAIN_TEXT" value="1566" />
+          <entry key="Python" value="8133" />
           <entry key="SQL" value="69" />
         </counts>
       </usages-collector>
@@ -208,7 +208,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/merge_excavator/merge_scenario_data.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
+            <state relative-caret-position="360">
               <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
               <folding>
                 <element signature="e#1#10#0" expanded="true" />
@@ -221,7 +221,7 @@
         <entry file="file://$PROJECT_DIR$/merge_excavator/repository_data.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
-              <caret line="23" column="16" lean-forward="true" selection-start-line="22" selection-start-column="8" selection-end-line="23" selection-end-column="16" />
+              <caret line="23" column="23" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -545,13 +545,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1534788102940</updated>
-    </task>
-    <task id="LOCAL-00059" summary="Use better method names">
-      <created>1535647130544</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1535647130544</updated>
     </task>
     <task id="LOCAL-00060" summary="Add warning for the number of cores to address #6">
       <created>1535647274071</created>
@@ -889,7 +882,14 @@
       <option name="project" value="LOCAL" />
       <updated>1536968197883</updated>
     </task>
-    <option name="localTasksCounter" value="108" />
+    <task id="LOCAL-00108" summary="Do not consider exceptions for repositories">
+      <created>1537206209871</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1537206209872</updated>
+    </task>
+    <option name="localTasksCounter" value="109" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -905,7 +905,7 @@
     <frame x="1987" y="27" width="1853" height="1053" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49832776" visible="true" weight="0.18981738" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49832776" visible="true" weight="0.192031" />
       <window_info id="Structure" order="1" sideWeight="0.50167227" side_tool="true" weight="0.1284153" />
       <window_info id="Favorites" order="2" sideWeight="0.50167227" side_tool="true" weight="0.1284153" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -976,7 +976,6 @@
       <path value="$PROJECT_DIR$/merge excavator/perwendel___spark" />
       <path value="$PROJECT_DIR$/merge excavator/elasticsearch" />
     </ignored-roots>
-    <MESSAGE value="Update the data schema to add the number of developers in each branch" />
     <MESSAGE value="Add data retrieval module" />
     <MESSAGE value="Add queries for conflict prediction" />
     <MESSAGE value="Update the schema to make it more readable" />
@@ -1001,7 +1000,8 @@
     <MESSAGE value="Add more data analysis queries" />
     <MESSAGE value="Disable the repository dir removal" />
     <MESSAGE value="Add python100 repository list (more than 100 stars)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add python100 repository list (more than 100 stars)" />
+    <MESSAGE value="Do not consider exceptions for repositories" />
+    <option name="LAST_COMMIT_MESSAGE" value="Do not consider exceptions for repositories" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1255,7 +1255,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/merge_excavator/merge_scenario_data.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
+        <state relative-caret-position="360">
           <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
           <folding>
             <element signature="e#1#10#0" expanded="true" />
@@ -1266,7 +1266,7 @@
     <entry file="file://$PROJECT_DIR$/merge_excavator/repository_data.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
-          <caret line="23" column="16" lean-forward="true" selection-start-line="22" selection-start-column="8" selection-end-line="23" selection-end-column="16" />
+          <caret line="23" column="23" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
         </state>
       </provider>
     </entry>
