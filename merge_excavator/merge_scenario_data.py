@@ -2,6 +2,7 @@
 import os
 import csv
 import time
+import random
 import numpy as np
 import logging
 from dateutil.relativedelta import relativedelta as rd
@@ -38,6 +39,11 @@ def get_merge_scenario_info(repository_name, merge_technique, repository_only, e
 
     # Extract all merge scenarios after the start_date
     merge_commits = [commit for commit in git_utility.get_merge_commits() if git_utility.get_commit_date(commit).split()[0] > start_date]
+    if len(merge_commits) < config.MAX_MERGE_SCENARIOS:
+        merge_commit_to_analyze = merge_commits
+    else:
+        random.shuffle(merge_commits)
+        merge_commit_to_analyze = merge_commits[0:config.MAX_MERGE_SCENARIOS]
 
     # Repository id
     repository_id = get_repository_id(repository_name)
@@ -45,7 +51,7 @@ def get_merge_scenario_info(repository_name, merge_technique, repository_only, e
         return 1
 
     if not repository_only:
-        for merge_commit in merge_commits:
+        for merge_commit in merge_commit_to_analyze:
             # Extract the SHA-1 of the parents and ancestor
             parents_commit = git_utility.get_parents(merge_commit)
             ancestor_commit = git_utility.get_ancestor(parents_commit)

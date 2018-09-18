@@ -12,6 +12,9 @@ PREDICTION_CSV_PATH = '../working_dir/prediction_data/'
 PREDICTION_CSV_DATA_NAME = 'data.csv'
 PREDICTION_CSV_LABEL_NAME = 'label.csv'
 
+# Constants
+MAX_MERGE_SCENARIOS = 855
+
 # DB information
 DB_HOST = 'localhost'
 DB_NAME = 'Merge_Data'
