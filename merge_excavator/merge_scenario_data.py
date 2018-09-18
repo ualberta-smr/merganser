@@ -39,8 +39,8 @@ def get_merge_scenario_info(repository_name, merge_technique, repository_only, e
     # Extract all merge scenarios after the start_date
     merge_commits = [commit for commit in git_utility.get_merge_commits() if git_utility.get_commit_date(commit).split()[0] > start_date]
 
-    # Repository Data
-    repository_id = store_repository_info(repository_name, len(merge_commits))
+    # Repository id
+    repository_id = get_repository_id(repository_name)
     if repository_id == -1:
         return 1
 
@@ -144,6 +144,9 @@ def get_merge_scenario_info(repository_name, merge_technique, repository_only, e
                 csv_writer.writerow(code_complexity_data)
                 csv_file.close()
 
+    # Repository Data
+    is_done = 1
+    store_repository_info(repository_name, len(merge_commits), is_done)
 
     # Logging
     execution_time = time.time() - t0
