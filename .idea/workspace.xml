@@ -141,13 +141,13 @@
           <entry key="py" value="9107" />
           <entry key="sh" value="12" />
           <entry key="sql" value="21" />
-          <entry key="txt" value="2108" />
+          <entry key="txt" value="2143" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Bash" value="12" />
-          <entry key="PLAIN_TEXT" value="2108" />
+          <entry key="PLAIN_TEXT" value="2143" />
           <entry key="Python" value="9058" />
           <entry key="SQL" value="70" />
         </counts>
@@ -238,7 +238,7 @@
         <entry file="file://$PROJECT_DIR$/merge_excavator/merge_scenario_data.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="374">
-              <caret line="31" column="8" lean-forward="true" selection-start-line="31" selection-start-column="8" selection-end-line="31" selection-end-column="8" />
+              <caret line="31" column="8" selection-start-line="31" selection-start-column="8" selection-end-line="31" selection-end-column="8" />
               <folding>
                 <element signature="e#1#10#0" expanded="true" />
               </folding>
@@ -571,13 +571,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1534788102940</updated>
-    </task>
-    <task id="LOCAL-00071" summary="Fix file name bug in tests">
-      <created>1535661908151</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
-      <option name="project" value="LOCAL" />
-      <updated>1535661908151</updated>
     </task>
     <task id="LOCAL-00072" summary="Modify the schema and remove AI keys">
       <created>1535661937192</created>
@@ -915,7 +908,14 @@
       <option name="project" value="LOCAL" />
       <updated>1537315052263</updated>
     </task>
-    <option name="localTasksCounter" value="120" />
+    <task id="LOCAL-00120" summary="Handle exceptions in the main loop">
+      <created>1537315603897</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
+      <option name="project" value="LOCAL" />
+      <updated>1537315603897</updated>
+    </task>
+    <option name="localTasksCounter" value="121" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1002,7 +1002,6 @@
       <path value="$PROJECT_DIR$/merge excavator/perwendel___spark" />
       <path value="$PROJECT_DIR$/merge excavator/elasticsearch" />
     </ignored-roots>
-    <MESSAGE value="Dix the encoding but" />
     <MESSAGE value="Fix the encoding bug #22" />
     <MESSAGE value="Remove the merge commit and ancestor from the related commits" />
     <MESSAGE value="Change in the way of extracting file/line changes" />
@@ -1027,7 +1026,8 @@
     <MESSAGE value="Add is_done field to Repository table" />
     <MESSAGE value="Add a limitation to the number of merge scenario to analyze" />
     <MESSAGE value="Add repos5langs100starts repository list for the prediction task" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add repos5langs100starts repository list for the prediction task" />
+    <MESSAGE value="Handle exceptions in the main loop" />
+    <option name="LAST_COMMIT_MESSAGE" value="Handle exceptions in the main loop" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1287,7 +1287,7 @@
     <entry file="file://$PROJECT_DIR$/merge_excavator/merge_scenario_data.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
-          <caret line="31" column="8" lean-forward="true" selection-start-line="31" selection-start-column="8" selection-end-line="31" selection-end-column="8" />
+          <caret line="31" column="8" selection-start-line="31" selection-start-column="8" selection-end-line="31" selection-end-column="8" />
           <folding>
             <element signature="e#1#10#0" expanded="true" />
           </folding>
