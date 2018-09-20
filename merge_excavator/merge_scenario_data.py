@@ -54,6 +54,13 @@ def get_merge_scenario_info(repository_name, merge_technique, repository_only, e
 
         if not repository_only:
             for merge_commit in merge_commit_to_analyze:
+
+                # Time limitation for running each repository
+                if (time.time() - t0) / 86400.0 > config.MAX_ANALYZING_DAY:
+                    logging.info('{} terminated since it couldn\'t finish in {}'.format(repository_name,
+                                                                                        config.MAX_ANALYZING_DAY))
+                    return 1
+
                 # Extract the SHA-1 of the parents and ancestor
                 parents_commit = git_utility.get_parents(merge_commit)
                 ancestor_commit = git_utility.get_ancestor(parents_commit)
@@ -159,9 +166,9 @@ def get_merge_scenario_info(repository_name, merge_technique, repository_only, e
         # Logging
         execution_time = time.time() - t0
         fmt = '{0.days} days {0.hours} hours {0.minutes} minutes {0.seconds} seconds'
-        logging.info('The merge extraction for {} is finish in {}'.format(repository_name, fmt.format(rd(seconds = execution_time))))
+        logging.info('{} finishes in {}'.format(repository_name, fmt.format(rd(seconds = execution_time))))
 
         # Remove the repository directory
         # remove_remopitory(repository_name)
     except Exception as e:
-        logging.warn('Error {} in {}.'.format(e, repository_name))
+        logging.warn('{} error: {}.'.format(e, repository_name))

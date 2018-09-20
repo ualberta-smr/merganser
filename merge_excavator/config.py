@@ -13,7 +13,8 @@ PREDICTION_CSV_DATA_NAME = 'data.csv'
 PREDICTION_CSV_LABEL_NAME = 'label.csv'
 
 # Constants
-MAX_MERGE_SCENARIOS = 855
+MAX_MERGE_SCENARIOS = 1000
+MAX_ANALYZING_DAY = 2
 
 # DB information
 DB_HOST = 'localhost'
