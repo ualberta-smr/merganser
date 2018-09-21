@@ -30,6 +30,7 @@ def get_merge_scenario_info(repository_name, merge_technique, repository_only, e
                         filemode='w')
 
     try:
+        logging.info('START: {}'.format(repository_name))  # TODO: Temp
         # Exit if the repository doesn't exist
         if os.path.exists(os.getcwd() + '/' + config.REPOSITORY_PATH + repository_name) is False:
             return 1

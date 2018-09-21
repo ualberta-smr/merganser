@@ -4,10 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/merge_excavator/data_visualization.py" line="11" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d417784f-f8c7-4ee1-8f7a-4b97c99aae62" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runAll.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runAll.sh" afterDir="false" />
-    </list>
+    <list default="true" id="d417784f-f8c7-4ee1-8f7a-4b97c99aae62" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +121,7 @@
     <session id="863770518">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="19" />
+          <entry key="project.closed" value="20" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.10" value="1" />
@@ -142,13 +139,13 @@
           <entry key="py" value="9361" />
           <entry key="sh" value="12" />
           <entry key="sql" value="21" />
-          <entry key="txt" value="2254" />
+          <entry key="txt" value="2286" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Bash" value="12" />
-          <entry key="PLAIN_TEXT" value="2254" />
+          <entry key="PLAIN_TEXT" value="2286" />
           <entry key="Python" value="9312" />
           <entry key="SQL" value="70" />
         </counts>
@@ -203,7 +200,7 @@
         <entry file="file://$PROJECT_DIR$/runAll.sh">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="45">
-              <caret line="3" column="26" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
+              <caret line="3" column="25" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -533,13 +530,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1534788102940</updated>
-    </task>
-    <task id="LOCAL-00076" summary="Add temp directories to .gitignore">
-      <created>1535731486901</created>
-      <option name="number" value="00076" />
-      <option name="presentableId" value="LOCAL-00076" />
-      <option name="project" value="LOCAL" />
-      <updated>1535731486902</updated>
     </task>
     <task id="LOCAL-00077" summary="Add the run-time test">
       <created>1535731645377</created>
@@ -877,7 +867,14 @@
       <option name="project" value="LOCAL" />
       <updated>1537465258825</updated>
     </task>
-    <option name="localTasksCounter" value="125" />
+    <task id="LOCAL-00125" summary="DO not run with code complexity">
+      <created>1537483294643</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
+      <option name="project" value="LOCAL" />
+      <updated>1537483294643</updated>
+    </task>
+    <option name="localTasksCounter" value="126" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -891,7 +888,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1987" y="27" width="1853" height="1053" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49832776" visible="true" weight="0.20309906" />
       <window_info id="Structure" order="1" sideWeight="0.50167227" side_tool="true" weight="0.1284153" />
@@ -964,7 +960,6 @@
       <path value="$PROJECT_DIR$/merge excavator/perwendel___spark" />
       <path value="$PROJECT_DIR$/merge excavator/elasticsearch" />
     </ignored-roots>
-    <MESSAGE value="Fix the comma problem in commit messages" />
     <MESSAGE value="Eliminate the repositories with cloning problem" />
     <MESSAGE value="Remove warnings in data conversion" />
     <MESSAGE value="Remove Code Complexity from the list of conflict prediction features" />
@@ -989,7 +984,8 @@
     <MESSAGE value="Do not remove temp repository dirs" />
     <MESSAGE value="Rename the repository list" />
     <MESSAGE value="Add time limitation for running each repository" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add time limitation for running each repository" />
+    <MESSAGE value="DO not run with code complexity" />
+    <option name="LAST_COMMIT_MESSAGE" value="DO not run with code complexity" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1244,7 +1240,7 @@
     <entry file="file://$PROJECT_DIR$/runAll.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
-          <caret line="3" column="26" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
+          <caret line="3" column="25" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
         </state>
       </provider>
     </entry>
