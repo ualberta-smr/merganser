@@ -54,7 +54,9 @@ def get_merge_scenario_info(repository_name, merge_technique, repository_only, e
             return 1
 
         if not repository_only:
-            for merge_commit in merge_commit_to_analyze:
+            for commit_num, merge_commit in enumerate(merge_commit_to_analyze):
+
+                logging.info('[STEP]: Analyzing {} / {} -  {}'.format(commit_num, len(merge_commit_to_analyze), repository_name))
 
                 # Time limitation for running each repository
                 if (time.time() - t0) / 86400.0 > config.MAX_ANALYZING_DAY:
