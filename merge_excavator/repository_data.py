@@ -33,7 +33,7 @@ def store_repository_info(repository_name, merge_scenario_num, is_done):
     csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
     csv_writer.writerow(repository_data)
     csv_file.close()
-    return json_data['id']
+    return json_data['id'], json_data['size']
 
 
 

@@ -15,6 +15,7 @@ PREDICTION_CSV_LABEL_NAME = 'label.csv'
 # Constants
 MAX_MERGE_SCENARIOS = 1000
 MAX_ANALYZING_DAY = 2
+MAX_REPO_SIZE_TO_ANALYZE = 100 * 1024
 
 # DB information
 DB_HOST = 'localhost'
