@@ -53,7 +53,7 @@ def get_merge_scenario_info(repository_name, merge_technique, repository_only, e
         if repository_id == -1:
             logging.info('NOT FOUND REPOSITORY: {}'.format(repository_name))  # TODO: Temp
             return 1
-        if repository_size > config.MAX_REPO_SIZE_TO_ANALYZE:
+        if int(repository_size) > config.MAX_REPO_SIZE_TO_ANALYZE:
             logging.info('HUGE REPOSITORY: {}'.format(repository_name))  # TODO: Temp
             open(config.REPOSITORY_LIST_PATH + '__HUGE.txt', 'a').write(repository_name)
             return 1

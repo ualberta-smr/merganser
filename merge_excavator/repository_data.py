@@ -33,7 +33,7 @@ def store_repository_info(repository_name, merge_scenario_num, is_done):
     csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
     csv_writer.writerow(repository_data)
     csv_file.close()
-    return json_data['id'], json_data['size']
+    return json_data['id']
 
 
 
@@ -53,4 +53,4 @@ def get_repository_id(repository_name):
          raise ValueError('The repository {} does not exists.'.format(repository_name))
     if 'message' in json_data.keys() and json_data['message'] == 'Moved Permanently':
          return -1
-    return json_data['id']
+    return json_data['id'], json_data['size']
