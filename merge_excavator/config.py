@@ -21,7 +21,7 @@ MAX_REPO_SIZE_TO_ANALYZE = 100 * 1024
 DB_HOST = 'localhost'
 DB_NAME = 'Merge_Data'
 DB_USER_NAME = 'root'
-DB_PASSWORD = '123'
+DB_PASSWORD = ''
 
 # Visualization
 VIS_S = 100

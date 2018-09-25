@@ -3,9 +3,14 @@ import os
 import pandas as pd
 import numpy as np
 from io import StringIO
-from functools import reduce
 
 import config
+import logging
+
+import pandas as pd
+import pymysql
+from sqlalchemy import create_engine
+
 
 class Data_Retreival:
 
@@ -49,6 +54,9 @@ class Data_Retreival:
                                  'GROUP BY Merge_Scenario.merge_commit_hash'
         self.developer_num_query = 'SELECT merge_commit_hash, parent{}_developer_num ' \
                               'FROM Merge_Data.Merge_Scenario'
+
+
+
         self.commit_message_quey = 'SELECT GROUP_CONCAT(Commits.message SEPARATOR \' ||| \') ' \
                                    'FROM Merge_Data.Merge_Scenario Merge_Scenario ' \
                                    'LEFT JOIN Merge_Data.Merge_Related_Commit Commits ' \
@@ -96,44 +104,73 @@ class Data_Retreival:
                                 (SELECT MIN(size) / 1024, AVG(size) / 1024,MAX(size) / 1024
                                 FROM Merge_Data.Repository)"""
         self.parallel_changed_commits_query = """select merge_commit_hash from Merge_Data.Merge_Scenario sc Where parallel_changed_file_num > 0"""
-
+        self.merge_commits_langs_query = """SELECT merge_commit_hash, language
+                                        FROM Merge_Data.Repository 
+                                        JOIN Merge_Data.Merge_Scenario
+                                        ON id = Repository_id
+                                        WHERE language IN ({})"""
     def get_parallel_changed_commits(self):
+        logging.info('Extracting parallel changes...')
         return self.get_data_frame_of_query_result(self.get_query_result(self.parallel_changed_commits_query))
 
     def get_query_result(self, query):
-        return os.popen('mysql -u {} -e "{}"'.format(config.DB_USER_NAME, query)).read()
+
+        engine = create_engine('mysql+pymysql://{}:{}@localhost/{}'.format(config.DB_USER_NAME, config.DB_PASSWORD, config.DB_NAME))
+        df = pd.read_sql_query(query, engine)
+        return df
+
+        # return os.popen('mysql -u {} -e "{}"'.format(config.DB_USER_NAME, query)).read()
 
     def get_data_frame_of_query_result(self, query_result):
+        return query_result
+        if len(query_result) == 0:
+            print('Empty result!')
+            return -1
         return pd.read_csv(StringIO(query_result), delimiter='\t')
 
     def get_complexity(self):
+        logging.info('Extracting code complexity...')
         return self.get_data_frame_of_query_result(self.get_query_result(self.code_complexity_query))
 
     def get_code_violation(self):
+        logging.info('Extracting code style violation...')
         return self.get_data_frame_of_query_result(self.get_query_result(self.code_violation_query))
 
     def get_parallel_changes(self):
+        logging.info('Extracting code parallel changes...')
         return self.get_data_frame_of_query_result(self.get_query_result(self.parallel_changes_query))
 
     def get_commit_num(self, parent): # TODO: The number of data in two branches is not the same.
+        logging.info('Extracting the number of commits...')
         return self.get_data_frame_of_query_result(self.get_query_result(self.commit_num_query.format(parent)))
 
     def get_commit_density(self, parent):
+        logging.info('Extracting commit density...')
         return self.get_data_frame_of_query_result(self.get_query_result(self.commit_density_two_weeks.format(parent)))
 
     def get_file_changes(self, parent):
+        logging.info('Extracting file changes...')
         return self.get_data_frame_of_query_result(self.get_query_result(self.file_change_query.format(parent)))
 
     def get_line_changes(self, parent):
+        logging.info('Extracting line changes...')
         return self.get_data_frame_of_query_result(self.get_query_result(self.line_change_query.format(parent)))
 
     def get_developer_num(self, parent):
+        logging.info('Extracting developer num...')
         res = self.get_data_frame_of_query_result(self.get_query_result(self.developer_num_query.format(parent))).drop('merge_commit_hash', axis=1).values
         return pd.DataFrame([item for sublist in res for item in sublist], columns=['# Developers'])
 
+    def get_merge_scenarios_in_lang(self, langs):
+        logging.info('Extracting merges by language...')
+        langs = ','.join(['\'{}\''.format(lang) for lang in langs])
+        return self.get_data_frame_of_query_result(self.get_query_result(self.merge_commits_langs_query.format(langs)))
+
     def get_commit_messege_characteristics(self, parent):
+        logging.info('Extracting message characteristics...')
         commit_messages = self.get_query_result(self.commit_message_quey.format(parent))
-        commit_messages_list = commit_messages.split('\n')[1:-1]
+        commit_messages_list = commit_messages.values[1:]
+        commit_messages_list = [item for sublist in commit_messages_list for item in sublist if item is not None]
         keywords = sorted(['fix', 'bug', 'feature', 'improve', 'document', 'refactor', 'update', 'add', 'remove', 'use',
                         'delete', 'change'])
         keywords_frequency = []
@@ -154,6 +191,7 @@ class Data_Retreival:
                pd.DataFrame(commit_messege_length_stats, columns=column_names_stats)
 
     def get_branch_duration(self, parent):
+        logging.info('Extracting branch duration...')
         res = self.get_data_frame_of_query_result(self.get_query_result(self.branch_duration.format(parent))).drop(
             'merge_commit_hash', axis=1).values
         return pd.DataFrame([item for sublist in res for item in sublist], columns=['Branch Duration'])
@@ -163,11 +201,11 @@ class Data_Retreival:
             'Merge_Scenario_merge_commit_hash', axis=1).values
         return pd.DataFrame([item for sublist in res for item in sublist], columns=['Is Conflict'])
 
-    def get_merge_scenario_prediction_data(self):
+    def get_merge_scenario_prediction_data(self, langs):
         keywords_frequency1, commit_messege_length_stats1 = self.get_commit_messege_characteristics(1)
         keywords_frequency2, commit_messege_length_stats2 = self.get_commit_messege_characteristics(2)
-        git_features_scenario = self.get_parallel_changes().drop('merge_commit_hash', axis=1)
-        features = [git_features_scenario, self.get_complexity(),
+        git_features_scenario = self.get_parallel_changes()
+        features = [git_features_scenario,
             self.get_commit_num(1).drop('merge_commit_hash', axis=1) - self.get_commit_num(2).drop('merge_commit_hash',
                                                                                                    axis=1),
             self.get_commit_density(1).drop('merge_commit_hash', axis=1) - self.get_commit_density(2).drop(
@@ -180,12 +218,16 @@ class Data_Retreival:
             keywords_frequency1 - keywords_frequency2,
             commit_messege_length_stats1 - commit_messege_length_stats2,
             self.get_branch_duration(1) - self.get_branch_duration(2)]
-        return pd.concat(features, axis=1)
 
-    def save_prediction_data_to_csv(self):
-        self.get_merge_scenario_prediction_data().drop('Merge_Scenario_merge_commit_hash', axis=1)\
-            .to_csv(path_or_buf=config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_DATA_NAME)
-        self.get_is_conflict().to_csv(path_or_buf=config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_LABEL_NAME)
+        res =  pd.concat([pd.concat(features, axis=1).sort_values(by=['merge_commit_hash']),
+                          self.get_merge_scenarios_in_lang(langs).sort_values(by=['merge_commit_hash'])], axis=1)
+        res = res[res['language'].isin(langs)].drop('merge_commit_hash', axis=1).drop('language', axis=1)
+        return res
+
+    def save_prediction_data_to_csv(self, langs, post_name):
+        self.get_merge_scenario_prediction_data(langs).drop('Merge_Scenario_merge_commit_hash', axis=1)\
+            .to_csv(path_or_buf=config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_DATA_NAME + post_name)
+        self.get_is_conflict().to_csv(path_or_buf=config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_LABEL_NAME + post_name)
 
     def get_conflict_ratio(self):
         return self.get_data_frame_of_query_result(self.get_query_result(self.conflict_rate_query))
@@ -201,6 +243,29 @@ class Data_Retreival:
         print('  - Columns: {}'.format(df.columns))
 
 
+# Logging
+logging.basicConfig(level=logging.INFO,
+                    format='%(levelname)s in %(threadName)s - %(asctime)s by %(name)-12s :  %(message)s',
+                    datefmt='%y-%m-%d %H:%M:%S')
+
+
 obj = Data_Retreival()
-obj.save_prediction_data_to_csv()
+
+print('Start data saving')
+
+print(' - Java')
+obj.save_prediction_data_to_csv(['Java'], '_java')
+print(' - Python')
+obj.save_prediction_data_to_csv(['Python'], '_Python')
+print(' - PHP')
+obj.save_prediction_data_to_csv(['PHP'], '_PHP')
+print(' - Ruby')
+obj.save_prediction_data_to_csv(['Ruby'], '_Ruby')
+print(' - C++')
+obj.save_prediction_data_to_csv(['C++'], '_CPP')
+print(' - Java')
+obj.save_prediction_data_to_csv(['Java', 'Python', 'Ruby', 'PHP', 'C++'], '_ALL')
+
+print('Finish data saving')
+
 #print(obj.get_repository_stats())
