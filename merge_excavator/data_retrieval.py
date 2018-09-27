@@ -3,6 +3,7 @@ import os
 import pandas as pd
 import numpy as np
 from io import StringIO
+import matplotlib.pyplot as plt
 
 from joblib import Parallel, delayed
 import multiprocessing
@@ -107,11 +108,46 @@ class Data_Retreival:
                                 (SELECT MIN(size) / 1024, AVG(size) / 1024,MAX(size) / 1024
                                 FROM Merge_Data.Repository)"""
         self.parallel_changed_commits_query = """select merge_commit_hash from Merge_Data.Merge_Scenario sc Where parallel_changed_file_num > 0"""
-        self.merge_commits_langs_query = """SELECT merge_commit_hash, language
-                                        FROM Merge_Data.Repository 
-                                        JOIN Merge_Data.Merge_Scenario
-                                        ON id = Repository_id
-                                        WHERE language IN ({})"""
+        self.merge_commits_langs_query = """SELECT language, COUNT(is_conflict) AS "Merge Scnenario No.",SUM(is_conflict) AS "Conflict No."
+                FROM Merge_Data.Repository JOIN Merge_Data.Merge_Replay
+                ON Repository.id = Merge_Replay.Merge_Scenario_Repository_id
+                WHERE language IN ('Java', 'Python', 'PHP', 'RUBY', 'C++')
+                GROUP BY language"""
+        self.conflict_per_language_query = """SELECT language, COUNT(is_conflict),SUM(is_conflict)
+                FROM Merge_Data.Repository JOIN Merge_Data.Merge_Replay
+                ON Repository.id = Merge_Replay.Merge_Scenario_Repository_id
+                WHERE language IN ('Java', 'Python', 'PHP', 'RUBY', 'C++')
+                GROUP BY language"""
+        self.repository_per_language_query = """SELECT language, COUNT(name) AS "Repository No."
+                FROM Merge_Data.Repository
+                WHERE language IN ('Java', 'Python', 'PHP', 'RUBY', 'C++')
+                GROUP BY language"""
+        self.scenarios_num_of_lang_query = """SELECT COUNT(merge_commit_hash)
+            FROM Merge_Data.Repository JOIN Merge_Data.Merge_Scenario on id = Repository_id
+            WHERE language = '{}'
+            GROUP BY name"""
+        self.conflicts_num_of_lang_query = """SELECT COUNT(is_conflict)
+            FROM Merge_Data.Repository JOIN Merge_Data.Merge_Replay on id = Merge_Scenario_Repository_id
+            WHERE language = '{}' and is_conflict = 1
+            GROUP BY name"""
+
+    def get_conflicts_nums_by_lang(self, lang): # TODO: The number of data in two branches is not the same.
+        logging.info('Getting all scenarios of lang...')
+        return self.get_data_frame_of_query_result(self.get_query_result(self.conflicts_num_of_lang_query.format(lang)))
+
+    def get_scenarios_nums_by_lang(self, lang): # TODO: The number of data in two branches is not the same.
+        logging.info('Getting all scenarios of lang...')
+        return self.get_data_frame_of_query_result(self.get_query_result(self.scenarios_num_of_lang_query.format(lang)))
+
+
+    def get_conflict_per_language(self):
+        logging.info('Extracting conflicts per language...')
+        return self.get_data_frame_of_query_result(self.get_query_result(self.conflict_per_language_query))
+
+    def get_repository_per_language(self):
+        logging.info('Extracting conflicts per language...')
+        return self.get_data_frame_of_query_result(self.get_query_result(self.repository_per_language_query))
+
     def get_parallel_changed_commits(self):
         logging.info('Extracting parallel changes...')
         return self.get_data_frame_of_query_result(self.get_query_result(self.parallel_changed_commits_query))
@@ -253,6 +289,91 @@ class Data_Retreival:
         print('  - Columns: {}'.format(df.columns))
 
 
+def draw_normalized_scenarios_per_lang():
+    obj = Data_Retreival()
+    conflict_per_language = obj.get_conflict_per_language()
+    repository_per_language = obj.get_repository_per_language()
+    print(repository_per_language)
+    print(conflict_per_language)
+    merges_per_language_normalized= conflict_per_language['COUNT(is_conflict)'].div(repository_per_language['Repository No.'], axis=0)
+    conflicts_per_language_normalized= conflict_per_language['SUM(is_conflict)'].div(repository_per_language['Repository No.'], axis=0)
+    pd.concat([merges_per_language_normalized, conflicts_per_language_normalized], axis=1).plot(kind='bar')
+    langs = ['C++', 'Java', 'PHP', 'Python', 'Ruby']
+    y_pos = np.arange(len(langs))
+    plt.xticks(y_pos, langs)
+    plt.xlabel('Programming Languages')
+    plt.ylabel('Normalized Merge Scenario No.')
+    plt.legend(['Total Merge Scenarios', 'Merge Scenarios with Conflicts'])
+    plt.show()
+
+def draw_likelihood_merges():
+    obj = Data_Retreival()
+    langs = ['C++', 'Java', 'PHP', 'Python', 'Ruby']
+    ax = obj.get_scenarios_nums_by_lang(langs[0]).plot.kde()
+    for i, item in enumerate(langs):
+        if i == 0:
+            continue
+        obj.get_scenarios_nums_by_lang(langs[i]).plot.kde(ax=ax)
+    plt.xlim((0, 1500))
+    plt.legend(langs)
+    plt.xlabel('No. Merge Scenarios')
+    plt.ylabel('Likelihood')
+    plt.show()
+
+def draw_likelihood_conflicts():
+    obj = Data_Retreival()
+    langs = ['C++', 'Java', 'PHP', 'Python', 'Ruby']
+    ax = obj.get_conflicts_nums_by_lang(langs[0]).plot.kde()
+    for i, item in enumerate(langs):
+        if i == 0:
+            continue
+        obj.get_conflicts_nums_by_lang(langs[i]).plot.kde(ax=ax)
+    plt.xlim((0, 50))
+    plt.legend(langs)
+    plt.xlabel('No. Conflicting Merge Scenarios')
+    plt.ylabel('Likelihood')
+    plt.show()
+
+
+def adjacent_values(vals, q1, q3):
+    upper_adjacent_value = q3 + (q3 - q1) * 1.5
+    upper_adjacent_value = np.clip(upper_adjacent_value, q3, vals[-1])
+
+    lower_adjacent_value = q1 - (q3 - q1) * 1.5
+    lower_adjacent_value = np.clip(lower_adjacent_value, vals[0], q1)
+    return lower_adjacent_value, upper_adjacent_value
+
+def draw_violin_scenarios():
+    obj = Data_Retreival()
+    langs = ['C++', 'Java', 'PHP', 'Python', 'Ruby']
+    data = []
+    for i, item in enumerate(langs):
+        data.append(obj.get_scenarios_nums_by_lang(langs[i]).values)
+    fig, ax = plt.subplots()
+    parts = ax.violinplot(data, showmeans=True)
+    plt.legend(langs)
+    plt.xlabel('Programming Languages')
+    plt.ylabel('No. Merge Scenarios')
+    ind = np.arange(len(langs)) + 1
+    plt.xticks(ind, langs)
+    plt.show()
+
+def draw_violin_conflicts():
+    obj = Data_Retreival()
+    langs = ['C++', 'Java', 'PHP', 'Python', 'Ruby']
+    data = []
+    for i, item in enumerate(langs):
+        data.append(obj.get_conflicts_nums_by_lang(langs[i]).values)
+    fig, ax = plt.subplots()
+    parts = ax.violinplot(data, showmeans=True)
+    plt.legend(langs)
+    plt.xlabel('Programming Languages')
+    plt.ylabel('No. Conflicting Merge Scenarios')
+    ind = np.arange(len(langs)) + 1
+    plt.xticks(ind, langs)
+    plt.show()
+
+
 if __name__ == "__main__":
 
     # Logging
@@ -260,8 +381,9 @@ if __name__ == "__main__":
                         format='%(levelname)s in %(threadName)s - %(asctime)s by %(name)-12s :  %(message)s',
                         datefmt='%y-%m-%d %H:%M:%S')
 
-    obj = Data_Retreival()
-
+    draw_violin_scenarios()
+    draw_violin_conflicts()
+    exit()
     print('Start data saving')
 
     lang_test = [['Java'], ['Python'], ['PHP'], ['Ruby'], ['C++'], ['Java', 'Python', 'Ruby', 'PHP', 'C++']]

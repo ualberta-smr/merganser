@@ -31,3 +31,6 @@ class Visualization:
         plt.legend(['# Merge Scenarios', '# Merge Scenarios with Conflicts'])
         plt.show()
         plt.close()
+
+vis = Visualization()
+vis.vis_scenarios_conflict_num()
