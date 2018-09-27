@@ -4,6 +4,9 @@ import pandas as pd
 import numpy as np
 from io import StringIO
 
+from joblib import Parallel, delayed
+import multiprocessing
+
 import config
 import logging
 
@@ -219,15 +222,22 @@ class Data_Retreival:
             commit_messege_length_stats1 - commit_messege_length_stats2,
             self.get_branch_duration(1) - self.get_branch_duration(2)]
 
-        res =  pd.concat([pd.concat(features, axis=1).sort_values(by=['merge_commit_hash']),
-                          self.get_merge_scenarios_in_lang(langs).sort_values(by=['merge_commit_hash'])], axis=1)
-        res = res[res['language'].isin(langs)].drop('merge_commit_hash', axis=1).drop('language', axis=1)
-        return res
+        lang_data = self.get_merge_scenarios_in_lang(langs)
+        data = pd.concat([pd.concat(features, axis=1).sort_values(by=['merge_commit_hash']), lang_data], axis=1)
+        data = data[data['language'].isin(langs)].drop('merge_commit_hash', axis=1).drop('language', axis=1)
+
+        label = self.get_data_frame_of_query_result(self.get_query_result(self.is_conflict_query.format())).sort_values(by=['Merge_Scenario_merge_commit_hash']).drop(
+            'Merge_Scenario_merge_commit_hash', axis=1).values
+        label = pd.DataFrame([item for sublist in label for item in sublist], columns=['Is Conflict'])
+        label = pd.concat([label, lang_data], axis=1)
+        label = label[label['language'].isin(langs)].drop('merge_commit_hash', axis=1).drop('language', axis=1)
+        return data, label
 
     def save_prediction_data_to_csv(self, langs, post_name):
-        self.get_merge_scenario_prediction_data(langs).drop('Merge_Scenario_merge_commit_hash', axis=1)\
-            .to_csv(path_or_buf=config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_DATA_NAME + post_name)
-        self.get_is_conflict().to_csv(path_or_buf=config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_LABEL_NAME + post_name)
+        logging.info('Start {}'.format(post_name))
+        data, label = self.get_merge_scenario_prediction_data(langs)
+        data.to_csv(path_or_buf=config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_DATA_NAME + post_name)
+        label.to_csv(path_or_buf=config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_LABEL_NAME + post_name)
 
     def get_conflict_ratio(self):
         return self.get_data_frame_of_query_result(self.get_query_result(self.conflict_rate_query))
@@ -243,29 +253,26 @@ class Data_Retreival:
         print('  - Columns: {}'.format(df.columns))
 
 
-# Logging
-logging.basicConfig(level=logging.INFO,
-                    format='%(levelname)s in %(threadName)s - %(asctime)s by %(name)-12s :  %(message)s',
-                    datefmt='%y-%m-%d %H:%M:%S')
+if __name__ == "__main__":
+
+    # Logging
+    logging.basicConfig(level=logging.INFO,
+                        format='%(levelname)s in %(threadName)s - %(asctime)s by %(name)-12s :  %(message)s',
+                        datefmt='%y-%m-%d %H:%M:%S')
+
+    obj = Data_Retreival()
+
+    print('Start data saving')
+
+    lang_test = [['Java'], ['Python'], ['PHP'], ['Ruby'], ['C++'], ['Java', 'Python', 'Ruby', 'PHP', 'C++']]
+    name_test = ['_JAVA', '_PYTHON', '_PHP', '_RUBY', '_C++', '_ALL']
+
+    # Parallel execution
+    core_num = multiprocessing.cpu_count()
+    Parallel(n_jobs=core_num)(delayed(obj.save_prediction_data_to_csv)(lang_test[i], name_test[i]) for i in range(len(name_test)))
 
 
-obj = Data_Retreival()
 
-print('Start data saving')
+    print('Finish data saving')
 
-print(' - Java')
-obj.save_prediction_data_to_csv(['Java'], '_java')
-print(' - Python')
-obj.save_prediction_data_to_csv(['Python'], '_Python')
-print(' - PHP')
-obj.save_prediction_data_to_csv(['PHP'], '_PHP')
-print(' - Ruby')
-obj.save_prediction_data_to_csv(['Ruby'], '_Ruby')
-print(' - C++')
-obj.save_prediction_data_to_csv(['C++'], '_CPP')
-print(' - Java')
-obj.save_prediction_data_to_csv(['Java', 'Python', 'Ruby', 'PHP', 'C++'], '_ALL')
-
-print('Finish data saving')
-
-#print(obj.get_repository_stats())
+    #print(obj.get_repository_stats())

@@ -6,6 +6,7 @@
     <mapping directory="$PROJECT_DIR$/merge_excavator/traccar" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/working_dir/repository/itext___itextpdf" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/working_dir/repository/jfinal___jfinal" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/working_dir/repository/keras-team___keras" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/working_dir/repository/owhadi___sample-merge" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/working_dir/repository/perwendel___spark" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/working_dir/repository/spring-projects___spring-boot" vcs="Git" />
