@@ -9,8 +9,8 @@ def validate_repository_name(repository_name):
     :return:
     """
     if repository_name.count('___') + repository_name.count('/') != 1:
-        raise ValueError('The repository name should be in <USER_NAME>/<REPOSITORY_NAME> format. {} does not'
-                         ' follow this.'.format(repository_name))
+        raise ValueError('The repository name should be in <USER_NAME>/<REPOSITORY_NAME> format. {} is invalid.'.
+                         format(repository_name))
 
 
 def validate_core_num(core_num):
@@ -23,5 +23,5 @@ def validate_core_num(core_num):
     if core_num < 1:
         raise ValueError('The number of cores should be greater than zero. {} is not a valid value.'.format(core_num))
     elif core_num > multiprocessing.cpu_count():
-        raise ValueError('The number of cores cannot be greater that the number of system cores ({}), {} is not valid'
+        raise ValueError('The number of cores cannot be greater that the number of system cores ({}), {} is invalid'
                          .format(multiprocessing.cpu_count(), core_num))
