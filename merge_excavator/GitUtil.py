@@ -21,35 +21,32 @@ class GitUtil:
 
     def get_merge_commits(self):
         """
-        Returns the list of all merge SHA-1
+        Returns the list of all merges' SHA-1 of the repository
         :return:  List of merge SHA-1
         """
         return os.popen(self.cd_to_repository + 'git log --all --pretty=%H --merges').read().split()
 
     def get_parents(self, commit):
         """
-        Returns the parents in a merge scenario
-        commit: The SHA-1 of the merge commit
-        :return:
-        Two parents of the merge commit
+        Returns the parents of the merge scenario
+        :param commit: The SHA-1 of the merge commit
+        :return: Two parents as a list
         """
         return os.popen(self.cd_to_repository + 'git log --pretty=%P -n 1 {}'.format(commit)).read().split()
 
     def get_ancestor(self, parents):
         """
-        Returns the ancestor of two parents in a merge scenario
-        parents: The list of SHA-1 od parents
-        :return:
-        The ancestor of two parents
+        Returns the ancestor SHA-1 of two parents in a merge scenario
+        :param parents: The list of SHA-1 of parents
+        :return: The ancestor of two parents
         """
         return os.popen(self.cd_to_repository + 'git merge-base {} {}'.format(parents[0], parents[1])).read().rstrip()
 
     def get_commit_date(self, commit):
         """
         Returns the local date of a commit
-        commit: The SHA-1 of the commit
-        :return:
-        The date of the input commit
+        :param commit: The SHA-1 of the commit
+        :return: The date of the input commit
         """
         return ' '.join(os.popen(self.cd_to_repository + 'git show -s --format=%ci {}'.format(commit)).read().rstrip()
                         .split()[0:2])
@@ -80,7 +77,7 @@ class GitUtil:
 
     def check_if_pull_request(self, commit):
         """
-        Determine whther the commit was a pull request
+        Determine whether the commit was a pull request
         :param commit: The SHA-1 of the commit
         :return: 1 if the commit was a pull request, 0 otherwise
         """
@@ -101,7 +98,7 @@ class GitUtil:
 
     def get_branch_of_commit(self, commit):
         """
-        Returns the branch name of the givrn commit
+        Returns the branch name of the given commit
         :param commit: The SHA-1 of the commit
         :return: The branch name
         """
@@ -117,7 +114,7 @@ class GitUtil:
         Returns the number of the ChangeType (A, D, R, C, and M) between two commits
         :param commit1: The SHA-1 of the first commit
         :param commit2: The SHA-1 of the second commit
-        :return: The number of changes
+        :return: The number of the ChangeType
         """
         changed_files = os.popen(self.cd_to_repository + 'git diff --stat --diff-filter={} {}..{}'
                                  .format(changeType, commit1, commit2) +
@@ -127,13 +124,12 @@ class GitUtil:
         else:
             return changed_files
 
-
     def get_changed_files_between_two_commits(self, commit1, commit2):
         """
         Returns a vector with size five consists the number of file changes (A, D, R, C, and M) between two commits
         :param commit1: The SHA-1 of the first commit
         :param commit2: The SHA-1 of the second commit
-        :return: The file changes
+        :return: The vector of five ChangeTypes
         """
         types = ['A', 'D', 'R', 'C', 'M']
         return [self.get_changed_files_between_two_commits_for_type(commit1, commit2, changeType)
@@ -142,8 +138,7 @@ class GitUtil:
     def get_changed_files_in_commit_type(self, commit, changeType):
         """
         Returns the number of the ChangeType (A, D, R, C, and M) between two commits
-        :param commit1: The SHA-1 of the first commit
-        :param commit2: The SHA-1 of the second commit
+        :param commit: The SHA-1 of the commit
         :return: The number of changes
         """
         changed_files = os.popen(self.cd_to_repository + 'git show --oneline --numstat --diff-filter={}  {} | wc -l'
