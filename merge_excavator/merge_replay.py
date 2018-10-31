@@ -11,7 +11,7 @@ from code_quality import *
 
 class Merge_Replay:
     """
-    This is the main class to replay the merge scenarios and extract their features, conflicting files, and conflicting
+    This is the class to replay the merge scenarios and extract their features, conflicting files, and conflicting
      regions.
     """
 
@@ -19,12 +19,13 @@ class Merge_Replay:
         """
         The construction method is for compiling regular expressions
         """
-
-        self.CONFLICT_PATTERN_CONTENT = re.compile('CONFLICT \\(((?:content|add\\/add))\\): Merge conflict in \"?([^\"]+)\"?')
+        self.CONFLICT_PATTERN_CONTENT = re.compile('CONFLICT \\(((?:content|add\\/add))\\): Merge conflict in \"?'
+                                                   '([^\"]+)\"?')
         self.CONFLICT_PATTERN_DELETE = re.compile(
             'CONFLICT \\(((?:rename|modify)\\/delete)\\): \"?([^\"]+)\"? deleted in .+ and (?:renamed|modified) .+')
         self.CONFLICT_PATTERN_RENAME_RENAME = re.compile(
-            'CONFLICT \\((rename\\/rename)\\): Rename \"?[^\"]+\"?->\"?([^\"]+)\"? in .+ [Rr]ename \"?[^\"]+\"?->\"?[^\"]'
+            'CONFLICT \\((rename\\/rename)\\): Rename \"?[^\"]+\"?->\"?([^\"]+)\"? in .+ [Rr]ename \"?[^\"]+\"?->\
+            "?[^\"]'
             '+\"? in .+')
         self.CONFLICT_PATTERN_RENAME_ADD = re.compile(
             'CONFLICT \\((rename\\/add)\\): Rename \"?[^\"]+\"?->\"?([^\"]+)\"? in \\S+ \"?[^\"]+\"? added in .+')
@@ -45,7 +46,6 @@ class Merge_Replay:
         :param exec_conflicting_region: Whether the information of the conflicting regions should be stored
         :param exec_replay_comparison: Whether the replay and merge commit should compare
         :param repository_id: The GitHub id of repository
-        :return: Nothing
         """
 
         # Local variables
@@ -75,7 +75,7 @@ class Merge_Replay:
         # Compile the code
         if exec_compile:
             if is_conflict == 0:
-                replay_can_compile = check_build_status(repository_name, -1, 'compile')
+                replay_can_compile = check_build_status(repository_name, 'compile')
             else:
                 replay_can_compile = 0
         else:
@@ -84,7 +84,7 @@ class Merge_Replay:
         # Test the code
         if exec_tests:
             if is_conflict == 0:
-                replay_can_pass_test = check_build_status(repository_name, -1, 'test')
+                replay_can_pass_test = check_build_status(repository_name, 'test')
             else:
                 replay_can_pass_test = 0
         else:
@@ -111,11 +111,12 @@ class Merge_Replay:
         if exec_conflicting_file:
             for conflict_report_line in merge_output:
                 if 'CONFLICT' in conflict_report_line:
+
+                    # Matching the types of conflicts using
                     content_conflict_match = self.CONFLICT_PATTERN_CONTENT.match(conflict_report_line)
                     delete_conflict_match = self.CONFLICT_PATTERN_DELETE.match(conflict_report_line)
                     rename_conflict_match = self.CONFLICT_PATTERN_RENAME_RENAME.match(conflict_report_line)
                     rename_add_conflict_match = self.CONFLICT_PATTERN_RENAME_ADD.match(conflict_report_line)
-
                     if content_conflict_match:
                         conflict_type = content_conflict_match.group(1)
                         conflicting_file = content_conflict_match.group(2)
