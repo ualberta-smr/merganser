@@ -16,23 +16,15 @@ def check_build_status(repository_name, commit, operation):
     cd_to_repository = 'cd {};'.format(config.REPOSITORY_PATH + repository_name)
     if commit != -1: # Valid commit SHA-1
         os.system(cd_to_repository + 'git checkout {}'.format(commit))
-
-    # Maven
-    if os.path.isfile('{}.pom.xml'.format(config.REPOSITORY_PATH + repository_name)):
-
-        # Determine the parameter for mvn command
+    if os.path.isfile('{}.pom.xml'.format(config.REPOSITORY_PATH + repository_name)): # Maven
         if operation == 'compile':
             command = 'compile test-compile'
         elif operation == 'test':
             command = 'test'
         else:
             raise ValueError('Operator {} is not defined for {}'.format(operation, repository_name))
-
-        # Run mvn
         maven_output = os.popen(cd_to_repository + 'mvn ' + command).read()
         os.system(cd_to_repository + 'git reset --hard'.format(commit))
-
-        # Check the build status
         if maven_output.find('BUILD SUCCESS') > -1 or maven_output.find('BUILD FAILURE') == -1:
             return 1
         elif maven_output.find('BUILD SUCCESS') == -1 or maven_output.find('BUILD FAILURE') > -1:
