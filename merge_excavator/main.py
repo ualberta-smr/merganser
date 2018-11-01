@@ -5,7 +5,6 @@ import argparse
 import logging
 from time import gmtime, strftime
 
-
 from clone_repositories import *
 from merge_scenario_data import *
 import config
@@ -30,7 +29,7 @@ if __name__ == '__main__':
                         filename='{}main_execution_{}.log'.format(config.LOG_PATH, strftime('%Y-%m-%d_%H:%M:%S',
                                                                                              gmtime())),
                         filemode = 'w')
-    logging.info('The code starts') # TODO: the logging doesn't work for the main.py
+    logging.info('The code starts')
 
     # Arguments
     parser = argparse.ArgumentParser(description='The main script for analyzing merge scenarios')
@@ -44,8 +43,6 @@ if __name__ == '__main__':
                         action='store_true', required=False)
     parser.add_argument('-cr', '--conflicting-region', help='If set, the information of conflicting regions is stored',
                         action='store_true', required=False)
-    parser.add_argument('-pr', '--pull-request', help='If set, pull requests are detected', action='store_true',
-                        required=False)
     parser.add_argument('-rc', '--replay-compare', help='If set, the replays and merge commits are compared',
                         action='store_true', required=False)
     parser.add_argument('-cd', '--commit-details',
@@ -88,7 +85,7 @@ if __name__ == '__main__':
                                                              format(user_name[i].strip(), repo_name[i].strip()), 'git',
                                                              args['repository_only'], args['compile'], args['test'],
                                                              args['conflicting_file'],
-                                                             args['conflicting_region'], args['pull_request'],
+                                                             args['conflicting_region'],
                                                              args['replay_compare'], args['commit_details'],
                                                              args['style_violation'], args['code_complexity'],
                                                              start_date)
