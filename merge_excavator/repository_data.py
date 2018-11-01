@@ -24,9 +24,9 @@ def store_repository_info(repository_name, merge_scenario_num, is_done):
     # Check if the repository was available
     json_data = json.loads(github_request)
     if 'message' in json_data.keys() and json_data['message'] != 'Moved Permanently':
-         raise ValueError('The repository {} permanently moved.'.format(repository_name))
-    if 'message' in json_data.keys() and json_data['message'] == 'Moved Permanently':
         raise ValueError('The repository {} is unavailable.'.format(repository_name))
+    if 'message' in json_data.keys() and json_data['message'] == 'Moved Permanently':
+        raise ValueError('The repository {} permanently moved.'.format(repository_name))
 
     # Store the data
     current_time = strftime("%Y-%m-%d %H:%M:%S", gmtime())
@@ -59,8 +59,8 @@ def get_repository_id(repository_name):
     # Check if the repository was available
     json_data = json.loads(github_request)
     if 'message' in json_data.keys() and json_data['message'] != 'Moved Permanently':
-         raise ValueError('The repository {} permanently moved.'.format(repository_name))
-    if 'message' in json_data.keys() and json_data['message'] == 'Moved Permanently':
         raise ValueError('The repository {} is unavailable.'.format(repository_name))
+    if 'message' in json_data.keys() and json_data['message'] == 'Moved Permanently':
+        raise ValueError('The repository {} permanently moved.'.format(repository_name))
 
     return json_data['id'], json_data['size']
