@@ -31,12 +31,14 @@ def get_merge_scenario_info(repository_name, merge_technique, repository_only, e
 
     try:
         logging.info('START: {}'.format(repository_name))  # TODO: Temp
+
         # Exit if the repository doesn't exist
         if os.path.exists(os.getcwd() + '/' + config.REPOSITORY_PATH + repository_name) is False:
             return 1
 
         t0 = time.time()
 
+        # Local variables
         git_utility = GitUtil(repository_name)
         merge_replay = Merge_Replay()
 
@@ -58,6 +60,7 @@ def get_merge_scenario_info(repository_name, merge_technique, repository_only, e
             open(config.REPOSITORY_LIST_PATH + '__HUGE.txt', 'a').write(repository_name)
             return 1
 
+        # Analyze the merges
         if not repository_only:
             for commit_num, merge_commit in enumerate(merge_commit_to_analyze):
 
@@ -106,11 +109,8 @@ def get_merge_scenario_info(repository_name, merge_technique, repository_only, e
                     parent1_can_pass_test = -1
                     parent2_can_pass_test = -1
 
-                # Detec pull requests
-                if exec_pull_request:
-                    is_pull_request = git_utility.check_if_pull_request(merge_commit)
-                else:
-                    is_pull_request = -1
+                # Detect pull requests
+                is_pull_request = git_utility.check_if_pull_request(merge_commit)
 
                 # Extract developers num
                 developer_num_parent1 = git_utility.get_develoeprs_num(ancestor_commit, parents_commit[0])
@@ -176,7 +176,5 @@ def get_merge_scenario_info(repository_name, merge_technique, repository_only, e
         fmt = '{0.days} days {0.hours} hours {0.minutes} minutes {0.seconds} seconds'
         logging.info('{} finishes in {}'.format(repository_name, fmt.format(rd(seconds = execution_time))))
 
-        # Remove the repository directory
-        # remove_remopitory(repository_name)
     except Exception as e:
         logging.warn('{} error: {}.'.format(e, repository_name))
