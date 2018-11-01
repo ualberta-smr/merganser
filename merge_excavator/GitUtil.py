@@ -109,6 +109,30 @@ class GitUtil:
         else:
             return ','.join(branches) + '.'
 
+    def get_changed_files_in_commit_type(self, commit, changeType):
+        """
+        Returns the number of the ChangeType (A, D, R, C, and M) in a commit
+        :param commit: The SHA-1 of the commit
+        :return: The number of changes
+        """
+        changed_files = os.popen(self.cd_to_repository + 'git show --oneline --numstat --diff-filter={}  {} | wc -l'
+                                 .format(changeType, commit)).read().strip()
+        if changed_files == '':
+            return 0
+        else:
+            return max(int(changed_files) - 2, 0) # Remove the first two lines
+
+    def get_changed_files_in_commit(self, commit):
+        """
+        Returns a vector with size five consists the number of file changes (A, D, R, C, and M) in a commit
+        :param commit1: The SHA-1 of the first commit
+        :param commit2: The SHA-1 of the second commit
+        :return: The file changes
+        """
+        types = ['A', 'D', 'R', 'C', 'M']
+        return [self.get_changed_files_in_commit_type(commit, changeType)
+                for changeType in types]
+
     def get_changed_files_between_two_commits_for_type(self, commit1, commit2, changeType):
         """
         Returns the number of the ChangeType (A, D, R, C, and M) between two commits
@@ -135,30 +159,6 @@ class GitUtil:
         return [self.get_changed_files_between_two_commits_for_type(commit1, commit2, changeType)
                 for changeType in types]
 
-    def get_changed_files_in_commit_type(self, commit, changeType):
-        """
-        Returns the number of the ChangeType (A, D, R, C, and M) between two commits
-        :param commit: The SHA-1 of the commit
-        :return: The number of changes
-        """
-        changed_files = os.popen(self.cd_to_repository + 'git show --oneline --numstat --diff-filter={}  {} | wc -l'
-                                 .format(changeType, commit)).read().strip()
-        if changed_files == '':
-            return 0
-        else:
-            return max(int(changed_files) - 2, 0) # Remove the first two lines
-
-    def get_changed_files_in_commit(self, commit):
-        """
-        Returns a vector with size five consists the number of file changes (A, D, R, C, and M) between two commits
-        :param commit1: The SHA-1 of the first commit
-        :param commit2: The SHA-1 of the second commit
-        :return: The file changes
-        """
-        types = ['A', 'D', 'R', 'C', 'M']
-        return [self.get_changed_files_in_commit_type(commit, changeType)
-                for changeType in types]
-
     def get_changed_lines_between_two_commits(self, commit1, commit2):
         """
         Returns a list which consists of all added and removed lines between two commits
@@ -176,7 +176,7 @@ class GitUtil:
 
     def get_changed_lines_in_commit(self, commit):
         """
-        Returns a list which consists of all added and removed lines between two commits
+        Returns a list which consists of all added and removed lines in a commit
         :param commit1: The SHA-1 of the first commit
         :param commit2: The SHA-1 of the second commit
         :return: The number of line changes
