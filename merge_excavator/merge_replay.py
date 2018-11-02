@@ -1,4 +1,6 @@
 
+# -*- coding: utf-8 -*-
+
 import os
 import re
 import time
@@ -140,7 +142,7 @@ class Merge_Replay:
 
         # Conflicting regions
         if exec_conflicting_region:
-            diff_replay = [line.encode('UTF-8') for line in os.popen(cd_to_repository + 'git diff -U0').readlines()]
+            diff_replay = [line for line in os.popen(cd_to_repository + 'git diff -U0').readlines()] #  TODO.decode("utf-8")
             if diff_replay is not None:
                 for index, diff_line in enumerate(diff_replay):
                     if '--- ' in diff_line:
