@@ -18,8 +18,7 @@ from repository_data import *
 
 
 def get_merge_scenario_info(repository_name, merge_technique, repository_only, exec_compile, exec_tests,
-                            exec_conflicting_file, exec_conflicting_region,
-                            exec_pull_request, exec_replay_comparison, exec_related_commits,
+                            exec_conflicting_file, exec_conflicting_region, exec_replay_comparison, exec_related_commits,
                             exec_code_style_violation, exec_complexity, start_date='1900-01-01'):
     # Logging
     logging.basicConfig(level=logging.INFO,
