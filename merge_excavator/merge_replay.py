@@ -131,6 +131,9 @@ class Merge_Replay:
                     elif rename_add_conflict_match:
                         conflict_type = rename_add_conflict_match.group(1)
                         conflicting_file = rename_add_conflict_match.group(2)
+                    else:
+                        conflict_type = 'Unknown Type'
+                        conflicting_file = 'Unknown File'
 
                     # Store the merge replay information
                     conflicting_file_data = [conflicting_file.strip(), conflict_type, merge_technique, merge_commit,
