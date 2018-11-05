@@ -115,12 +115,9 @@ class GitUtil:
         :param commit: The SHA-1 of the commit
         :return: The number of changes
         """
-        changed_files = os.popen(self.cd_to_repository + 'git show --oneline --numstat --diff-filter={}  {} | wc -l'
-                                 .format(changeType, commit)).read().strip()
-        if changed_files == '':
-            return 0
-        else:
-            return max(int(changed_files) - 2, 0) # Remove the first two lines
+
+        return max(0, len([line for line in os.popen(self.cd_to_repository + 'git show --oneline --numstat --diff-filter={}  {}'
+                                 .format(changeType, commit)).readlines() if line != '\n']) - 1)
 
     def get_changed_files_in_commit(self, commit):
         """
