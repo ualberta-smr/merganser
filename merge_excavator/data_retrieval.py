@@ -293,8 +293,6 @@ def draw_normalized_scenarios_per_lang():
     obj = Data_Retreival()
     conflict_per_language = obj.get_conflict_per_language()
     repository_per_language = obj.get_repository_per_language()
-    print(repository_per_language)
-    print(conflict_per_language)
     merges_per_language_normalized= conflict_per_language['COUNT(is_conflict)'].div(repository_per_language['Repository No.'], axis=0)
     conflicts_per_language_normalized= conflict_per_language['SUM(is_conflict)'].div(repository_per_language['Repository No.'], axis=0)
     pd.concat([merges_per_language_normalized, conflicts_per_language_normalized], axis=1).plot(kind='bar')
@@ -302,8 +300,8 @@ def draw_normalized_scenarios_per_lang():
     y_pos = np.arange(len(langs))
     plt.xticks(y_pos, langs)
     plt.xlabel('Programming Languages')
-    plt.ylabel('Normalized Merge Scenario No.')
-    plt.legend(['Total Merge Scenarios', 'Merge Scenarios with Conflicts'])
+    plt.ylabel('NN. Merges  / No. Repositories')
+    plt.legend(['Total Merge Scenarios', 'Conflicting Merge Scenarios'])
     plt.show()
 
 def draw_likelihood_merges():
@@ -327,10 +325,10 @@ def draw_likelihood_conflicts():
     for i, item in enumerate(langs):
         if i == 0:
             continue
-        obj.get_conflicts_nums_by_lang(langs[i]).plot.kde(ax=ax)
-    plt.xlim((0, 50))
+        obj.get_scenarios_nums_by_lang(langs[i]).plot.kde(ax=ax)
+    plt.xlim((0, 1500))
     plt.legend(langs)
-    plt.xlabel('No. Conflicting Merge Scenarios')
+    plt.xlabel('No. Merge Scenarios')
     plt.ylabel('Likelihood')
     plt.show()
 
@@ -351,7 +349,7 @@ def draw_violin_scenarios():
         data.append(obj.get_scenarios_nums_by_lang(langs[i]).values)
     fig, ax = plt.subplots()
     parts = ax.violinplot(data, showmeans=True)
-    plt.legend(langs)
+    # plt.legend(langs)
     plt.xlabel('Programming Languages')
     plt.ylabel('No. Merge Scenarios')
     ind = np.arange(len(langs)) + 1
@@ -366,11 +364,46 @@ def draw_violin_conflicts():
         data.append(obj.get_conflicts_nums_by_lang(langs[i]).values)
     fig, ax = plt.subplots()
     parts = ax.violinplot(data, showmeans=True)
-    plt.legend(langs)
+    # plt.legend(langs)
     plt.xlabel('Programming Languages')
     plt.ylabel('No. Conflicting Merge Scenarios')
     ind = np.arange(len(langs)) + 1
     plt.xticks(ind, langs)
+    plt.show()
+
+def draw_violin_scenarios_conflicts():
+    obj = Data_Retreival()
+    langs = ['C++', 'Java', 'PHP', 'Python', 'Ruby']
+    data_scenarios = []
+    data_conflicts = []
+    for i, item in enumerate(langs):
+        data_scenarios.append(obj.get_conflicts_nums_by_lang(langs[i]).values)
+        data_conflicts.append(obj.get_scenarios_nums_by_lang(langs[i]).values)
+    data2 = data_scenarios
+    data1 = data_conflicts
+    v1 = plt.violinplot(data1, positions=np.arange(0, len(data1)), widths=1,
+                       showmeans=False, showextrema=False, showmedians=False)
+    for b in v1['bodies']:
+        m = np.mean(b.get_paths()[0].vertices[:, 0])
+        b.get_paths()[0].vertices[:, 0] = np.clip(b.get_paths()[0].vertices[:, 0], -np.inf, m)
+        b.set_color('r')
+        b.set_alpha(0.5)
+        b.set_edgecolor('k')
+    v2 = plt.violinplot(data2, positions=np.arange(0, len(data2)), widths=1,
+                       showmeans=False, showextrema=False, showmedians=False)
+    for b in v2['bodies']:
+        m = np.mean(b.get_paths()[0].vertices[:, 0])
+        b.get_paths()[0].vertices[:, 0] = np.clip(b.get_paths()[0].vertices[:, 0], m, np.inf)
+        b.set_color('b')
+        b.set_alpha(0.5)
+        b.set_edgecolor('k')
+    b1, b2 = plt.plot([1],'b'), plt.plot([1],'r')
+    # plt.legend([b1[0], b2[0]], ['Conflicting Merge Scenarios', 'Total Merge Scenarios'], loc = 0)
+    ind = np.arange(len(langs))
+    plt.xticks(ind, langs)
+    plt.xlabel('Programming Languages')
+    plt.ylabel('No. Merge Scenarios')
+    plt.gca().set_ylim([0, 1200])
     plt.show()
 
 
@@ -381,9 +414,15 @@ if __name__ == "__main__":
                         format='%(levelname)s in %(threadName)s - %(asctime)s by %(name)-12s :  %(message)s',
                         datefmt='%y-%m-%d %H:%M:%S')
 
-    draw_violin_scenarios()
-    draw_violin_conflicts()
+
+    #draw_violin_scenarios()
+    #draw_violin_conflicts()
+    #exit()
+
+    obj = Data_Retreival()
+    print(obj.get_conflict_ratio())
     exit()
+
     print('Start data saving')
 
     lang_test = [['Java'], ['Python'], ['PHP'], ['Ruby'], ['C++'], ['Java', 'Python', 'Ruby', 'PHP', 'C++']]
