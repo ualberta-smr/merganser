@@ -47,7 +47,7 @@ class Data_Retreival:
         JOIN Merge_Data.Merge_Replay as merge_replay ON repository.id = merge_replay.Merge_Scenario_Repository_id AND merge_scenario.merge_commit_hash = merge_replay.Merge_Scenario_merge_commit_hash
         JOIN Merge_Data.Merge_Related_Commit as commits ON repository.id = commits.Merge_Scenario_Repository_id and merge_scenario.merge_commit_hash = commits.Merge_Scenario_merge_commit_hash
         
-        where merge_scenario.parallel_changed_file_num > 0
+        -- where merge_scenario.parallel_changed_file_num > 0
         
         GROUP BY merge_scenario.merge_commit_hash, merge_scenario.parallel_changed_file_num, merge_scenario.parent1_developer_num, merge_scenario.parent2_developer_num, merge_scenario.parent1_date, merge_scenario.parent2_date, merge_scenario.ancestor_date
 
@@ -60,7 +60,7 @@ class Data_Retreival:
         on merge_scenario.merge_commit_hash = Commits.Merge_Scenario_merge_commit_hash 
         AND Commits.merge_commit_parent = {}
         AND TIMESTAMPDIFF(WEEK, merge_scenario.merge_commit_date, Commits.date) < 3
-        where merge_scenario.parallel_changed_file_num > 0
+        -- where merge_scenario.parallel_changed_file_num > 0
         GROUP BY merge_scenario.merge_commit_hash;
         """
 
@@ -69,7 +69,7 @@ class Data_Retreival:
         FROM Merge_Data.Merge_Scenario 
         JOIN Merge_Data.Merge_Related_Commit  
         on merge_commit_hash = Merge_Scenario_merge_commit_hash 
-        where parallel_changed_file_num > 0
+        -- where parallel_changed_file_num > 0
         GROUP BY merge_commit_hash;
        """
 
@@ -81,7 +81,7 @@ class Data_Retreival:
         FROM Merge_Data.Merge_Scenario as merge_scenario 
         JOIN Merge_Data.Merge_Replay as merge_replay ON  merge_scenario.merge_commit_hash = merge_replay.Merge_Scenario_merge_commit_hash
         
-        where merge_scenario.parallel_changed_file_num > 0
+        -- where merge_scenario.parallel_changed_file_num > 0
         
         GROUP BY merge_scenario.merge_commit_hash, merge_replay.is_conflict
         """
@@ -128,6 +128,8 @@ class Data_Retreival:
         keywords_frequency = np.zeros((commit_messages.shape[0], len(keywords)))
         messages_stats = np.zeros((commit_messages.shape[0], 4))
         for index, merge in commit_messages.iterrows():
+            if not isinstance(merge['commit_messages'], str):
+                continue
             for keyword_id, keyword in enumerate(keywords):
                 keywords_frequency[index, keyword_id] = merge['commit_messages'].count(keyword)
             messagess_len = [len(message) for message in merge['commit_messages'].split('|||')]
