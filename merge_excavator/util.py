@@ -4,7 +4,7 @@ import os
 import config
 
 
-def remove_remopitory(repository_name):
+def remove_repository(repository_name):
     """
     Clean up the repository directory
     :param repository_name:  The name of the repository in <USER_NAME>/<REPOSITORY_NAME> format
