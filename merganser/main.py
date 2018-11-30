@@ -72,9 +72,6 @@ if __name__ == '__main__':
     else:
         start_date = args['start_date']
 
-    # Clone the repositories
-    clone_repositories(args['repository_list'], core_num)
-
     # Temp variables
     repository_urls = open(config.REPOSITORY_LIST_PATH + args['repository_list'] + '.txt', 'rt').readlines()
     user_name = [i.split('/')[0].strip() for i in repository_urls]

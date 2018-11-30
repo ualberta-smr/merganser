@@ -15,6 +15,7 @@ from code_quality import *
 from merge_replay import *
 from related_commits import *
 from repository_data import *
+from clone_repositories import *
 
 
 def get_merge_scenario_info(repository_name, merge_technique, repository_only, exec_compile, exec_tests,
@@ -30,6 +31,9 @@ def get_merge_scenario_info(repository_name, merge_technique, repository_only, e
 
     try:
         logging.info('START: {}'.format(repository_name))  # TODO: Temp
+
+        # Clone the repository
+        clone_repository(repository_name.replace('___', '/'))
 
         # Exit if the repository doesn't exist
         if os.path.exists(os.getcwd() + '/' + config.REPOSITORY_PATH + repository_name) is False:
