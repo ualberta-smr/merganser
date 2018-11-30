@@ -110,16 +110,10 @@ post_name = ['_CPP','_java', '_PHP', '_Python', '_Ruby']
 post_name = '_All2'
 
 
+data = pd.read_csv(config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_DATA_NAME + post_name, delimiter=',').values[:,1:]
+label = pd.read_csv(config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_LABEL_NAME + post_name, delimiter=',').values[:,1]
 
-for test in post_name:
-    print('RUN: {}'.format(test))
-    # Read data
-    data = pd.read_csv(config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_DATA_NAME + post_name, delimiter=',').values[:,1:]
-    label = pd.read_csv(config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_LABEL_NAME + post_name, delimiter=',').values[:,1]
-
-
-
-
-    #vis_TSNE(data,label)
-    binaryDataClassification(data, label)
+print(data.shape)
+#vis_TSNE(data,label)
+binaryDataClassification(data, label)
     #data_classification(data, label)
