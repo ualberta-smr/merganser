@@ -3,7 +3,6 @@ import os
 import csv
 import time
 import random
-import numpy as np
 import logging
 from dateutil.relativedelta import relativedelta as rd
 from time import gmtime, strftime
