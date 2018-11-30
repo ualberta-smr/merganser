@@ -1,6 +1,6 @@
 
 # Keys
-GITHUB_KEY = ''
+GITHUB_KEY = 'f7789a850c830ed5812237123e2a77fbe2d98a20'
 
 # Paths
 REPOSITORY_PATH = '../working_dir/repository/'
