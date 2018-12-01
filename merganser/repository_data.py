@@ -6,6 +6,7 @@ from time import gmtime, strftime
 
 import config
 import validation
+import util
 
 
 def store_repository_info(repository_name, merge_scenario_num, is_done):
@@ -24,8 +25,16 @@ def store_repository_info(repository_name, merge_scenario_num, is_done):
     # Check if the repository was available
     json_data = json.loads(github_request)
     if 'message' in json_data.keys() and json_data['message'] != 'Moved Permanently':
+
+        # Remove the temporary repository directory
+        remove_repository(repository_name)
+
         raise ValueError('The repository {} is unavailable.'.format(repository_name))
     if 'message' in json_data.keys() and json_data['message'] == 'Moved Permanently':
+
+        # Remove the temporary repository directory
+        remove_repository(repository_name)
+
         raise ValueError('The repository {} permanently moved.'.format(repository_name))
 
     # Store the data
@@ -59,8 +68,16 @@ def get_repository_id(repository_name):
     # Check if the repository was available
     json_data = json.loads(github_request)
     if 'message' in json_data.keys() and json_data['message'] != 'Moved Permanently':
+
+        # Remove the temporary repository directory
+        remove_repository(repository_name)
+
         raise ValueError('The repository {} is unavailable.'.format(repository_name))
     if 'message' in json_data.keys() and json_data['message'] == 'Moved Permanently':
+
+        # Remove the temporary repository directory
+        remove_repository(repository_name)
+
         raise ValueError('The repository {} permanently moved.'.format(repository_name))
 
     return json_data['id'], json_data['size']

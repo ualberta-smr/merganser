@@ -182,4 +182,8 @@ def get_merge_scenario_info(repository_name, merge_technique, repository_only, e
         logging.info('{} finishes in {}'.format(repository_name, fmt.format(rd(seconds = execution_time))))
 
     except Exception as e:
+
+        # Remove the temporary repository directory
+        remove_repository(repository_name)
+
         logging.warning('{} error: {}.'.format(e, repository_name))
