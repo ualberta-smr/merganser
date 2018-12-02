@@ -25,6 +25,8 @@ class Data_Retreival:
         SELECT  
         merge_scenario.merge_commit_hash as 'merge_commit',
         
+        repository.language,
+        
         merge_scenario.parallel_changed_file_num,
         
         COUNT(commits.commit_hash) as 'commit_num',
@@ -49,7 +51,7 @@ class Data_Retreival:
         
         -- where merge_scenario.parallel_changed_file_num > 0
         
-        GROUP BY merge_scenario.merge_commit_hash, merge_scenario.parallel_changed_file_num, merge_scenario.parent1_developer_num, merge_scenario.parent2_developer_num, merge_scenario.parent1_date, merge_scenario.parent2_date, merge_scenario.ancestor_date
+        GROUP BY merge_scenario.merge_commit_hash, merge_scenario.parallel_changed_file_num, merge_scenario.parent1_developer_num, merge_scenario.parent2_developer_num, merge_scenario.parent1_date, merge_scenario.parent2_date, merge_scenario. ancestor_date, repository.language
 
         """
 
@@ -76,14 +78,16 @@ class Data_Retreival:
         self.is_conflict_query = """
         SELECT  
         merge_scenario.merge_commit_hash as 'merge_commit',
+        repository.language,
         merge_replay.is_conflict as 'is_conflict'
         
         FROM Merge_Data.Merge_Scenario as merge_scenario 
         JOIN Merge_Data.Merge_Replay as merge_replay ON  merge_scenario.merge_commit_hash = merge_replay.Merge_Scenario_merge_commit_hash
+        JOIN Merge_Data.Repository as repository ON repository.id = merge_scenario.Repository_id
         
         -- where merge_scenario.parallel_changed_file_num > 0
         
-        GROUP BY merge_scenario.merge_commit_hash, merge_replay.is_conflict
+        GROUP BY merge_scenario.merge_commit_hash, merge_replay.is_conflict, repository.language
         """
 
     def get_query_result(self, query):
@@ -95,18 +99,21 @@ class Data_Retreival:
         query_result = os.popen('mysql -u {} -e "{}"'.format(config.DB_USER_NAME, query)).read()
         return pd.read_csv(StringIO(query_result), delimiter='\t')
 
-    def get_merge_scenario_prediction_data(self, post_name):
-        logging.info('Preparing data and label of prediction task for {}'.format(post_name.replace('_', '')))
+    def save_prediction_data(self, languages):
+        logging.info('Saving data and label of prediction task...')
+
+        # Data preparation
         messages_features = self.get_commit_messege_characteristics()
         data = pd.concat([self.get_light_features(), self.get_commit_density(), messages_features[0], messages_features[1]], axis=1).drop('merge_commit', axis=1)
         label = self.get_query_result(self.is_conflict_query.format()).drop('merge_commit', axis=1)
-        return data, label
 
-    def save_prediction_data(self, post_name):
-        logging.info('Saving data and label of prediction task for {}'.format(post_name.replace('_', '')))
-        data, label = self.get_merge_scenario_prediction_data(post_name)
-        data.to_csv(path_or_buf=config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_DATA_NAME + post_name)
-        label.to_csv(path_or_buf=config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_LABEL_NAME + post_name)
+        # Store the data for each programming language
+        for language in languages:
+            logging.info('  - Preparing data and label of prediction task for {}'.format(language))
+            temp_data = data[data['language'] == language].drop('language', axis=1)
+            temp_label = label[label['language'] == language].drop('language', axis=1)
+            temp_data.to_csv(path_or_buf=config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_DATA_NAME.replace('<NAME>', language), index=False)
+            temp_label.to_csv(path_or_buf=config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_LABEL_NAME.replace('<NAME>', language), index=False)
 
     def get_light_features(self):
         logging.info('Extracting light-weight features...')
@@ -147,8 +154,12 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO,
                         format='%(levelname)s in %(threadName)s - %(asctime)s by %(name)-12s :  %(message)s',
                         datefmt='%y-%m-%d %H:%M:%S')
+
+    languages = ['Java', 'C++', 'PHP', 'Python', 'Ruby']
     obj = Data_Retreival()
-    data_df = obj.save_prediction_data('_All2')
+    data_df = obj.save_prediction_data(languages)
     #print(data_df)
+
+    logging.info('The prediction data was extracted successfully.')
 
 

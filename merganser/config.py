@@ -9,8 +9,8 @@ REPOSITORY_LIST_PATH = '../working_dir/repository_lists/'
 LOG_PATH = '../working_dir/logs/'
 QUERY_PATH = '../queries/'
 PREDICTION_CSV_PATH = '../working_dir/prediction_data/'
-PREDICTION_CSV_DATA_NAME = 'data.csv'
-PREDICTION_CSV_LABEL_NAME = 'label.csv'
+PREDICTION_CSV_DATA_NAME = 'data_<NAME>.csv'
+PREDICTION_CSV_LABEL_NAME = 'label_<NAME>.csv'
 
 # Constants
 MAX_MERGE_SCENARIOS = 5000
