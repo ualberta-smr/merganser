@@ -1,6 +1,7 @@
 *.bak
 *.csv
 *.zip
+*.gz
 *.sql
 __pycache__
 **/__pycache__
