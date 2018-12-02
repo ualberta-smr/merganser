@@ -1,8 +1,9 @@
 
-
+import logging
 import numpy as np
 import json
 import pandas as pd
+import multiprocessing
 
 
 from sklearn.model_selection import GridSearchCV
@@ -26,11 +27,9 @@ from imblearn.under_sampling import ClusterCentroids
 from imblearn.over_sampling import SMOTE
 
 
-import multiprocessing
 
 
 import config
-#from visualization import *
 
 
 def binaryDataClassification(data, label, random_seed=0,
@@ -41,9 +40,9 @@ def binaryDataClassification(data, label, random_seed=0,
     outer_cv = KFold(n_splits=config.FOLD_NUM, shuffle=True, random_state=random_seed)
 
     # Hyper-parameters
-    tree_param = {'min_samples_leaf': config.MIN_SAMPLE_LEAFES, 'min_samples_split': config.MIN_SAMPLE_SPLIT,
+    tree_param = {'min_samples_leaf': config.MIN_SAMPLE_LEAVES, 'min_samples_split': config.MIN_SAMPLE_SPLIT,
                   'max_depth': config.TREE_MAX_DEPTH}
-    forest_param = {'n_estimators': config.ESTIMATOR_NUM, 'min_samples_leaf': config.MIN_SAMPLE_LEAFES,
+    forest_param = {'n_estimators': config.ESTIMATOR_NUM, 'min_samples_leaf': config.MIN_SAMPLE_LEAVES,
                     'min_samples_split': config.MIN_SAMPLE_SPLIT}
     boosting_param = {'n_estimators': config.ESTIMATOR_NUM, 'learning_rate': config.LEARNING_RATE}
 
@@ -106,14 +105,29 @@ def data_classification(data_raw, label_raw):
                              job_num=multiprocessing.cpu_count())
 
 
-post_name = ['_CPP','_java', '_PHP', '_Python', '_Ruby']
-post_name = '_All2'
 
+if __name__ == "__main__":
 
-data = pd.read_csv(config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_DATA_NAME + post_name, delimiter=',').values[:,1:]
-label = pd.read_csv(config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_LABEL_NAME + post_name, delimiter=',').values[:,1]
+    # Logging
+    logging.basicConfig(level=logging.INFO,
+                        format='%(levelname)s in %(threadName)s - %(asctime)s by %(name)-12s :  %(message)s',
+                        datefmt='%y-%m-%d %H:%M:%S')
+
+logging.info('Train/test of merge conflict prediction')
+
+languages = ['Java', 'C++', 'PHP', 'Python', 'Ruby']
+languages = ['Java']
+
+for language in languages:
+    config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_DATA_NAME.replace('<NAME>', language)
+    data = pd.read_csv(config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_DATA_NAME.replace('<NAME>', language), delimiter=',').values[1:1000,:]
+    label = pd.read_csv(config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_LABEL_NAME.replace('<NAME>', language), delimiter=',').values[1:1000,0]
+    logging.info('  - Classify the data of  {} with {} data points'.format(language, data.shape[0]))
+
+    binaryDataClassification(data, label)
+exit()
 
 print(data.shape)
 #vis_TSNE(data,label)
-binaryDataClassification(data, label)
+
     #data_classification(data, label)
