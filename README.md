@@ -25,9 +25,9 @@ sudo ./setup.py
 1. **Set the `config.py` file:** The pre-defined paths, database information, constants, and access keys are stored in  `config.py` file. The full dewcription of these parameters are in [the wiki page](https://github.com/ualberta-smr/merganser/wiki/Parameters-in-config.py). The only parameters that the user must set before using Merganser are the HitHub access keys and database parameters.
 The list of its variables are:
 
-2. **Add the list of repositories:** The input of the main program is a list of repositories to analyze. There are different waqy to create such list:
+2. **Add the list of repositories:** The input of the main program is a list of repositories to analyze. There are different ways to create such list:
 
-    * **All the repository list manually:** You can simply put the list or repository with `.txt` extension in
+    * **All the repository list manually:** If you already have the list of repositories to analyze, write in a *\*.txt* file ou can simply put the list or repository with `.txt` extension in
      `REPOSITORY_LIST_PATH` directory which is set in `config.py`.
 
     * **Automatic searching:** You can search the list of repositories by:
