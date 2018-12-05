@@ -51,3 +51,7 @@ Feel free to [post a pull-request](https://github.com/ualberta-smr/merganser/pul
 
 ## Disclaimer
 While the users are free to use Merganser for both commercial and academic purposes, you should use this tool in your risk. Although we tried or best to release an effective tool, the creators are not responsible for any software/hardware problems caused by using Merganser, or misconsistencies in the results. 
+
+---
+
+Developers in the wintery days in [The Software Maintenance and Reuse (SMR) Lab](https://sarahnadi.org/smr/), [University of Alberta](https://www.ualberta.ca/).
