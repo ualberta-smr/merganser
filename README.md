@@ -54,4 +54,4 @@ While the users are free to use Merganser for both commercial and academic purpo
 
 ---
 
-Developers in the wintery days in [The Software Maintenance and Reuse (SMR) Lab](https://sarahnadi.org/smr/), [University of Alberta](https://www.ualberta.ca/).
+Developed with 💙 in the wintery days at [The Software Maintenance and Reuse (SMR) Lab](https://sarahnadi.org/smr/), [University of Alberta](https://www.ualberta.ca/).
