@@ -37,10 +37,6 @@ The list of its variables are:
 ```bash
 python3 main.py <parameters>  
 ```    
-Here are the list of parameters:
-[](https://github.com/ualberta-smr/merganser/wiki/Running-the-Merganser)
 
-
-To run the toolchain with all features, you can simply run `./runAll <repository_list>`. For example, to run the toolchain
-on _spark_ repository, run `./runAll spark`.
+[The wiki page](https://github.com/ualberta-smr/merganser/wiki/Running-the-Merganser) describe all possible parameters.
 
