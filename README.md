@@ -39,16 +39,16 @@ python3 main.py <parameters>
 [The wiki page](https://github.com/ualberta-smr/merganser/wiki/Running-the-Merganser) describe all possible parameters.
 
 ## License
-License is release under [MIT License](https://choosealicense.com/licenses/mit/).
+Merganser is release under [MIT License](https://choosealicense.com/licenses/mit/).
 
 ## Support
 Feel free to report any issue about Merganser [here](https://github.com/ualberta-smr/merganser/issues). You can ask your question about installing and running the tool from the creators [Moein Owhadi Kareshk](https://github.com/owhadi) and [Sarah Nadi](https://sarahnadi.org/).
 
 ## Contribution
-Feel free to [post a pull-request](https://github.com/ualberta-smr/merganser/pulls) should you have change, bug fix,  etc. in mind. 
+You are very welcome to [post a pull-request](https://github.com/ualberta-smr/merganser/pulls) should you have change, bug fix,  etc. in mind. 
 
 ## Disclaimer
-While the users are free to use Merganser for both commercial and academic purposes, you should use this tool in your risk. Although we tried our best to release an effective tool, the creators are not responsible for any software/hardware problems caused by using Merganser, or inconsistencies in the results. 
+While the users are free to use Merganser for both commercial and academic purposes, you should use this tool on your risk. Although we tried our best to release an effective tool, the creators are not responsible for any software/hardware problems caused by using Merganser, or inconsistencies in the results. 
 
 ---
 
