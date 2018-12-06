@@ -23,7 +23,6 @@ sudo ./setup.py
 ## Usage 
 
 1. **Set the `config.py` file:** The pre-defined paths, database information, constants, and access keys are stored in  `config.py` file. The full description of these parameters is in [the wiki page](https://github.com/ualberta-smr/merganser/wiki/Parameters-in-config.py). The only parameters that the user must set before using Merganser are the GitHub access keys and database parameters.
-The list of its variables are:
 
 2. **Add the list of repositories:** The input of the main program is a list of repositories to analyze. There are different ways to create such list:
 
