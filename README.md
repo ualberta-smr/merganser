@@ -4,7 +4,7 @@
  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) 
  [![Build Status](https://travis-ci.com/ualberta-smr/merganser.svg?token=hjqcPpPsw5pg2YPrs9sB&branch=master)](https://travis-ci.com/ualberta-smr/merganser)
 
-This repository provides a toolchain for gathering and analyzing merge scenarios found in git repositories and store them in a normalized MySQL database It supports extracting various features of the merge scenario as well as executing the merge using different merge tools. It also supports compiling and testing the resulting resolutions. Currently, only _Maven_ is supported.
+This repository provides a toolchain for gathering and analyzing merge scenarios found in git repositories and store them in a normalized MySQL database It supports extracting various features of the merge scenario as well as executing the merge using different merge tools, detects merge conflicts, and find the compilation and test problems.
 
 _The tool chain has been tested with Ubuntu 18.04._
 
