@@ -26,10 +26,9 @@ sudo ./setup.py
 
 2. **Add the list of repositories:** The input of the main program is a list of repositories to analyze. There are different ways to create such list:
 
-    * **Add the repository list manually:** If you already have the list of repositories to analyze, write them in a *\*.txt* file (each repository per line) and copy the textual file in `./working_dir/repository_list` (this path is `REPOSITORY_LIST_PATH`  which is set in `config.py`).
+    * **Add the repository list manually:** If you already have the list of repositories to analyze, write them in a *\*.txt* file (each repository per line) and copy the text file in `./working_dir/repository_list` (this path is `REPOSITORY_LIST_PATH`  which is set in `config.py`).
 
     * **Automatic searching:** If you do not have specific repositories in mind, but instead, want to analyze the repositories with the specific range of stars, watches, forks, size, or are in a specific application domain, you can search the list of repositories by `search_repository.py`. Read [the wiki page](https://github.com/ualberta-smr/merganser/wiki/Search-for-Repositories) to find out the parameters of this module.
-    
 
 3. **Run the main script:** To run the tool, you can run this command:
 
