@@ -11,7 +11,7 @@ _The toolchain has been tested with Ubuntu 18.04._
 ## Setup
 1. Clone this repository:
 ```bash
-git https://github.com/ualberta-smr/code-owhadi-msr19.git
+git https://github.com/ualberta-smr/merganser
 ```
 
 2. Install required tools and packages using this script (Note that this requires sudo privilege. 
