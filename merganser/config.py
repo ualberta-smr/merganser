@@ -9,6 +9,7 @@ REPOSITORY_LIST_PATH = '../working_dir/repository_lists/'
 LOG_PATH = '../working_dir/logs/'
 QUERY_PATH = '../queries/'
 PREDICTION_CSV_PATH = '../working_dir/prediction_data/'
+REAPER_DATASET_PATH = '../tools/reaper/dataset.csv'
 PREDICTION_CSV_DATA_NAME = 'data_<NAME>.csv'
 PREDICTION_CSV_LABEL_NAME = 'label_<NAME>.csv'
 
@@ -39,3 +40,7 @@ TEST_SIZE = 0.25
 RANDOM_SEED = 17
 TREE_FILE_NAME = 'tree.dot'
 
+# REAPER repository search
+STARS_MIN = 100
+TOP_REPOS_NUM = 500
+LANGUAGES = ['Java', 'Python', 'Ruby', 'C++', 'PHP', 'C', 'C#']
