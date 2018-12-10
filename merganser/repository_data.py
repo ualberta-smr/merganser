@@ -6,7 +6,6 @@ from time import gmtime, strftime
 
 import config
 import validation
-import util
 
 
 def store_repository_info(repository_name, merge_scenario_num, is_done):
