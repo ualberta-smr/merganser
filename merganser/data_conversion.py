@@ -1,5 +1,6 @@
 
 import os
+import logging
 
 import config
 
@@ -8,6 +9,11 @@ def insert_csv_into_mysql():
     """
     This method insert the temporary CSV files (from config.TEMP_CSV_PATH) into the MySQL database
     """
+
+    # Logging
+    logging.basicConfig(level=logging.INFO,
+                        format='%(levelname)s in %(threadName)s - %(asctime)s by %(name)-12s :  %(message)s',
+                        datefmt='%y-%m-%d %H:%M:%S')
 
     cd_to_csv = 'cd {};'.format(config.TEMP_CSV_PATH)
     table_list = ['Repository',
@@ -36,3 +42,5 @@ def insert_csv_into_mysql():
 
 if __name__ == '__main__':
     insert_csv_to_mysql()
+    logging.info('The data conversion form CSV to MySQL was finished successfully. '
+                 'The database and validate the insertions')
