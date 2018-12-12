@@ -2,7 +2,6 @@
 *.csv
 *.zip
 *.gz
-*.sql
 __pycache__
 **/__pycache__
 ./working_dir/logs
