@@ -1,39 +1,48 @@
 
 import logging
-import numpy as np
+import os
 import json
 import pandas as pd
 import multiprocessing
-
-
-from sklearn.model_selection import GridSearchCV
+import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import AdaBoostClassifier
-
-from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import classification_report
-from sklearn.model_selection import StratifiedKFold
-from sklearn.model_selection import GridSearchCV, cross_val_score, KFold
+from sklearn.model_selection import GridSearchCV, KFold
 from sklearn.model_selection import cross_val_predict
-
-from imblearn.over_sampling import RandomOverSampler
-from imblearn.over_sampling import SMOTE, ADASYN
-from imblearn.combine import SMOTETomek
-from imblearn.under_sampling import ClusterCentroids
-from imblearn.over_sampling import SMOTE
-
-
-
+from sklearn.decomposition import IncrementalPCA
 
 import config
 
 
-def binaryDataClassification(data, label, random_seed=0,
-                             job_num=multiprocessing.cpu_count()):
+def store_classification_result(model_name, language, model_classification_report, classification_results):
+    """
+    Stores the result of the classifier
+    :param model_name: the classification type
+    :param language: programming language
+    :param model_classification_report: results
+    :param classification_results: results
+    """
+
+    open('{}classification_result_raw_{}_{}.txt'.format(config.PREDICTION_RESULT_PATH, model_name, language), 'w')\
+        .write(model_classification_report)
+    open('{}classification_result_json_{}_{}.json'.format(config.PREDICTION_RESULT_PATH, model_name, language), 'w')\
+        .write(json.dumps(classification_results))
+
+
+def data_classification(language, data, label, random_seed=config.RANDOM_SEED, job_num=multiprocessing.cpu_count()):
+    """
+    Trains the classifier
+    :param language: programming language
+    :param data: input data
+    :param label: input labels
+    :param random_seed: the random_seed
+    :param job_num: the number of cores to use
+    """
 
     # CV
     inner_cv = KFold(n_splits=config.FOLD_NUM, shuffle=True, random_state=random_seed)
@@ -48,62 +57,100 @@ def binaryDataClassification(data, label, random_seed=0,
 
     # Grid search definition
     grid_searches = [
-        # GridSearchCV(DecisionTreeClassifier(class_weight = 'balanced',random_state = random_seed),
-        #           tree_param, cv=inner_cv, n_jobs = job_num, scoring = config.SCORING_FUNCTION),
-        GridSearchCV(RandomForestClassifier(class_weight = 'balanced',n_jobs = job_num, random_state = random_seed),
-                     forest_param, cv=inner_cv, n_jobs = job_num, scoring = config.SCORING_FUNCTION),
-        GridSearchCV(ExtraTreesClassifier(n_jobs = job_num, class_weight='balanced', random_state = random_seed),
-                     forest_param, cv=inner_cv, n_jobs = job_num, scoring = config.SCORING_FUNCTION),
+        GridSearchCV(DecisionTreeClassifier(class_weight='balanced', random_state = random_seed),
+                  tree_param, cv=inner_cv, n_jobs=job_num, scoring=config.SCORING_FUNCTION),
+        GridSearchCV(RandomForestClassifier(class_weight='balanced', n_jobs=job_num, random_state = random_seed),
+                     forest_param, cv=inner_cv, n_jobs=job_num, scoring=config.SCORING_FUNCTION),
+        GridSearchCV(ExtraTreesClassifier(n_jobs=job_num, class_weight='balanced', random_state = random_seed),
+                     forest_param, cv=inner_cv, n_jobs=job_num, scoring=config.SCORING_FUNCTION),
         GridSearchCV(AdaBoostClassifier(base_estimator=DecisionTreeClassifier(class_weight = 'balanced',
                                                                                 random_state = random_seed,
                                                                                 max_depth=2),
-                                        algorithm='SAMME.R', random_state = random_seed),
+                                        algorithm='SAMME.R', random_state=random_seed),
                      boosting_param, cv=inner_cv, n_jobs=job_num, scoring=config.SCORING_FUNCTION)
         ]
-
-
 
     # Fitting the classifiers
     classification_results = {}
     for model in grid_searches:
 
-        # Model training
-        model.score_sample_weight=True
+        # Model training/testing
+        model.score_sample_weight = True
         model.fit(data, label)
         model_name = str(type(model.best_estimator_)).replace('<class \'', '').replace('\'>', '').split('.')[-1]
         model_best_param = model.best_params_
-
         predicted_label = cross_val_predict(model.best_estimator_, X=data, y=label, cv=outer_cv, n_jobs=job_num)
-
-        model_accuray = accuracy_score(label, predicted_label)
+        model_accuracy = accuracy_score(label, predicted_label)
         model_confusion_matrix = confusion_matrix(label, predicted_label)
         model_classification_report = classification_report(label, predicted_label)
         classification_results[model_name] = {}
         classification_results[model_name]['best_params'] = model_best_param
-        classification_results[model_name]['accuracy'] = model_accuray
+        classification_results[model_name]['accuracy'] = model_accuracy
         classification_results[model_name]['confusion_matrix'] = model_confusion_matrix.tolist()
         classification_results[model_name]['classification_report'] = model_classification_report
-        print(model_classification_report)
-        importances = model.best_estimator_.feature_importances_
-        std = np.std([tree.feature_importances_ for tree in model.best_estimator_.estimators_],  axis=0)
-        indices = np.argsort(importances)[::-1]
-        print("Feature ranking:")
-        for f in range(data.shape[1]):
-                print("%d. feature %d (%f)" % (f + 1, indices[f], importances[indices[f]]))
 
-    return classification_results
-
-def getBalanceData(data, label):
-    return SMOTE(ratio='minority').fit_sample(data, label)
+        # Save the classification result
+        store_classification_result(model_name, language, model_classification_report, classification_results)
 
 
-def data_classification(data_raw, label_raw):
-    data_train, data_test, label_train, label_test = train_test_split(data_raw, label_raw, test_size=config.TEST_SIZE,
-                                                        random_state=config.RANDOM_SEED)
-    #data_train, label_train = getBalanceData(data_train, label_train)
-    return binaryDataClassification(data_train, label_train, data_test, label_test, random_seed=config.RANDOM_SEED,
-                             job_num=multiprocessing.cpu_count())
+def get_best_decision_tree(data, label, random_seed=config.RANDOM_SEED, job_num=multiprocessing.cpu_count()):
+    """
+    Trains the best decision tree
+    :param data: the data
+    :param label: the labels
+    :param random_seed: the random seed
+    :param job_num:
+    :return: the number of cores to use
+    """
+    # CV
+    inner_cv = KFold(n_splits=config.FOLD_NUM, shuffle=True, random_state=random_seed)
 
+    # Train/test
+    tree_param = {'min_samples_leaf': config.MIN_SAMPLE_LEAVES, 'min_samples_split': config.MIN_SAMPLE_SPLIT,
+                  'max_depth': config.TREE_MAX_DEPTH}
+    grid_search = GridSearchCV(DecisionTreeClassifier(class_weight='balanced', random_state=random_seed),
+                               tree_param, cv=inner_cv, n_jobs=job_num, scoring=config.SCORING_FUNCTION)
+    grid_search.score_sample_weight = True
+    grid_search.fit(data, label)
+    return grid_search.best_estimator_
+
+
+def get_feature_importance_by_model(model):
+    """
+    Returns the features importance of a model
+    :param model: the classifier
+    :return: The list of feature importance
+    """
+    return model.feature_importances_
+
+
+def save_feature_importance(language, data, label):
+    """
+    Store the feature importance of the data
+    :param language: the programming language
+    :param data: the data
+    :param label: the label
+    """
+
+    # Data separation of feature sets
+    parallel_changes = data[:, 0].reshape(-1, 1)
+    commit_num = data[:, 1].reshape(-1, 1)
+    commit_density = data[:, 2].reshape(-1, 1)
+    file_edits = IncrementalPCA(n_components=1).fit_transform(data[:, 3:8])
+    line_edits = IncrementalPCA(n_components=1).fit_transform(data[:, 8:10])
+    dev_num = data[:, 10].reshape(-1, 1)
+    keywords = IncrementalPCA(n_components=1).fit_transform(data[:, 11:23])
+    message = IncrementalPCA(n_components=1).fit_transform(data[:, 23:27])
+    duration = data[:, 27].reshape(-1, 1)
+
+    deature_data = np.concatenate((parallel_changes, commit_num, commit_density, file_edits, line_edits,
+                                   dev_num, keywords, message, duration), axis=1)
+    feature_importances = get_feature_importance_by_model(get_best_decision_tree(deature_data, label))
+    feature_sets = ['prl_changes', 'commit_num', 'commit_density', 'file_edits', 'line_edits', 'dev_num',
+                    'keywords', 'message', 'duration']
+    for i, item in enumerate(feature_importances):
+        open('{}feature_importance_{}.txt'.format(config.PREDICTION_RESULT_PATH, language), 'a') \
+            .write('{}:\t\t{}\n'.format(feature_sets[i], round(item, 2)))
 
 
 if __name__ == "__main__":
@@ -112,22 +159,29 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO,
                         format='%(levelname)s in %(threadName)s - %(asctime)s by %(name)-12s :  %(message)s',
                         datefmt='%y-%m-%d %H:%M:%S')
+    logging.info('Train/test of merge conflict prediction')
 
-logging.info('Train/test of merge conflict prediction')
+    # Data classification
+    languages = config.LANGUAGES
+    os.system('rm -r {}'.format(config.PREDICTION_RESULT_PATH))
+    os.system('mkdir {}'.format(config.PREDICTION_RESULT_PATH))
 
-languages = ['Java', 'C++', 'PHP', 'Python', 'Ruby']
-languages = ['Java']
+    for language in languages:
+        config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_DATA_NAME.replace('<NAME>', language)
+        data = pd.read_csv(config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_DATA_NAME.replace('<NAME>', language),
+                           delimiter=',').values[:, :]
+        label = pd.read_csv(config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_LABEL_NAME.replace('<NAME>', language),
+                            delimiter=',').values[:, 0]
 
-for language in languages:
-    config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_DATA_NAME.replace('<NAME>', language)
-    data = pd.read_csv(config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_DATA_NAME.replace('<NAME>', language), delimiter=',').values[1:1000,:]
-    label = pd.read_csv(config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_LABEL_NAME.replace('<NAME>', language), delimiter=',').values[1:1000,0]
-    logging.info('  - Classify the data of  {} with {} data points'.format(language, data.shape[0]))
+        if data.shape[0] > 0:
 
-    binaryDataClassification(data, label)
-exit()
+            # Classification
+            data_classification(language, data, label)
+            logging.info('  * Classify the data of {} with {} data points'.format(language, data.shape[0]))
 
-print(data.shape)
-#vis_TSNE(data,label)
+            # Feature Importance
+            save_feature_importance(language, data, label)
+            logging.info('  + Extract the feature importance of {}'.format(language, ))
 
-    #data_classification(data, label)
+        else:
+            logging.info('  - There is no data for {}'.format(language))
