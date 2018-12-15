@@ -5,7 +5,7 @@ import logging
 import config
 
 
-def insert_csv_into_mysql():
+def insert_csv_to_mysql():
     """
     This method insert the temporary CSV files (from config.TEMP_CSV_PATH) into the MySQL database
     """
