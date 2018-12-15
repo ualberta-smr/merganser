@@ -8,13 +8,14 @@ TEMP_CSV_PATH = '../working_dir/csv_files/'
 REPOSITORY_LIST_PATH = '../working_dir/repository_lists/'
 LOG_PATH = '../working_dir/logs/'
 QUERY_PATH = '../queries/'
+PREDICTION_RESULT_PATH = '../working_dir/prediction_result/'
 PREDICTION_CSV_PATH = '../working_dir/prediction_data/'
 REAPER_DATASET_PATH = '../tools/reaper/dataset.csv'
 PREDICTION_CSV_DATA_NAME = 'data_<NAME>.csv'
 PREDICTION_CSV_LABEL_NAME = 'label_<NAME>.csv'
 
 # Constants
-MAX_MERGE_SCENARIOS = 5000
+MAX_MERGE_SCENARIOS = 1000
 MAX_ANALYZING_DAY = 14
 MAX_REPO_SIZE_TO_ANALYZE = 1 * 1024 * 1024
 
@@ -22,16 +23,16 @@ MAX_REPO_SIZE_TO_ANALYZE = 1 * 1024 * 1024
 DB_HOST = 'localhost'
 DB_NAME = 'Merge_Data'
 DB_USER_NAME = 'root'
-DB_PASSWORD = ''
+DB_PASSWORD = '12345678'
 
 # Visualization
 VIS_S = 100
 VIS_ALPHA = 0.4
 
 # Prediction
-MIN_SAMPLE_LEAVES = [2, 5, 10, 20, 50, 70, 100]
-MIN_SAMPLE_SPLIT = [2, 3, 5, 10, 15, 20, 50]
-ESTIMATOR_NUM = [1, 2, 3, 5, 10, 15, 20, 30, 80, 100, 150, 200]
+MIN_SAMPLE_LEAVES = [2, 5, 10, 20, 50, 100, 150, 200]
+MIN_SAMPLE_SPLIT = [2, 3, 5, 10, 20, 50, 100]
+ESTIMATOR_NUM = [1, 2, 3, 5, 10, 50, 100, 150, 200, 300, 400, 500, 750, 1000]
 LEARNING_RATE = [0.9, 1.0, 1.1]
 FOLD_NUM = 10
 SCORING_FUNCTION = 'f1'
@@ -42,5 +43,5 @@ TREE_FILE_NAME = 'tree.dot'
 
 # REAPER repository search
 STARS_MIN = 100
-TOP_REPOS_NUM = 500
+TOP_REPOS_NUM = 100
 LANGUAGES = ['Java', 'Python', 'Ruby', 'C++', 'PHP', 'C', 'C#']
