@@ -15,6 +15,7 @@ from sklearn.metrics import classification_report
 from sklearn.model_selection import GridSearchCV, KFold
 from sklearn.model_selection import cross_val_predict
 from sklearn.decomposition import IncrementalPCA
+from scipy.stats import spearmanr
 
 import config
 
@@ -124,14 +125,11 @@ def get_feature_importance_by_model(model):
     return model.feature_importances_
 
 
-def save_feature_importance(language, data, label):
+def get_feature_set(data):
     """
-    Store the feature importance of the data
-    :param language: the programming language
-    :param data: the data
-    :param label: the label
+    Returns the feature sets separately
+    :param data: The input data
     """
-
     # Data separation of feature sets
     parallel_changes = data[:, 0].reshape(-1, 1)
     commit_num = data[:, 1].reshape(-1, 1)
@@ -143,15 +141,60 @@ def save_feature_importance(language, data, label):
     message = IncrementalPCA(n_components=1).fit_transform(data[:, 23:27])
     duration = data[:, 27].reshape(-1, 1)
 
-    deature_data = np.concatenate((parallel_changes, commit_num, commit_density, file_edits, line_edits,
-                                   dev_num, keywords, message, duration), axis=1)
-    feature_importances = get_feature_importance_by_model(get_best_decision_tree(deature_data, label))
     feature_sets = ['prl_changes', 'commit_num', 'commit_density', 'file_edits', 'line_edits', 'dev_num',
                     'keywords', 'message', 'duration']
+
+    return feature_sets, parallel_changes, commit_num, commit_density, file_edits, line_edits, dev_num, keywords\
+        , message, duration
+
+
+def save_feature_correlation(language, data, label):
+    """
+    Store the feature correlation of the data with the label
+    :param language: the programming language
+    :param data: the data
+    :param label: the label
+    """
+    feature_sets, parallel_changes, commit_num, commit_density, file_edits, line_edits, dev_num, keywords, message\
+        , duration = get_feature_set(data)
+    features = [parallel_changes, commit_num, commit_density, file_edits, line_edits, dev_num, keywords, message
+        , duration]
+    for i, feature in enumerate(features):
+        corr, p_value = spearmanr(feature, label)
+        open('{}feature_correlation_{}.txt'.format(config.PREDICTION_RESULT_PATH, language), 'a') \
+            .write('{}:\t\t{} \t {}\n'.format(feature_sets[i], round(corr, 2), round(p_value, 2)))
+
+
+def save_feature_importance(language, data, label):
+    """
+    Store the feature importance
+    :param language: the programming language
+    :param data: the data
+    :param label: the label
+    """
+    feature_sets, parallel_changes, commit_num, commit_density, file_edits, line_edits, dev_num, keywords, message, duration \
+        = get_feature_set(data)
+
+    feature_data = np.concatenate((parallel_changes, commit_num, commit_density, file_edits, line_edits,
+                                   dev_num, keywords, message, duration), axis=1)
+    feature_importances = get_feature_importance_by_model(get_best_decision_tree(feature_data, label))
+
     for i, item in enumerate(feature_importances):
         open('{}feature_importance_{}.txt'.format(config.PREDICTION_RESULT_PATH, language), 'a') \
             .write('{}:\t\t{}\n'.format(feature_sets[i], round(item, 2)))
 
+
+def baseline_classification(language, data, label):
+    """
+    Classify the baseline data (parallel changed files)
+    :param language: The programming language
+    :param data: The data
+    :param label: The labels
+    """
+    feature_sets, parallel_changes, commit_num, commit_density, file_edits, line_edits, dev_num, keywords, message \
+        , duration = get_feature_set(data)
+    language = language + '__baseline'
+    data_classification(language, parallel_changes, label)
 
 if __name__ == "__main__":
 
@@ -163,6 +206,7 @@ if __name__ == "__main__":
 
     # Data classification
     languages = config.LANGUAGES
+    languages = ['Java']
     os.system('rm -r {}'.format(config.PREDICTION_RESULT_PATH))
     os.system('mkdir {}'.format(config.PREDICTION_RESULT_PATH))
 
@@ -179,9 +223,17 @@ if __name__ == "__main__":
             data_classification(language, data, label)
             logging.info('  * Classify the data of {} with {} data points'.format(language, data.shape[0]))
 
+            # Baseline Classification
+            baseline_classification(language, data, label)
+            logging.info('  * Classify the baseline data of {} with {} data points'.format(language, data.shape[0]))
+
             # Feature Importance
             save_feature_importance(language, data, label)
-            logging.info('  + Extract the feature importance of {}'.format(language, ))
+            logging.info('  + Extract the feature importance of {}'.format(language))
+
+            # Feature Correlation
+            save_feature_correlation(language, data, label)
+            logging.info('  + Extract the feature correlation of {}'.format(language))
 
         else:
             logging.info('  - There is no data for {}'.format(language))
