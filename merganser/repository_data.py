@@ -4,6 +4,7 @@ import csv
 import json
 from time import gmtime, strftime
 
+from util import *
 import config
 import validation
 
