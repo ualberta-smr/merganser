@@ -8,5 +8,5 @@ __pycache__
 ./working_dir/logs
 ./working_dir/repository
 ./working_dir/csv_files
-./.idea
+./.idea/
 ./.idea/workspace.xml
