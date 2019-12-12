@@ -30,11 +30,32 @@ sudo ./setup.py
 
     * **Automatic searching:** If you do not have specific repositories in mind, but instead, want to analyze repositories with a specific range of stars, watches, forks, size, or that are in a specific application domain, you can search the list of repositories using `search_repository.py`. Read [the wiki page](https://github.com/ualberta-smr/merganser/wiki/Search-for-Repositories) to find out the parameters of this module.
 
-3. **Run the main script:** To run the tool, you can run this command:
+3. There are two ways to run the tool based on the final goal. the results are stores in CSV files.
+    * Execute the  tool to extract the data using user-defined parameters without further analysis:
+
+    ```bash
+    python3 main.py <parameters> 
+    ```
+    * Execute the tool for conflict prediction
+    
+    ```bash
+    python3 ./runPredict.sh <list_of_repositories>
+    ```
+        
+4. The next step is storing the the CSV files in a SQL database.
 
 ```bash
-python3 main.py <parameters> 
+python3 ./data_conversion.py
 ```
+
+5. For conflict prediction, first create the data:
+
+```bash
+python3 ./data_prediction.py
+```
+
+### Conflict Prediction
+
 
 [The wiki page](https://github.com/ualberta-smr/merganser/wiki/Running-the-Merganser) describes all possible parameters.
 
