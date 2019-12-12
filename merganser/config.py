@@ -1,6 +1,8 @@
+import multiprocessing
+
 
 # Keys
-GITHUB_KEY = 'f7789a850c830ed5812237123e2a77fbe2d98a20'
+GITHUB_KEY = 'fc76875417cb60f7b61a969753d7cc98a1ef3099'
 
 # Paths
 REPOSITORY_PATH = '../working_dir/repository/'
@@ -11,19 +13,20 @@ QUERY_PATH = '../queries/'
 PREDICTION_RESULT_PATH = '../working_dir/prediction_result/'
 PREDICTION_CSV_PATH = '../working_dir/prediction_data/'
 REAPER_DATASET_PATH = '../tools/reaper/dataset.csv'
-PREDICTION_CSV_DATA_NAME = 'data_<NAME>.csv'
-PREDICTION_CSV_LABEL_NAME = 'label_<NAME>.csv'
+PREDICTION_CSV_DATA_NAME = 'data_prediction_<LANGUAGE>_<REPOSITORY>.csv'
+PREDICTION_CSV_LABEL_NAME = 'label_prediction_<LANGUAGE>_<REPOSITORY>.csv'
 
 # Constants
-MAX_MERGE_SCENARIOS = 1000
-MAX_ANALYZING_DAY = 14
-MAX_REPO_SIZE_TO_ANALYZE = 1 * 1024 * 1024
+MAX_MERGE_SCENARIOS = 5000
+MAX_ANALYZING_DAY = 7
+MAX_REPO_SIZE_TO_ANALYZE = 10 * 1024 * 1024
+MAX_CPU_CORES = int(multiprocessing.cpu_count() / 2)
 
 # DB information
 DB_HOST = 'localhost'
 DB_NAME = 'Merge_Data'
-DB_USER_NAME = 'root'
-DB_PASSWORD = '12345678'
+DB_USER_NAME = 'moein'
+DB_PASSWORD = '123'
 
 # Visualization
 VIS_S = 100
@@ -40,6 +43,7 @@ TREE_MAX_DEPTH = [1, 3, 5, 7, 11]
 TEST_SIZE = 0.25
 RANDOM_SEED = 17
 TREE_FILE_NAME = 'tree.dot'
+TRAIN_RATE = 0.75
 
 # REAPER repository search
 STARS_MIN = 100

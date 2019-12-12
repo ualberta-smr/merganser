@@ -2,6 +2,7 @@
 import logging
 import os
 import json
+import glob
 import pandas as pd
 import multiprocessing
 import numpy as np
@@ -196,6 +197,67 @@ def baseline_classification(language, data, label):
     language = language + '__baseline'
     data_classification(language, parallel_changes, label)
 
+
+############################################
+############################################
+
+
+
+
+from sklearn import metrics
+import autosklearn.classification
+
+
+def get_metrics(label_test, predicted_labels):
+    result = {}
+    result['accuracy_score'] = metrics.accuracy_score(label_test, predicted_labels)
+    result['roc_curve'] = metrics.roc_curve(label_test, predicted_labels)
+    result['roc_auc_score'] = metrics.roc_auc_score(label_test, predicted_labels)
+    result['confusion_matrix'] = metrics.confusion_matrix(label_test, predicted_labels)
+    result['precision_score'] = metrics.precision_score(label_test, predicted_labels)
+    result['recall_score'] = metrics.recall_score(label_test, predicted_labels)
+    result['average_precision_score'] = metrics.precision_score(label_test, predicted_labels, average='weighted')
+    result['average_recall_score'] = metrics.recall_score(label_test, predicted_labels, average='weighted')
+    result['f1_score'] = metrics.f1_score(label_test, predicted_labels, average='weighted')
+    result['classification_report'] = metrics.classification_report(label_test, predicted_labels)
+    print(result['classification_report'])
+    print(result['confusion_matrix'])
+    return result
+
+def get_decision_tree_result(data_train, label_train, data_test, label_test):
+
+    clf = DecisionTreeClassifier(class_weight='balanced').fit(data_train, label_train)
+    predicted_labels = clf.predict(data_test)
+
+    return get_metrics(label_test, predicted_labels)
+
+
+def get_random_forest_result(data_train, label_train, data_test, label_test):
+    clf = RandomForestClassifier(class_weight='balanced').fit(data_train, label_train)
+    predicted_labels = clf.predict(data_test)
+
+    return get_metrics(label_test, predicted_labels)
+
+def get_auto_scikit_result(data_train, label_train, data_test, label_test):
+
+
+    automl = autosklearn.classification.AutoSklearnClassifier(
+        time_left_for_this_task=60,
+        per_run_time_limit=300,
+        tmp_folder='/tmp/autosklearn_sequential_example_tmp',
+        output_folder='/tmp/autosklearn_sequential_example_out',
+    )
+    automl.fit(data_train, label_train, metric=autosklearn.metrics.roc_auc)
+    predicted_labels = automl.predict(data_test)
+    result = get_metrics(label_test, predicted_labels)
+
+    result['show_models'] = automl.show_models()
+    result['sprint_statistics'] = automl.sprint_statistics()
+
+    return result
+
+
+
 if __name__ == "__main__":
 
     # Logging
@@ -205,35 +267,77 @@ if __name__ == "__main__":
     logging.info('Train/test of merge conflict prediction')
 
     # Data classification
-    languages = config.LANGUAGES
-    languages = ['Java']
-    os.system('rm -r {}'.format(config.PREDICTION_RESULT_PATH))
-    os.system('mkdir {}'.format(config.PREDICTION_RESULT_PATH))
 
-    for language in languages:
-        config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_DATA_NAME.replace('<NAME>', language)
-        data = pd.read_csv(config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_DATA_NAME.replace('<NAME>', language),
-                           delimiter=',').values[:, :]
-        label = pd.read_csv(config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_LABEL_NAME.replace('<NAME>', language),
-                            delimiter=',').values[:, 0]
+    data_files = glob.glob(config.PREDICTION_CSV_PATH + 'data_*')
+    label_files = glob.glob(config.PREDICTION_CSV_PATH + 'label_*')
 
-        if data.shape[0] > 0:
+    lang_set = set([files.split('/')[-1].split('_')[2] for files in data_files])
+    repos_set = set([files.split('/')[-1].split('_')[3].replace('.csv', '') for files in data_files])
 
-            # Classification
-            data_classification(language, data, label)
-            logging.info('  * Classify the data of {} with {} data points'.format(language, data.shape[0]))
 
-            # Baseline Classification
-            baseline_classification(language, data, label)
-            logging.info('  * Classify the baseline data of {} with {} data points'.format(language, data.shape[0]))
+    print(lang_set)
+    print(repos_set)
 
-            # Feature Importance
-            save_feature_importance(language, data, label)
-            logging.info('  + Extract the feature importance of {}'.format(language))
 
-            # Feature Correlation
-            save_feature_correlation(language, data, label)
-            logging.info('  + Extract the feature correlation of {}'.format(language))
+    for data_path in data_files:
 
-        else:
-            logging.info('  - There is no data for {}'.format(language))
+        data_tmp = pd.read_csv(data_path).sort_values(by=['merge_commit_date'])
+        label_tmp = pd.read_csv(data_path.replace('data_prediction', 'label_prediction')).sort_values(by=['merge_commit_date'])
+
+        data_tmp = data_tmp.drop('merge_commit_date', axis=1)
+        label_tmp = label_tmp.drop('merge_commit_date', axis=1)
+
+        train_ind = int(data_tmp.shape[0] * config.TRAIN_RATE)
+
+        data_train = data_tmp.iloc[0:train_ind, :]
+        data_test = data_tmp.iloc[train_ind:-1, :]
+
+        label_train = label_tmp.iloc[0:train_ind, :]['is_conflict'].tolist()
+        label_test = label_tmp.iloc[train_ind:-1, :]['is_conflict'].tolist()
+
+        print(set(label_test))
+        if len(set(label_test)) != 2 or len(set(label_train)) != 2:
+            continue
+
+        #get_decision_tree_result(data_train, label_train, data_test, label_test)
+        #get_random_forest_result(data_train, label_train, data_test, label_test)
+        get_auto_scikit_result(data_train, label_train, data_test, label_test)
+
+        print('***********************************************')
+
+
+
+
+    #
+    # languages = config.LANGUAGES
+    # languages = ['Java']
+    # os.system('rm -r {}'.format(config.PREDICTION_RESULT_PATH))
+    # os.system('mkdir {}'.format(config.PREDICTION_RESULT_PATH))
+    #
+    # for language in languages:
+    #     config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_DATA_NAME.replace('<NAME>', language)
+    #     data = pd.read_csv(config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_DATA_NAME.replace('<NAME>', language),
+    #                        delimiter=',').values[:, :]
+    #     label = pd.read_csv(config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_LABEL_NAME.replace('<NAME>', language),
+    #                         delimiter=',').values[:, 0]
+    #
+    #     if data.shape[0] > 0:
+    #
+    #         # Classification
+    #         data_classification(language, data, label)
+    #         logging.info('  * Classify the data of {} with {} data points'.format(language, data.shape[0]))
+    #
+    #         # Baseline Classification
+    #         baseline_classification(language, data, label)
+    #         logging.info('  * Classify the baseline data of {} with {} data points'.format(language, data.shape[0]))
+    #
+    #         # Feature Importance
+    #         save_feature_importance(language, data, label)
+    #         logging.info('  + Extract the feature importance of {}'.format(language))
+    #
+    #         # Feature Correlation
+    #         save_feature_correlation(language, data, label)
+    #         logging.info('  + Extract the feature correlation of {}'.format(language))
+    #
+    #     else:
+    #         logging.info('  - There is no data for {}'.format(language))

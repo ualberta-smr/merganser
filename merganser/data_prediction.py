@@ -17,6 +17,7 @@ class DataRetrieval:
         self.commit_density_two_weeks = open(config.QUERY_PATH + 'commit_density_two_weeks.sql', 'r').read()
         self.commit_message_query = open(config.QUERY_PATH + 'commit_message_query.sql', 'r').read()
         self.is_conflict_query = open(config.QUERY_PATH + 'is_conflict_query.sql', 'r').read()
+        self.repo_date = open(config.QUERY_PATH + 'merge_scenario_repos_date.sql', 'r').read()
 
     def get_query_result(self, query):
         """
@@ -36,18 +37,31 @@ class DataRetrieval:
 
         logging.info('Saving data and label of prediction task...')
 
+        repo_date = self.get_repos_date()
+        repos_set = set(repo_date['name'].tolist())
+
+
         # Data preparation
         messages_features = self.get_commit_message_characteristics()
-        data = pd.concat([self.get_light_features(), self.get_commit_density(), messages_features[0], messages_features[1]], axis=1).drop('merge_commit', axis=1)
+        data = pd.concat([repo_date, self.get_light_features(), self.get_commit_density(), messages_features[0], messages_features[1]], axis=1).drop('merge_commit', axis=1)
         label = self.get_query_result(self.is_conflict_query.format()).drop('merge_commit', axis=1)
 
         # Store the data for each programming language
         for language in languages:
-            logging.info('  - Preparing data and label of prediction task for {}'.format(language))
-            temp_data = data[data['language'] == language].drop('language', axis=1)
-            temp_label = label[label['language'] == language].drop('language', axis=1)
-            temp_data.to_csv(path_or_buf=config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_DATA_NAME.replace('<NAME>', language), index=False)
-            temp_label.to_csv(path_or_buf=config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_LABEL_NAME.replace('<NAME>', language), index=False)
+            for repo in repos_set:
+
+                logging.info('  - Preparing data and label of prediction task for {}'.format(language))
+
+                temp_data = data[data['language'] == language].drop('language', axis=1)
+                if len(temp_data) == 0:
+                    continue
+                temp_label = label[label['language'] == language].drop('language', axis=1)
+
+                temp_data = temp_data[temp_data['name'] == repo].drop('name', axis=1)
+                temp_label = temp_label[temp_label['name'] == repo].drop('name', axis=1)
+
+                temp_data.to_csv(path_or_buf=config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_DATA_NAME.replace('<LANGUAGE>', language).replace('<REPOSITORY>', repo.replace('/', '-')), index=False)
+                temp_label.to_csv(path_or_buf=config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_LABEL_NAME.replace('<LANGUAGE>', language).replace('<REPOSITORY>', repo.replace('/', '-')), index=False)
 
     def get_light_features(self):
         """
@@ -57,6 +71,17 @@ class DataRetrieval:
 
         logging.info('Extracting light-weight features...')
         return self.get_query_result(self.light_features_query)
+
+
+    def get_repos_date(self):
+        """
+        This method returns the repos name and date of merge scenario
+        :return: The repo name and date of merge scenarios as a Pandas DataFrame
+        """
+
+        logging.info('Extracting commit density...')
+        repo_date = pd.DataFrame(self.get_query_result(self.repo_date))
+        return repo_date
 
     def get_commit_density(self):
         """

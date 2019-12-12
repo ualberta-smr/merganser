@@ -146,6 +146,7 @@ class Merge_Replay:
         # Conflicting regions
         if exec_conflicting_region:
             diff_replay = [line for line in os.popen(cd_to_repository + 'git diff -U0').readlines()] #  TODO.decode("utf-8")
+            #print(''.join(diff_replay))
             if diff_replay is not None:
                 for index, diff_line in enumerate(diff_replay):
                     if '--- ' in diff_line:
@@ -154,14 +155,33 @@ class Merge_Replay:
                         if '@@@ ' not in diff_replay[index + 2]:
                             continue
                         diff_conflict_match = self.CONFLICT_PATTERN_REGION.match(diff_replay[index + 2])
-                        diff_parent1_start = diff_conflict_match.group(1)
-                        diff_parent1_length = diff_conflict_match.group(2)
-                        diff_parent2_start = diff_conflict_match.group(3)
-                        diff_parent2_length = diff_conflict_match.group(4)
+
+                        try:
+                            dif_rem = diff_replay[index + 3:]
+                            for ind, i in enumerate(dif_rem):
+                                if i.count('>>>>>>>') > 0: 
+                                    end_ind = ind + 1
+                                    break
+                            dif_rem = dif_rem[0:end_ind]
+                            parent1_name = dif_rem[0].split()[-1]
+                            parent2_name = dif_rem[-1].split()[-1]
+                            dif_rem = ''.join(dif_rem[1:-2])
+                            diff_code = dif_rem.split('++=======')
+                            parent1_code = diff_code[0]
+                            parent2_code = diff_code[1]
+
+                            diff_parent1_start = diff_conflict_match.group(1)
+                            diff_parent1_length = diff_conflict_match.group(2)
+                            diff_parent2_start = diff_conflict_match.group(3)
+                            diff_parent2_length = diff_conflict_match.group(4)
+
+                        except Exception as e:
+                            print(e)
+                            continue
 
                         # Store the conflicting region information
-                        conflicting_region_data = [parent1_path, parent2_path, diff_parent1_start, diff_parent1_length,
-                                                   diff_parent2_start, diff_parent2_length, merge_technique, merge_commit, repository_id]
+                        conflicting_region_data = [parent1_path, parent2_path, parent1_name, parent2_name, diff_parent1_start, diff_parent1_length,
+                                                   diff_parent2_start, diff_parent2_length, parent1_code, parent2_code, merge_technique, merge_commit, repository_id]
                         csv_file = open(config.TEMP_CSV_PATH + 'Conflicting_Region_{}.csv'.format(repository_name), 'a')
                         csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
                         csv_writer.writerow(conflicting_region_data)

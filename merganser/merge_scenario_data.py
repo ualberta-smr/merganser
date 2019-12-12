@@ -19,7 +19,7 @@ from clone_repositories import *
 
 def get_merge_scenario_info(repository_name, merge_technique, repository_only, exec_compile, exec_tests,
                             exec_conflicting_file, exec_conflicting_region, exec_replay_comparison, exec_related_commits,
-                            exec_code_style_violation, exec_complexity, start_date='1900-01-01'):
+                            start_date='1900-01-01'):
     # Logging
     logging.basicConfig(level=logging.INFO,
                         format='%(levelname)s in %(threadName)s - %(asctime)s by %(name)-12s :  %(message)s',
@@ -28,10 +28,11 @@ def get_merge_scenario_info(repository_name, merge_technique, repository_only, e
                                                       strftime('%Y-%m-%d_%H:%M:%S', gmtime())),
                         filemode='w')
 
-    try:
+    if True:
         logging.info('START: {}'.format(repository_name))  # TODO: Temp
 
         # Clone the repository
+        
         clone_repository(repository_name.replace('___', '/'))
 
         # Exit if the repository doesn't exist
@@ -65,8 +66,6 @@ def get_merge_scenario_info(repository_name, merge_technique, repository_only, e
         # Analyze the merges
         if not repository_only:
             for commit_num, merge_commit in enumerate(merge_commit_to_analyze):
-
-                # logging.info('[STEP]: Analyzing {} / {} -  {}'.format(commit_num, len(merge_commit_to_analyze), repository_name))
 
                 # Time limitation for running each repository
                 if (time.time() - t0) / 86400.0 > config.MAX_ANALYZING_DAY:
@@ -145,30 +144,6 @@ def get_merge_scenario_info(repository_name, merge_technique, repository_only, e
                         store_commit_info_between_two_commits(git_utility, ancestor_commit, parent, index + 1,
                                                               merge_commit, repository_id)
 
-                # Store code style violation
-                if exec_code_style_violation:
-                    merge_commit_style_violations = get_code_violation_num(repository_name, merge_commit)
-                    ancestor_style_violations = get_code_violation_num(repository_name, ancestor_commit)
-                    parent1_style_violations = get_code_violation_num(repository_name, parents_commit[0])
-                    parent2_style_violations = get_code_violation_num(repository_name, parents_commit[1])
-                    code_style_violation_data = [merge_commit_style_violations, ancestor_style_violations,
-                                                 parent1_style_violations, parent2_style_violations,
-                                                 merge_commit, repository_id]
-                    csv_file = open(config.TEMP_CSV_PATH + 'Code_Style_Violation_{}.csv'.format(repository_name), 'a')
-                    csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
-                    csv_writer.writerow(code_style_violation_data)
-                    csv_file.close()
-
-                # Store code complexity
-                if exec_complexity:
-                    code_complexity_data = get_code_complexity_diff(repository_name, parents_commit[0], parents_commit[1])\
-                                               .tolist()\
-                                           +[merge_commit, repository_id]
-                    csv_file = open(config.TEMP_CSV_PATH + 'Code_Complexity_{}.csv'.format(repository_name), 'a')
-                    csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
-                    csv_writer.writerow(code_complexity_data)
-                    csv_file.close()
-
         # Repository Data
         is_done = 1
         store_repository_info(repository_name, len(merge_commits), is_done)
@@ -181,8 +156,8 @@ def get_merge_scenario_info(repository_name, merge_technique, repository_only, e
         fmt = '{0.days} days {0.hours} hours {0.minutes} minutes {0.seconds} seconds'
         logging.info('{} finishes in {}'.format(repository_name, fmt.format(rd(seconds = execution_time))))
 
-    except Exception as e:
-
+    #except Exception as e:
+    else:
         # Remove the temporary repository directory
         remove_repository(repository_name)
 

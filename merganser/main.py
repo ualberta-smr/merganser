@@ -19,7 +19,7 @@ if __name__ == '__main__':
     """
 
     # Create directories
-    remove_dir()
+    #remove_dir()
     create_dir()
 
     # Logging
@@ -48,10 +48,6 @@ if __name__ == '__main__':
     parser.add_argument('-cd', '--commit-details',
                         help='If set, the information of all commits that are involved in merge scenarios are extracted',
                         action='store_true', required=False)
-    parser.add_argument('-sv', '--style-violation', help='If set, the code style violations are extracted',
-                        action='store_true', required=False)
-    parser.add_argument('-cc', '--code-complexity', help='If set, the code complexity are extracted', action='store_true',
-                        required=False)
     parser.add_argument('-cores', '--cpu-cores', help='The number of threads', required=False)
     parser.add_argument('-sd', '--start-date', help='The the date the merge scenarios should be analyzed after that',
                         required=False)
@@ -61,7 +57,7 @@ if __name__ == '__main__':
 
     # CPU cores
     if args['cpu_cores'] is None:
-        core_num = multiprocessing.cpu_count()
+        core_num = config.MAX_CPU_CORES
     else:
         core_num = args['cpu_cores']
     validation.validate_core_num(core_num)
@@ -84,7 +80,6 @@ if __name__ == '__main__':
                                                              args['conflicting_file'],
                                                              args['conflicting_region'],
                                                              args['replay_compare'], args['commit_details'],
-                                                             args['style_violation'], args['code_complexity'],
                                                              start_date)
                                  for i in range(len(repository_urls)))
 
