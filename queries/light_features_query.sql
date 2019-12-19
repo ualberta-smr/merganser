@@ -25,6 +25,6 @@ JOIN Merge_Data.Merge_Scenario as merge_scenario ON repository.id = merge_scenar
 JOIN Merge_Data.Merge_Replay as merge_replay ON repository.id = merge_replay.Merge_Scenario_Repository_id AND merge_scenario.merge_commit_hash = merge_replay.Merge_Scenario_merge_commit_hash
 JOIN Merge_Data.Merge_Related_Commit as commits ON repository.id = commits.Merge_Scenario_Repository_id and merge_scenario.merge_commit_hash = commits.Merge_Scenario_merge_commit_hash
 
--- where merge_scenario.parallel_changed_file_num > 0
+where merge_scenario.parallel_changed_file_num > 0
 
 GROUP BY merge_scenario.merge_commit_hash, merge_scenario.parallel_changed_file_num, merge_scenario.parent1_developer_num, merge_scenario.parent2_developer_num, merge_scenario.parent1_date, merge_scenario.parent2_date, merge_scenario. ancestor_date, repository.language

@@ -36,6 +36,75 @@ def store_classification_result(model_name, language, model_classification_repor
         .write(json.dumps(classification_results))
 
 
+def data_classification_wo_cv(language, data_train, label_train, data_test, label_test, random_seed=config.RANDOM_SEED, job_num=multiprocessing.cpu_count()):
+    """
+    Trains the classifier
+    :param language: programming language
+    :param data: input data
+    :param label: input labels
+    :param random_seed: the random_seed
+    :param job_num: the number of cores to use
+    """
+
+    # CV
+    inner_cv = KFold(n_splits=config.FOLD_NUM, shuffle=True, random_state=random_seed)
+    outer_cv = KFold(n_splits=config.FOLD_NUM, shuffle=True, random_state=random_seed)
+
+    # Hyper-parameters
+    tree_param = {'min_samples_leaf': config.MIN_SAMPLE_LEAVES, 'min_samples_split': config.MIN_SAMPLE_SPLIT,
+                  'max_depth': config.TREE_MAX_DEPTH}
+    forest_param = {'n_estimators': config.ESTIMATOR_NUM, 'min_samples_leaf': config.MIN_SAMPLE_LEAVES,
+                    'min_samples_split': config.MIN_SAMPLE_SPLIT}
+    boosting_param = {'n_estimators': config.ESTIMATOR_NUM, 'learning_rate': config.LEARNING_RATE}
+
+    # Grid search definition
+    grid_searches = [
+        GridSearchCV(DecisionTreeClassifier(class_weight='balanced', random_state = random_seed),
+                  tree_param, cv=inner_cv, n_jobs=job_num, scoring=config.SCORING_FUNCTION),
+        GridSearchCV(RandomForestClassifier(class_weight='balanced', n_jobs=job_num, random_state = random_seed),
+                     forest_param, cv=inner_cv, n_jobs=job_num, scoring=config.SCORING_FUNCTION),
+        GridSearchCV(ExtraTreesClassifier(n_jobs=job_num, class_weight='balanced', random_state = random_seed),
+                     forest_param, cv=inner_cv, n_jobs=job_num, scoring=config.SCORING_FUNCTION),
+        GridSearchCV(AdaBoostClassifier(base_estimator=DecisionTreeClassifier(class_weight = 'balanced',
+                                                                                random_state = random_seed,
+                                                                                max_depth=2),
+                                        algorithm='SAMME.R', random_state=random_seed),
+                     boosting_param, cv=inner_cv, n_jobs=job_num, scoring=config.SCORING_FUNCTION)
+        ]
+
+    # Fitting the classifiers
+    classification_results = {}
+    for model in grid_searches:
+
+        # Model training/testing
+        model.score_sample_weight = True
+        model.fit(data_train, label_train)
+        model_name = str(type(model.best_estimator_)).replace('<class \'', '').replace('\'>', '').split('.')[-1]
+        model_best_param = model.best_params_
+        predicted_label = model.best_estimator_.predict(data_test)
+
+        # print(data_train.shape)
+        # print(data_test.shape)
+        # print(len(label_test))
+        # print(len(predicted_label))
+        # exit()
+
+
+        model_accuracy = accuracy_score(label_test, predicted_label)
+        model_confusion_matrix = confusion_matrix(label_test, predicted_label)
+        model_classification_report = classification_report(label_test, predicted_label)
+        classification_results[model_name] = {}
+        classification_results[model_name]['best_params'] = model_best_param
+        classification_results[model_name]['accuracy'] = model_accuracy
+        classification_results[model_name]['confusion_matrix'] = model_confusion_matrix.tolist()
+        classification_results[model_name]['classification_report'] = model_classification_report
+
+        print(model_classification_report)
+
+        ## Save the classification result
+        #store_classification_result(model_name, language, model_classification_report, classification_results)
+
+
 def data_classification(language, data, label, random_seed=config.RANDOM_SEED, job_num=multiprocessing.cpu_count()):
     """
     Trains the classifier
@@ -91,8 +160,10 @@ def data_classification(language, data, label, random_seed=config.RANDOM_SEED, j
         classification_results[model_name]['confusion_matrix'] = model_confusion_matrix.tolist()
         classification_results[model_name]['classification_report'] = model_classification_report
 
-        # Save the classification result
-        store_classification_result(model_name, language, model_classification_report, classification_results)
+        print(model_classification_report)
+
+        ## Save the classification result
+        #store_classification_result(model_name, language, model_classification_report, classification_results)
 
 
 def get_best_decision_tree(data, label, random_seed=config.RANDOM_SEED, job_num=multiprocessing.cpu_count()):
@@ -206,7 +277,7 @@ def baseline_classification(language, data, label):
 
 from sklearn import metrics
 import autosklearn.classification
-
+from sklearn.svm import SVC
 
 def get_metrics(label_test, predicted_labels):
     result = {}
@@ -238,14 +309,20 @@ def get_random_forest_result(data_train, label_train, data_test, label_test):
 
     return get_metrics(label_test, predicted_labels)
 
+def get_svm_result(data_train, label_train, data_test, label_test):
+    clf = SVC(C=1.0, kernel='linear', class_weight='balanced').fit(data_train, label_train)
+    predicted_labels = clf.predict(data_test)
+
+    return get_metrics(label_test, predicted_labels)
+
 def get_auto_scikit_result(data_train, label_train, data_test, label_test):
 
 
     automl = autosklearn.classification.AutoSklearnClassifier(
-        time_left_for_this_task=60,
+        time_left_for_this_task= 60 * 60,
         per_run_time_limit=300,
-        tmp_folder='/tmp/autosklearn_sequential_example_tmp',
-        output_folder='/tmp/autosklearn_sequential_example_out',
+        tmp_folder='/tmp/autosklearn_sequential_example_tmp1111',
+        output_folder='/tmp/autosklearn_sequential_example_out1111',
     )
     automl.fit(data_train, label_train, metric=autosklearn.metrics.roc_auc)
     predicted_labels = automl.predict(data_test)
@@ -277,7 +354,7 @@ if __name__ == "__main__":
 
     print(lang_set)
     print(repos_set)
-
+    print(data_files)
 
     for data_path in data_files:
 
@@ -295,49 +372,40 @@ if __name__ == "__main__":
         label_train = label_tmp.iloc[0:train_ind, :]['is_conflict'].tolist()
         label_test = label_tmp.iloc[train_ind:-1, :]['is_conflict'].tolist()
 
-        print(set(label_test))
-        if len(set(label_test)) != 2 or len(set(label_train)) != 2:
+        # if data_train.shape[0] < 50 or len(label_train) != len(label_test):
+        #     continue
+
+
+        # print(train_ind)
+
+        # print(set(label_test))
+        print(data_path)
+
+        print(data_train.shape)
+        print(data_test.shape)
+        print(len(label_train))
+        print(len(label_test))
+        # exit()
+
+
+
+        if len(set(label_test)) != 2 or len(set(label_train)) != 2 or len(label_test) != data_test.shape[0]:
             continue
 
-        #get_decision_tree_result(data_train, label_train, data_test, label_test)
-        #get_random_forest_result(data_train, label_train, data_test, label_test)
-        get_auto_scikit_result(data_train, label_train, data_test, label_test)
+        #
+        get_decision_tree_result(data_train, label_train, data_test, label_test)
+        # get_random_forest_result(data_train, label_train, data_test, label_test)
+        #get_auto_scikit_result(data_train, label_train, data_test, label_test)
+        #get_svm_result(data_train, label_train, data_test, label_test)
+
+        # try:
+        #     data_classification_wo_cv('language', data_train, label_train, data_test, label_test)
+        # except:
+        #     continue
+
+
+
+        print(data_path)
 
         print('***********************************************')
 
-
-
-
-    #
-    # languages = config.LANGUAGES
-    # languages = ['Java']
-    # os.system('rm -r {}'.format(config.PREDICTION_RESULT_PATH))
-    # os.system('mkdir {}'.format(config.PREDICTION_RESULT_PATH))
-    #
-    # for language in languages:
-    #     config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_DATA_NAME.replace('<NAME>', language)
-    #     data = pd.read_csv(config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_DATA_NAME.replace('<NAME>', language),
-    #                        delimiter=',').values[:, :]
-    #     label = pd.read_csv(config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_LABEL_NAME.replace('<NAME>', language),
-    #                         delimiter=',').values[:, 0]
-    #
-    #     if data.shape[0] > 0:
-    #
-    #         # Classification
-    #         data_classification(language, data, label)
-    #         logging.info('  * Classify the data of {} with {} data points'.format(language, data.shape[0]))
-    #
-    #         # Baseline Classification
-    #         baseline_classification(language, data, label)
-    #         logging.info('  * Classify the baseline data of {} with {} data points'.format(language, data.shape[0]))
-    #
-    #         # Feature Importance
-    #         save_feature_importance(language, data, label)
-    #         logging.info('  + Extract the feature importance of {}'.format(language))
-    #
-    #         # Feature Correlation
-    #         save_feature_correlation(language, data, label)
-    #         logging.info('  + Extract the feature correlation of {}'.format(language))
-    #
-    #     else:
-    #         logging.info('  - There is no data for {}'.format(language))
