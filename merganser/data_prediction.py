@@ -1,8 +1,11 @@
 
 import os
+from pprint import pprint
 import numpy as np
 from io import StringIO
 import pandas as pd
+import pymysql
+
 
 import config
 import logging
@@ -26,8 +29,11 @@ class DataRetrieval:
         :return: The result of the query as a Pandas DataFrame
         """
 
-        query_result = os.popen('mysql -u {} --password={} -e "{}"'.format(config.DB_USER_NAME, config.DB_PASSWORD, query)).read()
-        return pd.read_csv(StringIO(query_result), delimiter='\t')
+        mysql_cn= pymysql.connect(host='localhost', 
+                        port=3306,user=config.DB_USER_NAME, passwd=config.DB_PASSWORD, 
+                        db='Merge_Data')
+        df_mysql = pd.read_sql(f'{query}', con=mysql_cn) 
+        return df_mysql
 
     def save_prediction_data(self, languages):
         """
@@ -40,10 +46,12 @@ class DataRetrieval:
         repo_date = self.get_repos_date()
         repos_set = set(repo_date['name'].tolist())
 
-
         # Data preparation
         messages_features = self.get_commit_message_characteristics()
-        data = pd.concat([repo_date, self.get_light_features(), self.get_commit_density(), messages_features[0], messages_features[1]], axis=1).drop('merge_commit', axis=1)
+        d1 = repo_date.merge(self.get_light_features(), on='merge_commit')
+        d2 = d1.merge(self.get_commit_density(), on='merge_commit')
+        data = d2.merge(messages_features, on='merge_commit')
+        data.drop('merge_commit', axis=1, inplace=True)
         label = self.get_query_result(self.is_conflict_query.format()).drop('merge_commit', axis=1)
 
         # Store the data for each programming language
@@ -71,7 +79,6 @@ class DataRetrieval:
 
         logging.info('Extracting light-weight features...')
         return self.get_query_result(self.light_features_query)
-
 
     def get_repos_date(self):
         """
@@ -103,23 +110,21 @@ class DataRetrieval:
 
         logging.info('Extracting message characteristics...')
         commit_messages = self.get_query_result(self.commit_message_query.format())
+        commit_messages.dropna(inplace=True)
         keywords = sorted(['fix', 'bug', 'feature', 'improve', 'document', 'refactor', 'update', 'add', 'remove', 'use',
                         'delete', 'change'])
         keywords_names = [keyword + '_frequency' for keyword in keywords]
-        keywords_frequency = np.zeros((commit_messages.shape[0], len(keywords)))
-        messages_stats = np.zeros((commit_messages.shape[0], 4))
-        for index, merge in commit_messages.iterrows():
-            if not isinstance(merge['commit_messages'], str):
-                continue
-            for keyword_id, keyword in enumerate(keywords):
-                keywords_frequency[index, keyword_id] = merge['commit_messages'].count(keyword)
-            messagess_len = [len(message) for message in merge['commit_messages'].split('|||')]
-            messages_stats[index, :] = [np.min(messagess_len), np.max(messagess_len),
-                                        np.mean(messagess_len), np.median(messagess_len)]
-        keywords_frequency_df = pd.DataFrame(data=keywords_frequency, columns=keywords_names)
-        messages_stats_df =  pd.DataFrame(data=messages_stats, columns=['messages_min', 'messages_max',
-                                                                        'messages_mean', 'messages_median'])
-        return keywords_frequency_df, messages_stats_df
+        for keyword in keywords_names:
+            commit_messages[keyword] = commit_messages.apply(lambda x: x['commit_messages'].count(keyword), axis=1)
+
+        commit_messages['messages_min'] = commit_messages.apply(lambda x: np.min([len(message) for message in x['commit_messages'].split('|||')] ), axis=1)
+        commit_messages['messages_max'] = commit_messages.apply(lambda x: np.max([len(message) for message in x['commit_messages'].split('|||')] ), axis=1)
+        commit_messages['messages_mean'] = commit_messages.apply(lambda x: np.mean([len(message) for message in x['commit_messages'].split('|||')] ), axis=1)
+        commit_messages['messages_median'] = commit_messages.apply(lambda x: np.median([len(message) for message in x['commit_messages'].split('|||')] ), axis=1)
+
+        commit_messages.drop("commit_messages", axis=1, inplace=True)
+
+        return commit_messages 
 
 
 if __name__ == "__main__":
