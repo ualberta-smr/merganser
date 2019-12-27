@@ -36,7 +36,7 @@ def store_classification_result(model_name, language, model_classification_repor
         .write(json.dumps(classification_results))
 
 
-def data_classification_wo_cv(language, data_train, label_train, data_test, label_test, random_seed=config.RANDOM_SEED, job_num=multiprocessing.cpu_count()):
+def data_classification_wo_cv(language, repo, data_train, label_train, data_test, label_test, random_seed=config.RANDOM_SEED, job_num=multiprocessing.cpu_count()):
     """
     Trains the classifier
     :param language: programming language
@@ -74,6 +74,9 @@ def data_classification_wo_cv(language, data_train, label_train, data_test, labe
 
     # Fitting the classifiers
     classification_results = {}
+
+    res = []
+
     for model in grid_searches:
 
         # Model training/testing
@@ -82,27 +85,15 @@ def data_classification_wo_cv(language, data_train, label_train, data_test, labe
         model_name = str(type(model.best_estimator_)).replace('<class \'', '').replace('\'>', '').split('.')[-1]
         model_best_param = model.best_params_
         predicted_label = model.best_estimator_.predict(data_test)
+        t = get_metrics(label_test, predicted_label)
+        t['model_name'] = model_name
+        t['language'] = language
+        t['repository'] = repo
 
-        # print(data_train.shape)
-        # print(data_test.shape)
-        # print(len(label_test))
-        # print(len(predicted_label))
-        # exit()
-
-
-        model_accuracy = accuracy_score(label_test, predicted_label)
-        model_confusion_matrix = confusion_matrix(label_test, predicted_label)
-        model_classification_report = classification_report(label_test, predicted_label)
-        classification_results[model_name] = {}
-        classification_results[model_name]['best_params'] = model_best_param
-        classification_results[model_name]['accuracy'] = model_accuracy
-        classification_results[model_name]['confusion_matrix'] = model_confusion_matrix.tolist()
-        classification_results[model_name]['classification_report'] = model_classification_report
-
-        print(model_classification_report)
-
-        ## Save the classification result
-        #store_classification_result(model_name, language, model_classification_report, classification_results)
+        res.append(t)
+    
+    return res
+        
 
 
 def data_classification(language, data, label, random_seed=config.RANDOM_SEED, job_num=multiprocessing.cpu_count()):
@@ -280,20 +271,32 @@ import autosklearn.classification
 from sklearn.svm import SVC
 
 def get_metrics(label_test, predicted_labels):
+
     result = {}
-    result['accuracy_score'] = metrics.accuracy_score(label_test, predicted_labels)
+
     result['roc_curve'] = metrics.roc_curve(label_test, predicted_labels)
-    result['roc_auc_score'] = metrics.roc_auc_score(label_test, predicted_labels)
     result['confusion_matrix'] = metrics.confusion_matrix(label_test, predicted_labels)
-    result['precision_score'] = metrics.precision_score(label_test, predicted_labels)
-    result['recall_score'] = metrics.recall_score(label_test, predicted_labels)
-    result['average_precision_score'] = metrics.precision_score(label_test, predicted_labels, average='weighted')
-    result['average_recall_score'] = metrics.recall_score(label_test, predicted_labels, average='weighted')
-    result['f1_score'] = metrics.f1_score(label_test, predicted_labels, average='weighted')
     result['classification_report'] = metrics.classification_report(label_test, predicted_labels)
-    print(result['classification_report'])
-    print(result['confusion_matrix'])
+
+    result['accuracy_score'] = metrics.accuracy_score(label_test, predicted_labels)
+    result['roc_auc_score'] = metrics.roc_auc_score(label_test, predicted_labels)
+
+    result['precision_score_conflict'] = metrics.precision_score(label_test, predicted_labels)
+    result['precision_score_not_conflict'] = metrics.precision_score(label_test, predicted_labels,pos_label=0)
+    result['precision_score_average'] = metrics.precision_score(label_test, predicted_labels, average='weighted')
+
+    result['recall_score_conflict'] = metrics.recall_score(label_test, predicted_labels)
+    result['recall_score_not_conflict'] = metrics.recall_score(label_test, predicted_labels,pos_label=0)
+    result['recall_score_average'] = metrics.recall_score(label_test, predicted_labels, average='weighted')
+
+    result['f1_score_conflict'] = metrics.f1_score(label_test, predicted_labels)
+    result['f1_score_not_conflict'] = metrics.f1_score(label_test, predicted_labels,pos_label=0)
+    result['f1_score_average'] = metrics.f1_score(label_test, predicted_labels, average='weighted')
+
+    result['conflict_rate'] =  len([i for i in label_test if i == 1]) / len(label_test)
+
     return result
+
 
 def get_decision_tree_result(data_train, label_train, data_test, label_test):
 
@@ -348,15 +351,14 @@ if __name__ == "__main__":
     data_files = glob.glob(config.PREDICTION_CSV_PATH + 'data_*')
     label_files = glob.glob(config.PREDICTION_CSV_PATH + 'label_*')
 
-    lang_set = set([files.split('/')[-1].split('_')[2] for files in data_files])
-    repos_set = set([files.split('/')[-1].split('_')[3].replace('.csv', '') for files in data_files])
+    lang_set = [files.split('/')[-1].split('_')[2] for files in data_files]
+    repos_set = [files.split('/')[-1].split('_')[3].replace('.csv', '') for files in data_files]
 
+    classification_result = []
 
-    print(lang_set)
-    print(repos_set)
     print(data_files)
 
-    for data_path in data_files:
+    for ind, data_path in enumerate(data_files):
 
         data_tmp = pd.read_csv(data_path).sort_values(by=['merge_commit_date'])
         label_tmp = pd.read_csv(data_path.replace('data_prediction', 'label_prediction')).sort_values(by=['merge_commit_date'])
@@ -372,40 +374,34 @@ if __name__ == "__main__":
         label_train = label_tmp.iloc[0:train_ind, :]['is_conflict'].tolist()
         label_test = label_tmp.iloc[train_ind:-1, :]['is_conflict'].tolist()
 
-        # if data_train.shape[0] < 50 or len(label_train) != len(label_test):
-        #     continue
 
+        if len(label_test) != data_test.shape[0]:
+            print('Inconsistent data: {}'.format(repos_set[ind]))
+            continue
+        if data_test.shape[0] < 50:
+            print('Not enough merge scenarios: {}'.format(repos_set[ind]))
+            continue
+        if len(set(label_test)) != 2 or len(set(label_train)) != 2:
+            print('One class is missed: {}'.format(repos_set[ind]))
+            continue
+        if len([i for i in label_test if i == 1]) < 10:
+            print('Nor enough conflicting merge in the test batch for evaluation: {}'.format(repos_set[ind]))
+            continue
+        # get_decision_tree_result(data_train, label_train, data_test, label_test)
+        # get_random_forest_result(data_train, label_train, data_test, label_test)
+        # get_auto_scikit_result(data_train, label_train, data_test, label_test)
+        # get_svm_result(data_train, label_train, data_test, label_test)
 
-        # print(train_ind)
+        try:
+            res = data_classification_wo_cv(lang_set[ind], repos_set[ind] ,data_train, label_train, data_test, label_test)
 
-        # print(set(label_test))
-        print(data_path)
-
-        print(data_train.shape)
-        print(data_test.shape)
-        print(len(label_train))
-        print(len(label_test))
-        # exit()
-
-
-
-        if len(set(label_test)) != 2 or len(set(label_train)) != 2 or len(label_test) != data_test.shape[0]:
+            classification_result = classification_result + res
+        except Exception as e:
+            print('Error - {}'.format(e))
             continue
 
-        #
-        get_decision_tree_result(data_train, label_train, data_test, label_test)
-        # get_random_forest_result(data_train, label_train, data_test, label_test)
-        #get_auto_scikit_result(data_train, label_train, data_test, label_test)
-        #get_svm_result(data_train, label_train, data_test, label_test)
+    classification_result_df = pd.DataFrame(classification_result)
+    print(classification_result_df)
 
-        # try:
-        #     data_classification_wo_cv('language', data_train, label_train, data_test, label_test)
-        # except:
-        #     continue
-
-
-
-        print(data_path)
-
-        print('***********************************************')
-
+    print(classification_result_df['f1_score_average'])
+    classification_result_df.to_csv('res.csv')
