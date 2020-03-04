@@ -20,8 +20,6 @@ def save_selected_repositories(language, stars_min, top_repos, repos_list_name):
 
     # Read the dataframe
     reaper_df = pd.read_csv(config.REAPER_DATASET_PATH, low_memory=False)
-    reaper_repo_lang_df = reaper_df[['repository', 'language']]
-    reaper_repo_lang_df.to_csv(config.REPOSITORY_LIST_PATH + 'reaper_languages' + '.csv', index=False)
 
     # Select the repositories
     reaper_df = reaper_df[reaper_df['scorebased_org'] == 1]
@@ -31,7 +29,7 @@ def save_selected_repositories(language, stars_min, top_repos, repos_list_name):
     reaper_df = reaper_df[reaper_df['language'] == language]
     reaper_df = reaper_df.dropna()
     reaper_df = reaper_df[reaper_df['stars'] != 'None']
-    reaper_df = reaper_df.astype({'stars': 'int64'})
+    reaper_df = reaper_df.astype({'stars': 'float64'})
     reaper_df = reaper_df.sort_values('stars', ascending=False)
     reaper_df = reaper_df[reaper_df['stars'] > stars_min]
     reaper_df = reaper_df.head(top_repos)

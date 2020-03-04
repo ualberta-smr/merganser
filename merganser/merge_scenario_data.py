@@ -28,7 +28,7 @@ def get_merge_scenario_info(repository_name, merge_technique, repository_only, e
                                                       strftime('%Y-%m-%d_%H:%M:%S', gmtime())),
                         filemode='w')
 
-    if True:
+    try:
         logging.info('START: {}'.format(repository_name))  # TODO: Temp
 
         # Clone the repository
@@ -37,6 +37,7 @@ def get_merge_scenario_info(repository_name, merge_technique, repository_only, e
 
         # Exit if the repository doesn't exist
         if os.path.exists(os.getcwd() + '/' + config.REPOSITORY_PATH + repository_name) is False:
+            logging.info('Could not clone: {}'.format(repository_name))
             return 1
 
         t0 = time.time()
@@ -47,11 +48,23 @@ def get_merge_scenario_info(repository_name, merge_technique, repository_only, e
 
         # Extract all merge scenarios after the start_date
         merge_commits = [commit for commit in git_utility.get_merge_commits() if git_utility.get_commit_date(commit).split()[0] > start_date]
+
+        if len(merge_commits) < config.MIN_MERGE_SCENARIO: 
+
+            # Remove the temporary repository directory
+            remove_repository(repository_name)
+
+            # Logging
+            logging.info('Error - {} has only {} merge scenarios.'.format(repository_name, len(merge_commits)))
+            #print('Error - {} has only {} merge scenarios.'.format(repository_name, len(merge_commits)))
+
+            return 1
+
         if len(merge_commits) < config.MAX_MERGE_SCENARIOS:
             merge_commit_to_analyze = merge_commits
         else:
             random.shuffle(merge_commits)
-            merge_commit_to_analyze = merge_commits[0:config.MAX_MERGE_SCENARIOS]
+            merge_commit_to_analyze = merge_commits[-config.MAX_MERGE_SCENARIOS:-1]
 
         # Repository id
         repository_id, repository_size = get_repository_id(repository_name)
@@ -71,7 +84,7 @@ def get_merge_scenario_info(repository_name, merge_technique, repository_only, e
                 if (time.time() - t0) / 86400.0 > config.MAX_ANALYZING_DAY:
                     logging.info('{} terminated since it couldn\'t finish in {}'.format(repository_name,
                                                                                         config.MAX_ANALYZING_DAY))
-                    return 1
+                    break
 
                 # Extract the SHA-1 of the parents and ancestor
                 parents_commit = git_utility.get_parents(merge_commit)
@@ -156,8 +169,7 @@ def get_merge_scenario_info(repository_name, merge_technique, repository_only, e
         fmt = '{0.days} days {0.hours} hours {0.minutes} minutes {0.seconds} seconds'
         logging.info('{} finishes in {}'.format(repository_name, fmt.format(rd(seconds = execution_time))))
 
-    #except Exception as e:
-    else:
+    except Exception as e:
         # Remove the temporary repository directory
         remove_repository(repository_name)
 

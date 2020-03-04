@@ -4,7 +4,6 @@ import numpy as np
 
 import config
 
-
 def check_build_status(repository_name, commit, operation):
     """
     Checkout, compile and test a commit. This method reset all changes at the end.
