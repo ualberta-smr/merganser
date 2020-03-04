@@ -1,5 +1,7 @@
 import multiprocessing
-
+import numpy as np
+from numpy.random import randint
+import time
 
 # Keys
 GITHUB_KEY = 'fc76875417cb60f7b61a969753d7cc98a1ef3099'
@@ -13,6 +15,7 @@ QUERY_PATH = '../queries/'
 PREDICTION_RESULT_PATH = '../working_dir/prediction_result/'
 PREDICTION_CSV_PATH = '../working_dir/prediction_data/'
 REAPER_DATASET_PATH = '../tools/reaper/dataset.csv'
+PREDICTION_RES_PATH = '../working_dir/prediction_result/'
 PREDICTION_CSV_DATA_NAME = 'data_prediction_<LANGUAGE>_<REPOSITORY>.csv'
 PREDICTION_CSV_LABEL_NAME = 'label_prediction_<LANGUAGE>_<REPOSITORY>.csv'
 
@@ -33,15 +36,16 @@ VIS_S = 100
 VIS_ALPHA = 0.4
 
 # Prediction
-MIN_SAMPLE_LEAVES = [2, 5, 10]
-MIN_SAMPLE_SPLIT = [2, 3, 5, 10]
-ESTIMATOR_NUM = [2, 5, 10, 30, 50]
+MIN_SAMPLE_LEAVES = np.random.randint(low=2, high=36, size=5)
+MIN_SAMPLE_SPLIT = np.random.randint(low=2, high=36, size=5)
+ESTIMATOR_NUM = np.random.randint(low=1, high=11, size=5)
 LEARNING_RATE = [0.7, 0.9, 1.0, 1.1, 1.5]
 FOLD_NUM = 10
 SCORING_FUNCTION = 'f1'
-TREE_MAX_DEPTH = [1, 2, 3, 5, 7, 11]
+TREE_MAX_DEPTH = np.random.randint(low=1, high=9, size=5)
 TEST_SIZE = 0.25
-RANDOM_SEED = 17
+RANDOM_SEED = int(time.time())
+np.random.seed(RANDOM_SEED)
 TREE_FILE_NAME = 'tree.dot'
 TRAIN_RATE = 0.75
 
