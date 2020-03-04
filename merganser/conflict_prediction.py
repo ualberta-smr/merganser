@@ -17,9 +17,6 @@ from sklearn.model_selection import GridSearchCV, KFold
 from sklearn.model_selection import cross_val_predict
 from sklearn.decomposition import IncrementalPCA
 from scipy.stats import spearmanr
-from sklearn import metrics
-import autosklearn.classification
-from sklearn.svm import SVC
 
 import config
 from util import *
@@ -295,7 +292,9 @@ def baseline_classification(language, data, label):
 
 
 
-
+from sklearn import metrics
+import autosklearn.classification
+from sklearn.svm import SVC
 
 def get_metrics(label_test, predicted_labels):
 
