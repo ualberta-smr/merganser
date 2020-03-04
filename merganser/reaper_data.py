@@ -20,6 +20,8 @@ def save_selected_repositories(language, stars_min, top_repos, repos_list_name):
 
     # Read the dataframe
     reaper_df = pd.read_csv(config.REAPER_DATASET_PATH, low_memory=False)
+    reaper_repo_lang_df = reaper_df[['repository', 'language']]
+    reaper_repo_lang_df.to_csv(config.REPOSITORY_LIST_PATH + 'reaper_languages' + '.csv', index=False)
 
     # Select the repositories
     reaper_df = reaper_df[reaper_df['scorebased_org'] == 1]

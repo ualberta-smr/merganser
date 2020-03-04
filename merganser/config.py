@@ -48,4 +48,4 @@ TRAIN_RATE = 0.75
 # REAPER repository search
 STARS_MIN = 100
 TOP_REPOS_NUM = 100
-LANGUAGES = ['Java', 'Python', 'Ruby', 'C++', 'PHP', 'C', 'C#']
+LANGUAGES = ['C', 'C#', 'C++', 'Java', 'PHP', 'Python', 'Ruby']

@@ -17,9 +17,16 @@ from sklearn.model_selection import GridSearchCV, KFold
 from sklearn.model_selection import cross_val_predict
 from sklearn.decomposition import IncrementalPCA
 from scipy.stats import spearmanr
+from sklearn import metrics
+import autosklearn.classification
+from sklearn.svm import SVC
 
 import config
+from util import *
 
+np.random.seed(config.RANDOM_SEED)
+
+repo_lang = Repository_language()
 
 def store_classification_result(model_name, language, model_classification_report, classification_results):
     """
@@ -60,16 +67,16 @@ def data_classification_wo_cv(language, repo, data_train, label_train, data_test
     # Grid search definition
     grid_searches = [
         GridSearchCV(DecisionTreeClassifier(class_weight='balanced', random_state = random_seed),
-                  tree_param, cv=inner_cv, n_jobs=job_num, scoring=config.SCORING_FUNCTION),
-        GridSearchCV(RandomForestClassifier(class_weight='balanced', n_jobs=job_num, random_state = random_seed),
-                     forest_param, cv=inner_cv, n_jobs=job_num, scoring=config.SCORING_FUNCTION),
-        GridSearchCV(ExtraTreesClassifier(n_jobs=job_num, class_weight='balanced', random_state = random_seed),
-                     forest_param, cv=inner_cv, n_jobs=job_num, scoring=config.SCORING_FUNCTION),
-        GridSearchCV(AdaBoostClassifier(base_estimator=DecisionTreeClassifier(class_weight = 'balanced',
-                                                                                random_state = random_seed,
-                                                                                max_depth=2),
-                                        algorithm='SAMME.R', random_state=random_seed),
-                     boosting_param, cv=inner_cv, n_jobs=job_num, scoring=config.SCORING_FUNCTION)
+                  tree_param, cv=inner_cv, n_jobs=job_num, scoring=config.SCORING_FUNCTION)
+        , GridSearchCV(RandomForestClassifier(class_weight='balanced', n_jobs=job_num, random_state = random_seed),
+                     forest_param, cv=inner_cv, n_jobs=job_num, scoring=config.SCORING_FUNCTION)
+        # , GridSearchCV(ExtraTreesClassifier(n_jobs=job_num, class_weight='balanced', random_state = random_seed),
+        #              forest_param, cv=inner_cv, n_jobs=job_num, scoring=config.SCORING_FUNCTION),
+        # GridSearchCV(AdaBoostClassifier(base_estimator=DecisionTreeClassifier(class_weight = 'balanced',
+        #                                                                         random_state = random_seed,
+        #                                                                         max_depth=2),
+        #                                 algorithm='SAMME.R', random_state=random_seed),
+        #              boosting_param, cv=inner_cv, n_jobs=job_num, scoring=config.SCORING_FUNCTION)
         ]
 
     # Fitting the classifiers
@@ -227,24 +234,46 @@ def save_feature_correlation(language, data, label):
         open('{}feature_correlation_{}.txt'.format(config.PREDICTION_RESULT_PATH, language), 'a') \
             .write('{}:\t\t{} \t {}\n'.format(feature_sets[i], round(corr, 2), round(p_value, 2)))
 
+def save_feature_correlation_dict(data, label):
+    """
+    Store the feature correlation of the data with the label
+    :param data: the data
+    :param label: the label
+    """
+    feature_sets = ['prl_changes', 'commit_num', 'commit_density', 'file_edits', 'line_edits', 'dev_num',
+                    'keywords', 'message', 'duration']
+    feature_sets, parallel_changes, commit_num, commit_density, file_edits, line_edits, dev_num, keywords, message\
+        , duration = get_feature_set(data)
+    features = [parallel_changes, commit_num, commit_density, file_edits, line_edits, dev_num, keywords, message
+        , duration]
 
-def save_feature_importance(language, data, label):
+    correlation = {}
+
+    try:
+        for i, feature in enumerate(features):
+            corr, p_value = spearmanr(feature, label)
+            correlation[feature_sets[i] + '_corr'] = corr
+            correlation[feature_sets[i] + '_p_value'] = p_value
+
+    except:
+        pass
+    finally:
+        return correlation
+
+
+def save_feature_importance(repo_name, data, label):
     """
     Store the feature importance
     :param language: the programming language
     :param data: the data
     :param label: the label
     """
+    data = data.values
     feature_sets, parallel_changes, commit_num, commit_density, file_edits, line_edits, dev_num, keywords, message, duration \
         = get_feature_set(data)
-
     feature_data = np.concatenate((parallel_changes, commit_num, commit_density, file_edits, line_edits,
                                    dev_num, keywords, message, duration), axis=1)
-    feature_importances = get_feature_importance_by_model(get_best_decision_tree(feature_data, label))
-
-    for i, item in enumerate(feature_importances):
-        open('{}feature_importance_{}.txt'.format(config.PREDICTION_RESULT_PATH, language), 'a') \
-            .write('{}:\t\t{}\n'.format(feature_sets[i], round(item, 2)))
+    return get_feature_importance_by_model(get_best_decision_tree(feature_data, label))
 
 
 def baseline_classification(language, data, label):
@@ -266,9 +295,7 @@ def baseline_classification(language, data, label):
 
 
 
-from sklearn import metrics
-import autosklearn.classification
-from sklearn.svm import SVC
+
 
 def get_metrics(label_test, predicted_labels):
 
@@ -351,12 +378,15 @@ if __name__ == "__main__":
     data_files = glob.glob(config.PREDICTION_CSV_PATH + 'data_*')
     label_files = glob.glob(config.PREDICTION_CSV_PATH + 'label_*')
 
-    lang_set = [files.split('/')[-1].split('_')[2] for files in data_files]
     repos_set = [files.split('/')[-1].split('_')[3].replace('.csv', '') for files in data_files]
 
     classification_result = []
 
-    print(data_files)
+    feature_importance = []
+
+    languages = []
+
+    corr = []
 
     for ind, data_path in enumerate(data_files):
 
@@ -366,14 +396,22 @@ if __name__ == "__main__":
         data_tmp = data_tmp.drop('merge_commit_date', axis=1)
         label_tmp = label_tmp.drop('merge_commit_date', axis=1)
 
-        train_ind = int(data_tmp.shape[0] * config.TRAIN_RATE)
+        # Correlation
+        try:
+            tmp_corr = save_feature_correlation_dict(data_tmp.to_numpy(), label_tmp.to_numpy())
+            if len(tmp_corr) > 0:
+                tmp_corr['langugae'] = repo_lang.get_lang(repos_set[ind].lower())
+                tmp_corr['repository'] = repos_set[ind]
+                corr.append(tmp_corr)
+        except:
+            pass
+        continue
 
+        train_ind = int(data_tmp.shape[0] * config.TRAIN_RATE)
         data_train = data_tmp.iloc[0:train_ind, :]
         data_test = data_tmp.iloc[train_ind:-1, :]
-
         label_train = label_tmp.iloc[0:train_ind, :]['is_conflict'].tolist()
         label_test = label_tmp.iloc[train_ind:-1, :]['is_conflict'].tolist()
-
 
         if len(label_test) != data_test.shape[0]:
             print('Inconsistent data: {}'.format(repos_set[ind]))
@@ -387,21 +425,32 @@ if __name__ == "__main__":
         if len([i for i in label_test if i == 1]) < 10:
             print('Nor enough conflicting merge in the test batch for evaluation: {}'.format(repos_set[ind]))
             continue
-        # get_decision_tree_result(data_train, label_train, data_test, label_test)
-        # get_random_forest_result(data_train, label_train, data_test, label_test)
-        # get_auto_scikit_result(data_train, label_train, data_test, label_test)
-        # get_svm_result(data_train, label_train, data_test, label_test)
 
-        try:
-            res = data_classification_wo_cv(lang_set[ind], repos_set[ind] ,data_train, label_train, data_test, label_test)
+        # k = k + data_tmp.shape[0]
 
+        try:  
+            res = data_classification_wo_cv(repo_lang.get_lang(repos_set[ind].lower()), repos_set[ind] ,data_train, label_train, data_test, label_test)
             classification_result = classification_result + res
+            feature_importance.append(save_feature_importance(repos_set[ind], data_train, label_train))
+            languages.append(repo_lang.get_lang(repos_set[ind].lower()))
         except Exception as e:
             print('Error - {}'.format(e))
             continue
 
-    classification_result_df = pd.DataFrame(classification_result)
-    print(classification_result_df)
+    corr_df = pd.DataFrame(corr)
+    corr_df.to_csv(f'corr_{config.RANDOM_SEED}.csv')
+    exit()
 
-    print(classification_result_df['f1_score_average'])
-    classification_result_df.to_csv('res.csv')
+    # Feature importance
+    feature_importance = pd.DataFrame(feature_importance, columns=['prl_changes', 'commit_num', 'commit_density', 'file_edits', 'line_edits', 'dev_num',
+                    'keywords', 'message', 'duration'])
+    feature_importance['language'] = pd.Series(languages)
+    feature_importance['repository'] = pd.Series(repos_set)
+    feature_importance.dropna()
+    feature_importance.to_csv(f'feature_importance_{config.RANDOM_SEED}.csv')
+    feature_importance_summery = feature_importance.drop('repository', axis=1).groupby('language').agg('median')
+    feature_importance_summery.to_csv(f'feature_importance_summery_{config.RANDOM_SEED}.csv')
+
+    # Classification result
+    classification_result_df = pd.DataFrame(classification_result)
+    classification_result_df.to_csv(f'res_{config.RANDOM_SEED}.csv')

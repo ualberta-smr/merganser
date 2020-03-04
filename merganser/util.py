@@ -1,6 +1,8 @@
 
 import os
 
+import pandas as pd
+
 import config
 
 
@@ -33,3 +35,15 @@ def create_dir():
     os.system('mkdir {}'.format(config.TEMP_CSV_PATH))
     os.system('mkdir {}'.format(config.LOG_PATH))
     os.system('mkdir {}'.format(config.PREDICTION_CSV_PATH))
+
+class Repository_language:
+
+    def __init__(self):
+        self.repo_langs = pd.read_csv(config.REPOSITORY_LIST_PATH + 'reaper_languages' + '.csv')
+        self.repo_langs['repository'] = [str(i).lower().replace('/', '-') for i in self.repo_langs['repository']] 
+
+        self.repo_langs.set_index('repository', inplace=True)
+
+    def get_lang(self, repo_name):
+        return self.repo_langs.loc[repo_name][0]
+

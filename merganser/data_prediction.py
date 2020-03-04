@@ -54,22 +54,26 @@ class DataRetrieval:
         data.drop('merge_commit', axis=1, inplace=True)
         label = self.get_query_result(self.is_conflict_query.format()).drop('merge_commit', axis=1)
 
+
         # Store the data for each programming language
-        for language in languages:
-            for repo in repos_set:
+        for repo in repos_set:
+            
+            t = data[data['name'] == repo]
+            language = t['language'].tolist()[0]
+            print(language)
 
-                logging.info('  - Preparing data and label of prediction task for {}'.format(language))
+            logging.info('  - Preparing data and label of prediction task for {}'.format(language))
 
-                temp_data = data[data['language'] == language].drop('language', axis=1)
-                if len(temp_data) == 0:
-                    continue
-                temp_label = label[label['language'] == language].drop('language', axis=1)
+            temp_data = data[data['language'] == language].drop('language', axis=1)
+            if len(temp_data) == 0:
+                continue
+            temp_label = label[label['language'] == language].drop('language', axis=1)
 
-                temp_data = temp_data[temp_data['name'] == repo].drop('name', axis=1)
-                temp_label = temp_label[temp_label['name'] == repo].drop('name', axis=1)
+            temp_data = temp_data[temp_data['name'] == repo].drop('name', axis=1)
+            temp_label = temp_label[temp_label['name'] == repo].drop('name', axis=1)
 
-                temp_data.to_csv(path_or_buf=config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_DATA_NAME.replace('<LANGUAGE>', language).replace('<REPOSITORY>', repo.replace('/', '-')), index=False)
-                temp_label.to_csv(path_or_buf=config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_LABEL_NAME.replace('<LANGUAGE>', language).replace('<REPOSITORY>', repo.replace('/', '-')), index=False)
+            temp_data.to_csv(path_or_buf=config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_DATA_NAME.replace('<LANGUAGE>', language).replace('<REPOSITORY>', repo.replace('/', '-')), index=False)
+            temp_label.to_csv(path_or_buf=config.PREDICTION_CSV_PATH + config.PREDICTION_CSV_LABEL_NAME.replace('<LANGUAGE>', language).replace('<REPOSITORY>', repo.replace('/', '-')), index=False)
 
     def get_light_features(self):
         """

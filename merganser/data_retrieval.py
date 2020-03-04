@@ -123,22 +123,28 @@ class Data_Retreival:
                 WHERE language IN ('Java', 'Python', 'PHP', 'RUBY', 'C++')
                 GROUP BY language"""
         self.scenarios_num_of_lang_query = """SELECT COUNT(merge_commit_hash)
-            FROM Merge_Data.Repository JOIN Merge_Data.Merge_Scenario on id = Repository_id
+            FROM Merge_Data.Repository LEFT JOIN Merge_Data.Merge_Scenario on id = Repository_id
             WHERE language = '{}'
             GROUP BY name"""
-        self.conflicts_num_of_lang_query = """SELECT COUNT(is_conflict)
-            FROM Merge_Data.Repository JOIN Merge_Data.Merge_Replay on id = Merge_Scenario_Repository_id
-            WHERE language = '{}' and is_conflict = 1
+        self.star_num_of_lang_query = """SELECT star_num
+            FROM Merge_Data.Repository 
+            WHERE language = '{}'"""
+        self.conflicts_num_of_lang_query = """SELECT SUM(is_conflict)
+            FROM Merge_Data.Repository LEFT JOIN Merge_Data.Merge_Replay on id = Merge_Scenario_Repository_id
+            WHERE language = '{}' 
             GROUP BY name"""
 
-    def get_conflicts_nums_by_lang(self, lang): # TODO: The number of data in two branches is not the same.
+    def get_star_nums_by_lang(self, lang): 
+        logging.info('Getting all scenarios of lang...')
+        return self.get_data_frame_of_query_result(self.get_query_result(self.star_num_of_lang_query.format(lang)))
+
+    def get_conflicts_nums_by_lang(self, lang): 
         logging.info('Getting all scenarios of lang...')
         return self.get_data_frame_of_query_result(self.get_query_result(self.conflicts_num_of_lang_query.format(lang)))
 
-    def get_scenarios_nums_by_lang(self, lang): # TODO: The number of data in two branches is not the same.
+    def get_scenarios_nums_by_lang(self, lang): 
         logging.info('Getting all scenarios of lang...')
         return self.get_data_frame_of_query_result(self.get_query_result(self.scenarios_num_of_lang_query.format(lang)))
-
 
     def get_conflict_per_language(self):
         logging.info('Extracting conflicts per language...')
@@ -153,12 +159,9 @@ class Data_Retreival:
         return self.get_data_frame_of_query_result(self.get_query_result(self.parallel_changed_commits_query))
 
     def get_query_result(self, query):
-
         engine = create_engine('mysql+pymysql://{}:{}@localhost/{}'.format(config.DB_USER_NAME, config.DB_PASSWORD, config.DB_NAME))
         df = pd.read_sql_query(query, engine)
         return df
-
-        # return os.popen('mysql -u {} -e "{}"'.format(config.DB_USER_NAME, query)).read()
 
     def get_data_frame_of_query_result(self, query_result):
         return query_result
