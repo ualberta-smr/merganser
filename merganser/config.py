@@ -4,7 +4,7 @@ from numpy.random import randint
 import time
 
 # Keys
-GITHUB_KEY = 'fc76875417cb60f7b61a969753d7cc98a1ef3099'
+GITHUB_KEY = '60fe91bab0512c3a6221ec0b8741318965315b00'
 
 # Paths
 REPOSITORY_PATH = '../working_dir/repository/'
@@ -24,6 +24,7 @@ MAX_MERGE_SCENARIOS = 5000
 MAX_ANALYZING_DAY = 7
 MAX_REPO_SIZE_TO_ANALYZE = 10 * 1024 * 1024
 MAX_CPU_CORES = int(multiprocessing.cpu_count() / 2)
+MIN_MERGE_SCENARIO = 1
 
 # DB information
 DB_HOST = 'localhost'
