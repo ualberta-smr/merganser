@@ -32,7 +32,6 @@ def get_merge_scenario_info(repository_name, merge_technique, repository_only, e
         logging.info('START: {}'.format(repository_name))  # TODO: Temp
 
         # Clone the repository
-        
         clone_repository(repository_name.replace('___', '/'))
 
         # Exit if the repository doesn't exist
@@ -173,4 +172,4 @@ def get_merge_scenario_info(repository_name, merge_technique, repository_only, e
         # Remove the temporary repository directory
         remove_repository(repository_name)
 
-        logging.warning('{} error: {}.'.format(e, repository_name))
+        #logging.warning('{} error: {}.'.format(e, repository_name))

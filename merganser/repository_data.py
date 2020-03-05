@@ -54,7 +54,6 @@ def store_repository_info(repository_name, merge_scenario_num, is_done):
     return json_data['id']
 
 
-
 def get_repository_id(repository_name):
     """
     This method stores the information of the given repository from GitHub. TEMP_CSV_PATH should be set in config.py
@@ -66,10 +65,10 @@ def get_repository_id(repository_name):
 
     github_request = os.popen('curl --silent -H "Authorization: token  ' + config.GITHUB_KEY + \
                                '"  https://api.github.com/repos/' + repository_name.replace('___', '/')).read()
-    json_data = json.loads(github_request)
 
     # Check if the repository was available or invalid to analyze
     json_data = json.loads(github_request)
+
     if 'message' in json_data.keys() and json_data['message'] != 'Moved Permanently':
         # Remove the temporary repository directory
         remove_repository(repository_name)

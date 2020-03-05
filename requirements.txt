@@ -7,3 +7,4 @@ pymysql
 sqlalchemy
 pandas
 sklearn
+matplotlib
