@@ -1,6 +1,5 @@
 
 from joblib import Parallel, delayed
-import multiprocessing
 import argparse
 import logging
 from time import gmtime, strftime

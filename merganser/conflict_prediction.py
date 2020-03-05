@@ -1,6 +1,5 @@
 
 import logging
-import os
 import json
 import glob
 import pandas as pd
@@ -65,15 +64,15 @@ def data_classification_wo_cv(language, repo, data_train, label_train, data_test
     grid_searches = [
         GridSearchCV(DecisionTreeClassifier(class_weight='balanced', random_state = random_seed),
                   tree_param, cv=inner_cv, n_jobs=job_num, scoring=config.SCORING_FUNCTION)
-        , GridSearchCV(RandomForestClassifier(class_weight='balanced', n_jobs=job_num, random_state = random_seed),
+        , GridSearchCV(RandomForestClassifier(class_weight='balanced', n_jobs=job_num, random_state=random_seed),
                      forest_param, cv=inner_cv, n_jobs=job_num, scoring=config.SCORING_FUNCTION)
-        # , GridSearchCV(ExtraTreesClassifier(n_jobs=job_num, class_weight='balanced', random_state = random_seed),
-        #              forest_param, cv=inner_cv, n_jobs=job_num, scoring=config.SCORING_FUNCTION),
-        # GridSearchCV(AdaBoostClassifier(base_estimator=DecisionTreeClassifier(class_weight = 'balanced',
-        #                                                                         random_state = random_seed,
-        #                                                                         max_depth=2),
-        #                                 algorithm='SAMME.R', random_state=random_seed),
-        #              boosting_param, cv=inner_cv, n_jobs=job_num, scoring=config.SCORING_FUNCTION)
+        , GridSearchCV(ExtraTreesClassifier(n_jobs=job_num, class_weight='balanced', random_state=random_seed),
+                     forest_param, cv=inner_cv, n_jobs=job_num, scoring=config.SCORING_FUNCTION),
+        GridSearchCV(AdaBoostClassifier(base_estimator=DecisionTreeClassifier(class_weight = 'balanced',
+                                                                                random_state=random_seed,
+                                                                                max_depth=2),
+                                        algorithm='SAMME.R', random_state=random_seed),
+                     boosting_param, cv=inner_cv, n_jobs=job_num, scoring=config.SCORING_FUNCTION)
         ]
 
     # Fitting the classifiers

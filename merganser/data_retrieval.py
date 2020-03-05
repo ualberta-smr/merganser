@@ -1,6 +1,4 @@
 
-import os
-import pandas as pd
 import numpy as np
 from io import StringIO
 import matplotlib.pyplot as plt
@@ -12,7 +10,6 @@ import config
 import logging
 
 import pandas as pd
-import pymysql
 from sqlalchemy import create_engine
 
 

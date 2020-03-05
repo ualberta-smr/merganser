@@ -1,11 +1,7 @@
 
-import os
-from pprint import pprint
 import numpy as np
-from io import StringIO
 import pandas as pd
 import pymysql
-
 
 import config
 import logging

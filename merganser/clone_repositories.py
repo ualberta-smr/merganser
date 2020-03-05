@@ -30,4 +30,4 @@ def clone_repositories(repository_list, core_num = multiprocessing.cpu_count()):
     """
     validation.validate_core_num(core_num)
     repositories = open(config.REPOSITORY_LIST_PATH + repository_list + '.txt', 'rt').readlines()
-    Parallel(n_jobs = core_num)(delayed(clone_repository)(i) for i in repositories)
+    Parallel(n_jobs=core_num)(delayed(clone_repository)(i) for i in repositories)

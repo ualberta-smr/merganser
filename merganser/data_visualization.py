@@ -79,14 +79,7 @@ def plt_bar_langs(data, title, xlabel, ylabel, file_name):
     plt.savefig(config.PREDICTION_RES_PATH + file_name, format='pdf')
     plt.clf()
 
-# # Correlation
-# corr_df = pd.read_csv('corr.csv')
-# corr_df = corr_df.drop('repository', axis = 1)
-# corr_agg_df = corr_df.groupby('langugae').agg('median')
-# corr_agg_df.to_csv('corr_agg_df.csv')
-# exit()
-
-def get_aggregated_results():
+def save_aggregated_results():
 
     res_files = glob.glob('res_*.csv')
     classification_result_df_list = []
@@ -126,13 +119,13 @@ def get_aggregated_results():
     res_agg.to_csv('res_summary_aggregated.csv')
 
 
+save_aggregated_results()
 
-
-
-    
-get_aggregated_results()
-
-exit()
+# Correlation
+corr_df = pd.read_csv('corr.csv')
+corr_df = corr_df.drop('repository', axis = 1)
+corr_agg_df = corr_df.groupby('langugae').agg('median')
+corr_agg_df.to_csv('corr_agg_df.csv')
 
 # Basic stats
 result_df = pd.read_csv('res.csv')
