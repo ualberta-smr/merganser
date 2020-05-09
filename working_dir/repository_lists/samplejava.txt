@@ -1,4 +1,0 @@
-perwendel/spark
-xetorthio/jedis
-square/javapoet
-itextpdf/itextpdf

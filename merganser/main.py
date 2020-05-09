@@ -1,14 +1,14 @@
-
+from pathlib import Path
 from joblib import Parallel, delayed
 import argparse
 import logging
 from time import gmtime, strftime
 
-from clone_repositories import *
-from merge_scenario_data import *
-import config
-from util import *
-import validation
+from merganser.clone_repositories import *
+from merganser.merge_scenario_data import *
+from merganser.config import *
+from merganser.util import *
+from merganser.validation import *
 
 
 if __name__ == '__main__':
@@ -18,17 +18,7 @@ if __name__ == '__main__':
     """
 
     # Create directories
-    #remove_dir()
     create_dir()
-
-    # Logging
-    logging.basicConfig(level = logging.INFO,
-                        format = '%(levelname)s in %(threadName)s - %(asctime)s by %(name)-12s :  %(message)s',
-                        datefmt = '%y-%m-%d %H:%M:%S',
-                        filename='{}main_execution_{}.log'.format(config.LOG_PATH, strftime('%Y-%m-%d_%H:%M:%S',
-                                                                                             gmtime())),
-                        filemode = 'w')
-    logging.info('The code starts')
 
     # Arguments
     parser = argparse.ArgumentParser(description='The main script for analyzing merge scenarios')
@@ -42,8 +32,6 @@ if __name__ == '__main__':
                         action='store_true', required=False)
     parser.add_argument('-cr', '--conflicting-region', help='If set, the information of conflicting regions is stored',
                         action='store_true', required=False)
-    parser.add_argument('-rc', '--replay-compare', help='If set, the replays and merge commits are compared',
-                        action='store_true', required=False)
     parser.add_argument('-cd', '--commit-details',
                         help='If set, the information of all commits that are involved in merge scenarios are extracted',
                         action='store_true', required=False)
@@ -56,10 +44,10 @@ if __name__ == '__main__':
 
     # CPU cores
     if args['cpu_cores'] is None:
-        core_num = config.MAX_CPU_CORES
+        core_num = MAX_CPU_CORES
     else:
         core_num = args['cpu_cores']
-    validation.validate_core_num(core_num)
+    validate_core_num(core_num)
 
     # Start date
     if args['start_date'] is None:
@@ -68,7 +56,7 @@ if __name__ == '__main__':
         start_date = args['start_date']
 
     # Temp variables
-    repository_urls = open(config.REPOSITORY_LIST_PATH + args['repository_list'] + '.txt', 'rt').readlines()
+    repository_urls = open(REPOSITORY_LIST_PATH / Path(f'{args["repository_list"]}.txt'), 'rt').readlines()
     user_name = [i.split('/')[0].strip() for i in repository_urls]
     repo_name = [i.split('/')[1].strip() for i in repository_urls]
 

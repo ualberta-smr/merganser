@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import multiprocessing
 import numpy as np
 from numpy.random import randint
@@ -7,15 +9,15 @@ import time
 GITHUB_KEY = '60fe91bab0512c3a6221ec0b8741318965315b00'
 
 # Paths
-REPOSITORY_PATH = '../working_dir/repository/'
-TEMP_CSV_PATH = '../working_dir/csv_files/'
-REPOSITORY_LIST_PATH = '../working_dir/repository_lists/'
-LOG_PATH = '../working_dir/logs/'
-QUERY_PATH = '../queries/'
-PREDICTION_RESULT_PATH = '../working_dir/prediction_result/'
-PREDICTION_CSV_PATH = '../working_dir/prediction_data/'
-REAPER_DATASET_PATH = '../tools/reaper/dataset.csv'
-PREDICTION_RES_PATH = '../working_dir/prediction_result/'
+REPOSITORY_PATH = Path('./working_dir/repository/')
+TEMP_CSV_PATH = Path('./working_dir/csv_files/')
+REPOSITORY_LIST_PATH = Path('./working_dir/repository_lists/')
+LOG_PATH = Path('./working_dir/logs/')
+QUERY_PATH = Path('./queries/')
+PREDICTION_RESULT_PATH = Path('./working_dir/prediction_result/')
+PREDICTION_CSV_PATH = Path('./working_dir/prediction_data/')
+REAPER_DATASET_PATH = Path('./tools/reaper/dataset.csv')
+PREDICTION_RES_PATH = Path('./working_dir/prediction_result/')
 PREDICTION_CSV_DATA_NAME = 'data_prediction_<LANGUAGE>_<REPOSITORY>.csv'
 PREDICTION_CSV_LABEL_NAME = 'label_prediction_<LANGUAGE>_<REPOSITORY>.csv'
 

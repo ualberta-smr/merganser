@@ -20,7 +20,7 @@ def store_repository_info(repository_name, merge_scenario_num, is_done):
     validation.validate_repository_name(repository_name)
 
     github_request = os.popen('curl --silent -H "Authorization: token  ' + config.GITHUB_KEY + \
-                               '"  https://api.github.com/repos/' + repository_name.replace('___', '/')).read()
+                               '"  https://api.github.com/repos/' + repository_name).read()
 
     # Check if the repository was available or invalid to analyze
     json_data = json.loads(github_request)
@@ -64,7 +64,7 @@ def get_repository_id(repository_name):
     validation.validate_repository_name(repository_name)
 
     github_request = os.popen('curl --silent -H "Authorization: token  ' + config.GITHUB_KEY + \
-                               '"  https://api.github.com/repos/' + repository_name.replace('___', '/')).read()
+                               '"  https://api.github.com/repos/' + repository_name).read()
 
     # Check if the repository was available or invalid to analyze
     json_data = json.loads(github_request)

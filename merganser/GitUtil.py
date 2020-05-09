@@ -1,30 +1,30 @@
-
 import os
+from pathlib import Path
 
-import config
-import validation
+from merganser.config import *
+from merganser.validation import *
 
 
 class GitUtil:
     """
-    This class is a collection of methods that executes several useful native git commands.
+    This class is a collection of methods to execute several useful native git commands.
     """
 
     def __init__(self, repository_name):
         """
         :param repository_name: The name of the repository in <USER_NAME>/<REPOSITORY_NAME> format
         """
-        validation.validate_repository_name(repository_name)
+        validate_repository_name(repository_name)
         self.repository_name = repository_name
-        self.repository_dir = config.REPOSITORY_PATH + self.repository_name.replace('/', '___')
-        self.cd_to_repository = 'cd {};'.format(self.repository_dir)
+        self.repository_dir = str(REPOSITORY_PATH / Path(self.repository_name.replace('/', '___')))
+        self.cd_to_repository = f'cd {self.repository_dir};'
 
     def get_merge_commits(self):
         """
         Returns the list of all merges' SHA-1 of the repository
         :return:  List of merge SHA-1
         """
-        return os.popen(self.cd_to_repository + 'git log --all --pretty=%H --merges').read().split()
+        return os.popen(f'{self.cd_to_repository}git log --all --pretty=%H --merges').read().split()
 
     def get_parents(self, commit):
         """
@@ -32,7 +32,7 @@ class GitUtil:
         :param commit: The SHA-1 of the merge commit
         :return: Two parents as a list
         """
-        return os.popen(self.cd_to_repository + 'git log --pretty=%P -n 1 {}'.format(commit)).read().split()
+        return os.popen(f'{self.cd_to_repository}git log --pretty=%P -n 1 {commit}').read().split()
 
     def get_ancestor(self, parents):
         """
@@ -40,7 +40,7 @@ class GitUtil:
         :param parents: The list of SHA-1 of parents
         :return: The ancestor of two parents
         """
-        return os.popen(self.cd_to_repository + 'git merge-base {} {}'.format(parents[0], parents[1])).read().rstrip()
+        return os.popen(f'{self.cd_to_repository}git merge-base {parents[0]} {parents[1]}').read().rstrip()
 
     def get_commit_date(self, commit):
         """
@@ -48,7 +48,7 @@ class GitUtil:
         :param commit: The SHA-1 of the commit
         :return: The date of the input commit
         """
-        return ' '.join(os.popen(self.cd_to_repository + 'git show -s --format=%ci {}'.format(commit)).read().rstrip()
+        return ' '.join(os.popen(f'{self.cd_to_repository}git show -s --format=%ci {commit}').read().rstrip()
                         .split()[0:2])
 
     def get_parallel_changed_files_num(self, ancestor, parent1, parent2):

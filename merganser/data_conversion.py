@@ -2,7 +2,7 @@
 import os
 import logging
 
-import config
+from merganser.config import *
 
 
 def insert_csv_to_mysql():
@@ -15,7 +15,7 @@ def insert_csv_to_mysql():
                         format='%(levelname)s in %(threadName)s - %(asctime)s by %(name)-12s :  %(message)s',
                         datefmt='%y-%m-%d %H:%M:%S')
 
-    cd_to_csv = 'cd {};'.format(config.TEMP_CSV_PATH)
+    cd_to_csv = 'cd {};'.format(TEMP_CSV_PATH)
     table_list = ['Repository',
                 'Conflicting_File',
                 'Conflicting_Region',
@@ -26,18 +26,16 @@ def insert_csv_to_mysql():
                 'Merge_Related_Commit']
 
     # Create tables
-    os.system('mysql -u {} --password={} < {}Merge_Data.sql'.format(config.DB_USER_NAME
-                                                                    , config.DB_PASSWORD, config.QUERY_PATH))
+    os.system(f'mysql -u {DB_USER_NAME} --password={DB_PASSWORD} < {QUERY_PATH}Merge_Data.sql')
 
     # Insert the data
-    os.system(cd_to_csv + 'mkdir temp')
+    os.system(f'{cd_to_csv}mkdir temp')
     for table in table_list:
         os.system(cd_to_csv + 'cat {}_*  | tr -d "\r" > ./temp/{}.csv'.format(table, table))
-        os.system(cd_to_csv + 'mysqlimport --fields-escaped-by=\'\\\' --fields-optionally-enclosed-by=\'\"\'  '
-                              '--fields-terminated-by="," --lines-terminated-by="\n"  '
-                              '--verbose  --local -u {} --password={} Merge_Data  ./temp/{}.csv '
-                  .format(config.DB_USER_NAME, config.DB_PASSWORD, table))
-    os.system(cd_to_csv + 'rm -r temp')
+        os.system(f'{cd_to_csv}mysqlimport --fields-escaped-by=\'\\\' --fields-optionally-enclosed-by=\'\"\'  '
+                  f'--fields-terminated-by="," --lines-terminated-by="\n"  '
+                  f'--verbose  --local -u {DB_USER_NAME} --password={DB_PASSWORD} Merge_Data  ./temp/{table}.csv ')
+    os.system(f'{cd_to_csv}rm -r temp')
 
 
 if __name__ == '__main__':

@@ -7,120 +7,86 @@ import logging
 from dateutil.relativedelta import relativedelta as rd
 from time import gmtime, strftime
 
-import config
-from util import *
-from GitUtil import *
-from code_quality import *
-from merge_replay import *
-from related_commits import *
-from repository_data import *
-from clone_repositories import *
+from merganser.config import *
+from merganser.util import *
+from merganser.GitUtil import *
+from merganser.merge_replay import *
+from merganser.related_commits import *
+from merganser.repository_data import *
+from merganser.clone_repositories import *
 
 
 def get_merge_scenario_info(repository_name, merge_technique, repository_only, exec_compile, exec_tests,
                             exec_conflicting_file, exec_conflicting_region, exec_replay_comparison, exec_related_commits,
-                            start_date='1900-01-01'):
-    # Logging
-    logging.basicConfig(level=logging.INFO,
-                        format='%(levelname)s in %(threadName)s - %(asctime)s by %(name)-12s :  %(message)s',
-                        datefmt='%y-%m-%d %H:%M:%S',
-                        filename='{}{}_{}.log'.format(config.LOG_PATH, repository_name,
-                                                      strftime('%Y-%m-%d_%H:%M:%S', gmtime())),
-                        filemode='w')
+                            start_date):
 
     try:
-        logging.info('START: {}'.format(repository_name))  # TODO: Temp
 
-        # Clone the repository
-        clone_repository(repository_name.replace('___', '/'))
+        # clone the repository
+        clone_repository(repository_name)
 
         # Exit if the repository doesn't exist
-        if os.path.exists(os.getcwd() + '/' + config.REPOSITORY_PATH + repository_name) is False:
+        if os.path.exists(REPOSITORY_PATH / Path(repository_name.replace('/', '___'))) is False:
             logging.info('Could not clone: {}'.format(repository_name))
             return 1
 
         t0 = time.time()
 
-        # Local variables
-        git_utility = GitUtil(repository_name)
+        # local variables
+        git_utility = GitUtil(repository_name.replace('/', '___'))
         merge_replay = Merge_Replay()
 
-        # Extract all merge scenarios after the start_date
-        merge_commits = [commit for commit in git_utility.get_merge_commits() if git_utility.get_commit_date(commit).split()[0] > start_date]
+        # extract all merge scenarios after the start_date
+        merge_commits = [commit for commit in git_utility.get_merge_commits()
+                         if git_utility.get_commit_date(commit).split()[0] > start_date]
 
-        if len(merge_commits) < config.MIN_MERGE_SCENARIO: 
-
-            # Remove the temporary repository directory
+        # eliminate the data extracted if there is no enough merges
+        if len(merge_commits) < MIN_MERGE_SCENARIO:
             remove_repository(repository_name)
-
-            # Logging
             logging.info('Error - {} has only {} merge scenarios.'.format(repository_name, len(merge_commits)))
-            #print('Error - {} has only {} merge scenarios.'.format(repository_name, len(merge_commits)))
-
             return 1
 
-        if len(merge_commits) < config.MAX_MERGE_SCENARIOS:
+        # set the maximum number of merges to analyze
+        if len(merge_commits) < MAX_MERGE_SCENARIOS:
             merge_commit_to_analyze = merge_commits
         else:
             random.shuffle(merge_commits)
-            merge_commit_to_analyze = merge_commits[-config.MAX_MERGE_SCENARIOS:-1]
+            merge_commit_to_analyze = merge_commits[0:MAX_MERGE_SCENARIOS]
 
-        # Repository id
+        # repository id
         repository_id, repository_size = get_repository_id(repository_name)
         if repository_id == -1:
-            logging.info('NOT FOUND REPOSITORY: {}'.format(repository_name))  # TODO: Temp
-            return 1
-        if int(repository_size) > config.MAX_REPO_SIZE_TO_ANALYZE:
-            logging.info('HUGE REPOSITORY: {}'.format(repository_name))  # TODO: Temp
-            open(config.REPOSITORY_LIST_PATH + '__HUGE.txt', 'a').write(repository_name)
+            logging.info(f'NO FOUND REPOSITORY: {repository_name}')
             return 1
 
-        # Analyze the merges
+        # repo size
+        if int(repository_size) > MAX_REPO_SIZE_TO_ANALYZE:
+            logging.info(f'HUGE REPOSITORY: {repository_name}')
+            return 1
+
+        # analyze the merges
         if not repository_only:
             for commit_num, merge_commit in enumerate(merge_commit_to_analyze):
 
-                # Time limitation for running each repository
-                if (time.time() - t0) / 86400.0 > config.MAX_ANALYZING_DAY:
-                    logging.info('{} terminated since it couldn\'t finish in {}'.format(repository_name,
-                                                                                        config.MAX_ANALYZING_DAY))
+                # aime limitation for running each repository
+                if (time.time() - t0) / 86400.0 > MAX_ANALYZING_DAY:
+                    logging.info(f'{repository_name} terminated since it couldn\'t finish in {MAX_ANALYZING_DAY}')
                     break
 
-                # Extract the SHA-1 of the parents and ancestor
+                # extract the SHA-1 of the parents and ancestor
                 parents_commit = git_utility.get_parents(merge_commit)
                 ancestor_commit = git_utility.get_ancestor(parents_commit)
 
-                # Extract the number of parallel changes
+                # extract the number of parallel changes
                 parallel_changed_files_num = git_utility.get_parallel_changed_files_num(ancestor_commit,
-                                                                            parents_commit[0], parents_commit[1])
-                # Extracts the date of involved commits
+                                                                                        parents_commit[0],
+                                                                                        parents_commit[1])
+
+                # extracts the date of involved commits
                 merge_commit_date = git_utility.get_commit_date(merge_commit)
                 ancestor_date = git_utility.get_commit_date(ancestor_commit)
                 parent1_date = git_utility.get_commit_date(parents_commit[0])
                 parent2_date = git_utility.get_commit_date(parents_commit[1])
-
-                # Compile the code
-                if exec_compile:
-                    merge_commit_can_compile = check_build_status(repository_name, merge_commit, 'compile')
-                    ancestor_can_compile = check_build_status(repository_name, ancestor_commit, 'compile')
-                    parent1_can_compile = check_build_status(repository_name, parents_commit[0], 'compile')
-                    parent2_can_compile = check_build_status(repository_name, parents_commit[1], 'compile')
-                else:
-                    merge_commit_can_compile = -1
-                    ancestor_can_compile = -1
-                    parent1_can_compile = -1
-                    parent2_can_compile = -1
-
-                # Test the code
-                if exec_tests:
-                    merge_commit_can_pass_test = check_build_status(repository_name, merge_commit, 'test')
-                    ancestor_can_pass_test = check_build_status(repository_name, ancestor_commit, 'test')
-                    parent1_can_pass_test = check_build_status(repository_name, parents_commit[0], 'test')
-                    parent2_can_pass_test = check_build_status(repository_name, parents_commit[1], 'test')
-                else:
-                    merge_commit_can_pass_test = -1
-                    ancestor_can_pass_test = -1
-                    parent1_can_pass_test = -1
-                    parent2_can_pass_test = -1
 
                 # Detect pull requests
                 is_pull_request = git_utility.check_if_pull_request(merge_commit)
@@ -131,15 +97,12 @@ def get_merge_scenario_info(repository_name, merge_technique, repository_only, e
 
                 # Store the merge scenario data
                 merge_scenario_data = [merge_commit, ancestor_commit, parents_commit[0], parents_commit[1],
-                                       parallel_changed_files_num, merge_commit_can_compile, merge_commit_can_pass_test,
-                                       ancestor_can_compile, ancestor_can_pass_test,
-                                       parent1_can_compile, parent1_can_pass_test,
-                                       parent2_can_compile, parent2_can_pass_test,
+                                       parallel_changed_files_num,
                                        merge_commit_date, ancestor_date, parent1_date, parent2_date,
                                        developer_num_parent1, developer_num_parent2,
                                        is_pull_request,
                                        repository_id]
-                csv_file = open(config.TEMP_CSV_PATH + 'Merge_Scenario_{}.csv'.format(repository_name), 'a')
+                csv_file = open(TEMP_CSV_PATH / Path(f'Merge_Scenario_{repository_name}.csv'), 'a')
                 csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
                 csv_writer.writerow(merge_scenario_data)
                 csv_file.close()
