@@ -6,7 +6,7 @@
 
 This repository provides a toolchain for gathering and analyzing merge scenarios found in git repositories. The tool stores the collected data in a normalized MySQL database. It supports extracting various features of the merge scenarios as well as executing the merge using different merge tools, detecting merge conflicts, and finding compilation and test problems with the merge resolution.
 
-_The toolchain has been tested with Ubuntu 18.04._
+_The toolchain has been tested with Ubuntu 20.04._
 
 ## Setup
 1. Clone this repository:
@@ -14,10 +14,9 @@ _The toolchain has been tested with Ubuntu 18.04._
 git https://github.com/ualberta-smr/merganser
 ```
 
-2. Install required tools and packages using this script (Note that this requires sudo privilege. 
-Check the list before executing this script and adapt according to your needs to avoid breaking your packages)
+2. Install the dependencies.
 ```bash
-sudo ./setup.py
+pip3 install -r requirements.txt
 ``` 
 
 ## Usage 
@@ -31,15 +30,15 @@ sudo ./setup.py
     * **Automatic searching:** If you do not have specific repositories in mind, but instead, want to analyze repositories with a specific range of stars, watches, forks, size, or that are in a specific application domain, you can search the list of repositories using `search_repository.py`. Read [the wiki page](https://github.com/ualberta-smr/merganser/wiki/Search-for-Repositories) to find out the parameters of this module.
 
 3. There are two ways to run the tool based on the final goal. the results are stores in CSV files.
-    * Execute the  tool to extract the data using user-defined parameters without further analysis:
+    * Execute the  tool to extract all available data:
 
     ```bash
-    python3 main.py <parameters> 
+    python3 ./run_predict.sh <list_of_repositories>
     ```
-    * Execute the tool for conflict prediction
+    * Execute the tool for conflict prediction data:
     
     ```bash
-    python3 ./runPredict.sh <list_of_repositories>
+    python3 ./run_all.sh <list_of_repositories>
     ```
         
 4. The next step is storing the the CSV files in a SQL database.

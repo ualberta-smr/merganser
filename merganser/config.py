@@ -4,7 +4,7 @@ from numpy.random import randint
 import time
 
 # Keys
-GITHUB_KEY = '60fe91bab0512c3a6221ec0b8741318965315b00'
+GITHUB_KEY = ''
 
 # Paths
 REPOSITORY_PATH = '../working_dir/repository/'
@@ -20,7 +20,7 @@ PREDICTION_CSV_DATA_NAME = 'data_prediction_<LANGUAGE>_<REPOSITORY>.csv'
 PREDICTION_CSV_LABEL_NAME = 'label_prediction_<LANGUAGE>_<REPOSITORY>.csv'
 
 # Constants
-MAX_MERGE_SCENARIOS = 5000
+MAX_MERGE_SCENARIOS = 100
 MAX_ANALYZING_DAY = 7
 MAX_REPO_SIZE_TO_ANALYZE = 10 * 1024 * 1024
 MAX_CPU_CORES = int(multiprocessing.cpu_count() / 2)
@@ -29,8 +29,8 @@ MIN_MERGE_SCENARIO = 1
 # DB information
 DB_HOST = 'localhost'
 DB_NAME = 'Merge_Data'
-DB_USER_NAME = 'moein'
-DB_PASSWORD = '123'
+DB_USER_NAME = ''
+DB_PASSWORD = ''
 
 # Visualization
 VIS_S = 100
